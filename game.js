@@ -13,7 +13,6 @@ class Game{
         this.accumulator = 0;
 
         this.level = new Level();
-
     }
     gameloop(){
         if (this.texture.dirty) return;
@@ -32,7 +31,9 @@ class Game{
             this.accumulator -= this.deltaTime;
         }
 
-        this.level.render(this);
+        var interpolationOffset = this.accumulator / this.deltaTime;
+        
+        this.level.render(this, interpolationOffset);
         this.gl.flush();
     }
 }
