@@ -10,7 +10,7 @@ class Entity{
         this.perspective = perspective;
     }
 
-    tick(){
+    tick(game){
        
     }
 
@@ -30,7 +30,7 @@ class Entity{
         }
         
 
-        game.gl.img(game.texture.tex,0,0,16,16,0,x, y,zz,zz, this.u0, this.u1, this.v0, this.v1);
+        game.gl.img(game.texture.tex,0,0,16,16,0,x,y,zz,zz, this.u0, this.u1, this.v0, this.v1);
     }
 }
 

@@ -8,7 +8,6 @@ class Game{
         this.ascii = new AsciiTexture();
         this.texture = new GlTexture(this.gl.g,this.ascii.image);
 
-
         this.last = performance.now();
         this.deltaTime = 1000/60;
         this.accumulator = 0;
@@ -17,24 +16,24 @@ class Game{
 
     }
     gameloop(){
+        if (this.texture.dirty) return;
+
         var now = performance.now();
-        
         var passed = now - this.last;
+
         this.last = now;
+
+        if (passed > 1000) return;
+
         this.accumulator += passed;
-        var loop = 0;
+
         while (this.accumulator >= this.deltaTime) {
-            if (loop > 0) console.log("loop!");
-            this.level.tick();
-            //console.log(this.accumulator+" "+this.deltaTime);
+            this.level.tick(this);
             this.accumulator -= this.deltaTime;
-            loop++;
         }
 
         this.level.render(this);
-
         this.gl.flush();
-
     }
 }
 export default Game;
