@@ -17,25 +17,29 @@ class Entity{
         this.previousPosition.y = this.position.y;
     }
 
+    getRandom(min, max){
+        return Math.random() * (max - min) + min
+    }
+
     render(game, interpolationOffset){
-        var zz;
         var x;
         var y;
+        var z;
         if (this.perspective){
-            zz = FOV/this.position.z
-            x = this.position.x * zz + WIDTH/2.0;
-            y = this.position.y * zz + HEIGHT/2.0;
+            z = FOV/this.position.z
+            x = this.position.x * z + WIDTH/2.0;
+            y = this.position.y * z + HEIGHT/2.0;
         }else{
-            zz = this.position.z/FOV;
+            z = this.position.z/200;
             x = this.position.x;
             y = this.position.y;
-            if (zz < 0) zz = 0;
+            if (z < 0) z = 0;
         }
         
         x = (this.position.x - this.previousPosition.x) * interpolationOffset + this.previousPosition.x;
         y = (this.position.y - this.previousPosition.y) * interpolationOffset + this.previousPosition.y;
         game.gl.col = this.color;
-        game.gl.img(game.texture.tex,0,0,16,16,0,x,y,zz,zz, this.u0, this.u1, this.v0, this.v1);
+        game.gl.img(game.texture.tex,0,0,16,16,0,x,y,z,z, this.u0, this.u1, this.v0, this.v1);
     }
 }
 
