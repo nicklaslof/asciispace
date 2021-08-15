@@ -12,6 +12,7 @@ class Entity{
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.rotation = 0;
+        this.disposed = false;
     }
 
     tick(game){

@@ -14,5 +14,11 @@ class Bullet extends CollisionEntity{
             this.disposed = true;
         }
     }
+
+    collidedWith(otherEntity){
+        console.log(otherEntity);
+        this.disposed = true;
+        otherEntity.disposed = true;
+    }
 }
 export default Bullet;

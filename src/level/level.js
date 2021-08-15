@@ -17,7 +17,6 @@ class Level{
         }
         this.starfield = new StarField();
         this.counter = 0;
-        this.entities.push(new Bullet(0,(H/2)+32,200));
         this.entities.push(new Asteroid(W/2,H/2));
 
         this.entities.push(new Ship(50,H/2));
@@ -28,18 +27,15 @@ class Level{
 
         this.counter++;
 
-        if (this.counter > 150){
-            this.counter = 0;
-            this.entities.push(new Bullet(0,(H/2)+32,200));
-        }
-
         this.entities.forEach(e => {
             e.tick(game);
             this.entities.forEach(oe => {
+                if (e.disposed || oe.disposed) return;
                 if (e.doesCollide(oe)){
-                    //e.rotation -= 0.04;
+                    e.collidedWith(oe);
                 }
             });
+            if (e.disposed) this.removeEntity(e);
         });
     }
 
@@ -52,9 +48,17 @@ class Level{
         this.entities.forEach(e => {
             e.render(game,interpolationOffset);
         })
-
     }
 
-
+    addEntity(entity){
+        this.entities.push(entity);
+    }
+    removeEntity(entity){
+        for(let i = this.entities.length - 1; i >= 0; i--) {
+            if(this.entities[i] === entity) {
+                this.entities.splice(i, 1);
+            }
+        }
+    }
 }
 export default Level;

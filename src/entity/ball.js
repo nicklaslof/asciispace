@@ -15,6 +15,7 @@ class Ball extends CollisionEntity{
         var cos = Math.cos(this.time2+this.count)*3;
         this.position.y -= sin+cos;
         this.position.x -= 2;
+
     }
 }
 
