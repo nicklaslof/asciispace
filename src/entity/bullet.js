@@ -2,7 +2,7 @@ import CollisionEntity from "./collisionentity.js";
 
 class Bullet extends CollisionEntity{
     constructor(posX, posY) {
-        super(posX, posY, 471,20,1,1,0xffffffff,32,32);
+        super(posX, posY, 8,20,1,1,0xffffffff,10,5);
     }
 
     tick(game){

@@ -17,6 +17,8 @@ class Game{
         this.accumulator = 0;
 
         this.level = new Level();
+        this.keys =[];
+        onkeydown=onkeyup=e=> this.keys[e.keyCode] = e.type;
     }
     gameloop(){
         if (this.texture.dirty) return;

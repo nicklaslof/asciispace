@@ -11,6 +11,7 @@ class Entity{
         this.color = color;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
+        this.rotation = 0;
     }
 
     tick(game){
@@ -32,7 +33,7 @@ class Entity{
         var y = (this.position.y - this.previousPosition.y) * interpolationOffset + this.previousPosition.y;
 
         game.gl.col = this.color;
-        game.gl.img(game.texture.tex,0,0,this.sizeX,this.sizeY,0,x,y,1,1, this.u0, this.u1, this.v0, this.v1);
+        game.gl.img(game.texture.tex,-this.sizeX/2,-this.sizeY/2,this.sizeX,this.sizeY,this.rotation,x,y,1,1, this.u0, this.u1, this.v0, this.v1);
     }
 }
 

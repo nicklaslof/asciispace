@@ -1,5 +1,7 @@
+import Asteroid from "../entity/asteroid.js";
 import Ball from "../entity/ball.js";
 import Bullet from "../entity/bullet.js";
+import Ship from "../entity/ship.js";
 import StarField from "../entity/starfield.js";
 
 class Level{
@@ -16,6 +18,9 @@ class Level{
         this.starfield = new StarField();
         this.counter = 0;
         this.entities.push(new Bullet(0,(H/2)+32,200));
+        this.entities.push(new Asteroid(W/2,H/2));
+
+        this.entities.push(new Ship(50,H/2));
     }
 
     tick(game){
@@ -32,7 +37,7 @@ class Level{
             e.tick(game);
             this.entities.forEach(oe => {
                 if (e.doesCollide(oe)){
-                    e.translate(10,0);
+                    //e.rotation -= 0.04;
                 }
             });
         });
