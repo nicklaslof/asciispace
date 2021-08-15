@@ -1,6 +1,10 @@
 class Entity{
-
-    constructor(posX, posY, texX,texY,texW,texH,color,sizeX, sizeY) {
+//Type (used for collisions)
+// p = player
+// a = asteriod
+// b = bullet
+// o = ball
+    constructor(posX, posY, texX,texY,texW,texH,color,sizeX, sizeY, type) {
         this.position = {x:posX, y:posY};
         this.previousPosition = {x:posX, y:posY};
         this.u0 = texX/TZ;
@@ -13,6 +17,7 @@ class Entity{
         this.sizeY = sizeY;
         this.rotation = 0;
         this.disposed = false;
+        this.type = type;
     }
 
     tick(game){

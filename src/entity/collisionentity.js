@@ -1,7 +1,7 @@
 import Entity from "./entity.js";
 class CollisionEntity extends Entity{
-    constructor(posX, posY, texX,texY,texW,texH,color,sizeX, sizeY) {
-        super(posX, posY, texX,texY,texW,texH,color,sizeX, sizeY);
+    constructor(posX, posY, texX,texY,texW,texH,color,sizeX, sizeY, type) {
+        super(posX, posY, texX,texY,texW,texH,color,sizeX, sizeY, type);
     }
 
     doesCollide(otherEntity){

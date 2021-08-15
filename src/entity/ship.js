@@ -3,7 +3,7 @@ import CollisionEntity from "./collisionentity.js";
 
 class Ship extends CollisionEntity{
     constructor(posX, posY) {
-        super(posX, posY, 326,5,18,18,0xffffffff,48,32);
+        super(posX, posY, 326,5,18,18,0xffffffff,48,32,"p");
         this.fireDelay = 0;
     }
     tick(game){
@@ -24,16 +24,22 @@ class Ship extends CollisionEntity{
 
         this.position.x += translateX;
         this.position.y += translateY;
-
-        //console.log(this.position);
+        game.level.starfield.offsetX = -translateX/105;
+        game.level.starfield.offsetY = -translateY/35;
 
         if (this.firePressed && this.fireDelay == 0){
-            game.level.addEntity(new Bullet(this.position.x+30, this.position.y));
+            game.level.addEntity(new Bullet(this.position.x+16, this.position.y).setSource(this));
             this.fireDelay = 30;
         }else{
             this.firePressed = false;
         }
         super.tick(game);
+
+    }
+    collidedWith(otherEntity){
+        if (otherEntity.type == "b" && otherEntity.sourceEntity == this) return;
+        this.disposed = true;
+        otherEntity.disposed = true;
 
     }
 }
