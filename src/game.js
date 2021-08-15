@@ -16,7 +16,7 @@ class Game{
         this.deltaTime = 1000/60;
         this.accumulator = 0;
 
-        this.level = new Level();
+        this.level = new Level(this);
         this.keys =[];
         onkeydown=onkeyup=e=> this.keys[e.keyCode] = e.type;
     }

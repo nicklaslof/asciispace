@@ -6,18 +6,19 @@ import StarField from "../entity/starfield.js";
 
 class Level{
 
-    constructor() {
+    constructor(game) {
 
+        this.game = game;
         this.entities = [];
         var x = W;
         var y = H/2;
-        for (let index = 0; index < 16; index++) {
+        /*for (let index = 0; index < 16; index++) {
             var sin = Math.cos(((Math.PI*2)/12)*index)*64;
             this.entities.push(new Ball(x + (index*50),y+sin,index));
-        }
+        }*/
         this.starfield = new StarField();
         this.counter = 0;
-        this.entities.push(new Asteroid(W/2,H/2));
+        this.entities.push(new Asteroid(W/2,H/2,192,192).setHealth(8));
 
         this.entities.push(new Ship(50,H/2));
     }
@@ -30,9 +31,9 @@ class Level{
         this.entities.forEach(e => {
             e.tick(game);
             this.entities.forEach(oe => {
-                if (e.disposed || oe.disposed) return;
+                if (e.disposed || oe.disposed || e.type == "pa" || oe.type == "pa") return;
                 if (e.doesCollide(oe)){
-                    e.collidedWith(oe);
+                    e.collidedWith(game, oe);
                 }
             });
             if (e.disposed) this.removeEntity(e);

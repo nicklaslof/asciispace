@@ -36,7 +36,7 @@ class Ship extends CollisionEntity{
         super.tick(game);
 
     }
-    collidedWith(otherEntity){
+    collidedWith(game, otherEntity){
         if (otherEntity.type == "b" && otherEntity.sourceEntity == this) return;
         this.disposed = true;
         otherEntity.disposed = true;

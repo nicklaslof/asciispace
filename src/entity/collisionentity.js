@@ -13,7 +13,7 @@ class CollisionEntity extends Entity{
             this.position.y - this.sizeY/2 + this.sizeY > otherEntity.position.y - otherEntity.sizeY/2);
     }
 
-    collidedWith(otherEntity){
+    collidedWith(game, otherEntity){
         
     }
 }

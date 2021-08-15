@@ -4,6 +4,7 @@ class Entity{
 // a = asteriod
 // b = bullet
 // o = ball
+// pa = particle
     constructor(posX, posY, texX,texY,texW,texH,color,sizeX, sizeY, type) {
         this.position = {x:posX, y:posY};
         this.previousPosition = {x:posX, y:posY};
@@ -18,9 +19,35 @@ class Entity{
         this.rotation = 0;
         this.disposed = false;
         this.type = type;
+        this.maxHealth = this.health = 1;
+    }
+
+    setHealth(h){
+        this.health = this.maxHealth = h;
+        return this;
+    }
+
+    hit(game,h){
+        this.health -= h;
+    }
+    doesCollide(otherEntity){
+        return false;
+    }
+
+    heal(h){
+        this.health += h;
+        if (this.health > this.maxHealth) this.health = this.maxHealth;
+    }
+
+    onDispose(game){
+
     }
 
     tick(game){
+        if (this.health <=0){
+            this.disposed = true;
+            this.onDispose(game);
+        }
         this.previousPosition.x = this.position.x;
         this.previousPosition.y = this.position.y;
     }

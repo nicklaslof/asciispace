@@ -20,13 +20,11 @@ class Bullet extends CollisionEntity{
         return this;
     }
 
-    collidedWith(otherEntity){
-       console.log(otherEntity);
-        if (otherEntity === this.sourceEntity) return;
+    collidedWith(game, otherEntity){
         console.log(otherEntity);
+        if (otherEntity === this.sourceEntity) return;
+        otherEntity.hit(game, 1);
         this.disposed = true;
-        otherEntity.disposed = true;
-        
     }
 }
 export default Bullet;
