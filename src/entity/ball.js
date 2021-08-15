@@ -2,7 +2,7 @@ import Entity from "./entity.js";
 
 class Ball extends Entity{
     constructor(posX, posY, posZ, count) {
-        super(posX, posY, posZ, 135*2,21*2,9*2,11*2,false,0xff00ffff);
+        super(posX, posY, posZ, 135*2,21*2,9*2,11*2,0xff00ffff);
         this.count = -0.52*count;
         this.time = this.time2 = 0;
     }

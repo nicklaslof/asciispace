@@ -2,7 +2,7 @@ class AsciiTexture{
 
     constructor(){
         var textCanvas = document.getElementById('t');
-        textCanvas.width = textCanvas.height= TEXTURE_SIZE;
+        textCanvas.width = textCanvas.height = TZ;
         let textContext = textCanvas.getContext('2d');
         //textCanvas.imageSmoothingEnabled = false;
         //textContext.imageSmoothingEnabled = false;

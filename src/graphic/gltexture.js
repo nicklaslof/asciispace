@@ -10,8 +10,8 @@ class GlTexture {
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-            this.tex.width = TEXTURE_SIZE;
-            this.tex.height = TEXTURE_SIZE;
+            this.tex.width = TZ;
+            this.tex.height = TZ;
             this.dirty = false;
         };
     }

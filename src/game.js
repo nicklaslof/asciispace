@@ -5,8 +5,8 @@ import Level from "./level/level.js";
 class Game{
     constructor(){
         var canvas = document.getElementById("g");
-        canvas.width = WIDTH;
-        canvas.height = HEIGHT;
+        canvas.width = W;
+        canvas.height = H;
         this.gl = TS(canvas);
         this.gl.flush();
         this.ascii = new AsciiTexture();

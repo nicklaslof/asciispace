@@ -6,7 +6,7 @@ rollup i.js --format cjs --file ../dist/bundle.js
 cd ../dist
 terser bundle.js -o i.js --compress --mangle --mangle-props reserved=["g","img","flush","bkg","cls","col"] --timings --toplevel --module
 rm bundle.js
-echo "<style>" > index-template.html
+echo "<meta charset="UTF-8"><style>" > index-template.html
 cat ../src/i.css >> index-template.html
 echo "</style>" >> index-template.html
 echo "<canvas id=\"g\"></canvas><canvas id=\"t\"></canvas>" >> index-template.html
