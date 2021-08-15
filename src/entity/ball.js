@@ -1,8 +1,8 @@
-import Entity from "./entity.js";
+import CollisionEntity from "./collisionentity.js";
 
-class Ball extends Entity{
-    constructor(posX, posY, posZ, count) {
-        super(posX, posY, posZ, 135*2,21*2,9*2,11*2,0xff00ffff);
+class Ball extends CollisionEntity{
+    constructor(posX, posY, count) {
+        super(posX, posY, 135*2,21*2,9*2,11*2,0xff00ffff,64,64);
         this.count = -0.52*count;
         this.time = this.time2 = 0;
     }

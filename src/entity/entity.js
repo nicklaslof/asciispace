@@ -1,7 +1,7 @@
 class Entity{
 
-    constructor(posX, posY, posZ, texX,texY,texW,texH,color) {
-        this.position = {x:posX, y:posY, z:posZ};
+    constructor(posX, posY, texX,texY,texW,texH,color,sizeX, sizeY) {
+        this.position = {x:posX, y:posY};
         this.previousPosition = {x:posX, y:posY};
         this.u0 = texX/TZ;
         this.u1 = texY/TZ;
@@ -9,6 +9,8 @@ class Entity{
         this.v1 = this.u1 + (texH/TZ);
         this.counter = 0;
         this.color = color;
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
     }
 
     tick(game){
@@ -20,15 +22,17 @@ class Entity{
         return Math.random() * (max - min) + min
     }
 
+    translate(x,y){
+        this.position.x += x;
+        this.position.y += y;
+    }
+
     render(game, interpolationOffset){ 
         var x = (this.position.x - this.previousPosition.x) * interpolationOffset + this.previousPosition.x;
         var y = (this.position.y - this.previousPosition.y) * interpolationOffset + this.previousPosition.y;
-        var z = this.position.z/200;
-
-        if (z < 0) z = 0;
 
         game.gl.col = this.color;
-        game.gl.img(game.texture.tex,0,0,16,16,0,x,y,z,z, this.u0, this.u1, this.v0, this.v1);
+        game.gl.img(game.texture.tex,0,0,this.sizeX,this.sizeY,0,x,y,1,1, this.u0, this.u1, this.v0, this.v1);
     }
 }
 

@@ -1,4 +1,5 @@
 import Ball from "../entity/ball.js";
+import Bullet from "../entity/bullet.js";
 import StarField from "../entity/starfield.js";
 
 class Level{
@@ -10,15 +11,30 @@ class Level{
         var y = H/2;
         for (let index = 0; index < 16; index++) {
             var sin = Math.cos(((Math.PI*2)/12)*index)*64;
-            this.entities.push(new Ball(x + (index*50),y+sin,800-index*16,index));
+            this.entities.push(new Ball(x + (index*50),y+sin,index));
         }
         this.starfield = new StarField();
+        this.counter = 0;
+        this.entities.push(new Bullet(0,(H/2)+32,200));
     }
 
     tick(game){
         this.starfield.tick(game);
+
+        this.counter++;
+
+        if (this.counter > 150){
+            this.counter = 0;
+            this.entities.push(new Bullet(0,(H/2)+32,200));
+        }
+
         this.entities.forEach(e => {
             e.tick(game);
+            this.entities.forEach(oe => {
+                if (e.doesCollide(oe)){
+                    e.translate(10,0);
+                }
+            });
         });
     }
 
