@@ -12,7 +12,7 @@ class SineballFormation extends Formation{
         var y = H/2;
         for (let index = 0; index < 16; index++) {
             var sin = Math.cos(((Math.PI*2)/12)*index)*64;
-            this.addEntity(new Ball(x + (index*50),y+sin,index));
+            this.addEntity(new Ball(x + (index*50),y+sin,index).setHealth(2));
         }    
     }
     handleEntity(game, entity){

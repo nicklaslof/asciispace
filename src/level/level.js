@@ -31,9 +31,10 @@ class Level{
     }
 
     tick(game){
-        this.starfield.tick(game);
+
 
         this.range += 1 + this.speedX;
+        this.starfield.tick(game);
         
         if (this.currentFormation == null){
             this.formations[2].execute();

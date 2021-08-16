@@ -16,15 +16,15 @@ class EnemyShipFormation2 extends Formation{
     }
 
     handleEntity(game, entity){
-        entity.position.x -= 10;
+        entity.position.x -= 7;
         if (entity.position.x < (W/2)+800 && entity.position.x > (W/2)){
             if (entity.instanceCount%2 == 1){
-                if (entity.position.y < H-32){
+                if (entity.position.y < H-192){
                     entity.position.y += 10;
                 }
             }
             else{
-                if (entity.position.y > 32){
+                if (entity.position.y > 192){
                     entity.position.y -= 10;
                 }
             }

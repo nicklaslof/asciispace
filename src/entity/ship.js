@@ -29,7 +29,7 @@ class Ship extends CollisionEntity{
 
         if (this.firePressed && this.fireDelay == 0){
             game.level.addEntity(new Bullet(this.position.x+16, this.position.y).setSource(this));
-            this.fireDelay = 30;
+            this.fireDelay = 20;
         }else{
             this.firePressed = false;
         }

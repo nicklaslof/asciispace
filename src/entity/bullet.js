@@ -10,6 +10,7 @@ class Bullet extends CollisionEntity{
     tick(game){
         this.range--;
         if (this.range == 0) this.disposed = true;
+        if (this.x > W) this.disposed = true;
         if (this.disposed) return;
 
         super.tick(game);
