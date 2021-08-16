@@ -54,6 +54,8 @@ class Entity{
             this.onDispose(game);
         }
 
+        if (this.position.x < -100) this.disposed = true;
+
         if (this.hitTimeout > 0){
 
             this.hitTimeout--;

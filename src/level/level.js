@@ -3,6 +3,9 @@ import Ball from "../entity/ball.js";
 import Bullet from "../entity/bullet.js";
 import Ship from "../entity/ship.js";
 import StarField from "../entity/starfield.js";
+import EnemyShipFormation1 from "../formation/enemyshipformation1.js";
+import EnemyShipFormation2 from "../formation/enemyshipformation2.js";
+import SineballFormation from "../formation/sineballformation.js";
 import GameOverlay from "../ui/gameoverlay.js";
 
 class Level{
@@ -12,26 +15,39 @@ class Level{
         this.game = game;
         this.gameOverlay = new GameOverlay();
         this.entities = [];
-        var x = W;
-        var y = H/2;
-        for (let index = 0; index < 16; index++) {
-            var sin = Math.cos(((Math.PI*2)/12)*index)*64;
-            this.entities.push(new Ball(x + (index*50),y+sin,index));
-        }
+        this.formations = [];
+
         this.starfield = new StarField();
-        this.counter = 0;
+        this.range = 0;
+        this.lastFormation = -2000;
         //this.entities.push(new Asteroid(W/2,H/2,192,192).setHealth(8));
         this.player = new Ship(50,H/2).setHealth(8);
         this.entities.push(this.player);
 
         this.speedX = 0;
         this.speedY = 0;
+    
+        this.setupFormations();
     }
 
     tick(game){
         this.starfield.tick(game);
 
-        this.counter++;
+        this.range += 1 + this.speedX;
+        
+        if (this.currentFormation == null){
+            this.formations[2].execute();
+            this.currentFormation = this.formations[2];
+        }else{
+            if (this.currentFormation.done){
+                var rand = Math.floor(this.getRandom(0,this.formations.length));
+                this.currentFormation = this.formations[rand];
+                this.currentFormation.execute();
+            }
+        }
+        
+        this.currentFormation.tick(game);
+
 
         this.entities.forEach(e => {
             e.tick(game);
@@ -60,6 +76,12 @@ class Level{
         this.gameOverlay.render(game,interpolationOffset);
     }
 
+    setupFormations(){
+        this.formations.push(new SineballFormation(this));
+        this.formations.push(new EnemyShipFormation1(this));
+        this.formations.push(new EnemyShipFormation2(this));
+    }
+
     addEntity(entity){
         this.entities.push(entity);
     }
@@ -69,6 +91,10 @@ class Level{
                 this.entities.splice(i, 1);
             }
         }
+    }
+
+    getRandom(min, max){
+        return Math.random() * (max - min) + min
     }
 }
 export default Level;

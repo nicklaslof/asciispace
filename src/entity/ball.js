@@ -11,13 +11,6 @@ class Ball extends CollisionEntity{
 
     tick(game){
         super.tick(game);
-        this.time += 1/10;
-        this.time2 += 1/8;
-        var sin = Math.sin(this.time+this.count)*10;
-        var cos = Math.cos(this.time2+this.count)*this.movementStrength;
-        this.position.y -= sin+cos;
-        this.position.x -= 2;
-        this.rotation -= 0.01;
     }
 
     onDispose(game){
