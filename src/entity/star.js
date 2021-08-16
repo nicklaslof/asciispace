@@ -2,7 +2,7 @@ import Entity from "./entity.js";
 
 class Star extends Entity{
     constructor(posX, posY, speed) {
-        super(posX, posY, 8,20,1,1,0xffffffff,speed,speed);
+        super(posX, posY, 8,57,1,1,0xffffffff,speed,speed);
         this.speed = speed;
         this.position.x = this.getRandom(0,W);
         this.position.y = this.getRandom(-100,H+100);

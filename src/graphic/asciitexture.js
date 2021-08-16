@@ -9,8 +9,9 @@ class AsciiTexture{
         textContext.globalAlpha = 1.0
         textContext.font = "normal 32px monospace";
         textContext.fillStyle = "white";
-        textContext.fillText(".\"#€%&/()=?`©@£$<>|[]≈±´",0,24);
-        textContext.fillText("abcdefghijklmnopqrstuvwxyz",0,60);
+        textContext.fillText(">",0,24,16);
+        textContext.fillText("o",32,24,16);
+        textContext.fillText(".",0,60,16);
         this.addAsteriod(textContext);
 
         this.image = new Image();
@@ -28,17 +29,17 @@ class AsciiTexture{
  \\ . .: ¡n\
   ‾‾\\__/ n";
 
-        this.addAsciiart(textContext,ascii,0,100);
+        this.addAsciiart(textContext,ascii,0,100,172);
     }
 
 
-    addAsciiart(textContext,ascii, x,y){
+    addAsciiart(textContext,ascii, x,y, maxWidth){
         console.log(ascii);
         var lines = ascii.split("n");
         for (let index = 0; index < lines.length; index++) {
             var line = lines[index];
             console.log(line);
-            textContext.fillText(line,x,y);
+            textContext.fillText(line,x,y,maxWidth);
             y +=28;
         }
 

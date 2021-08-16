@@ -3,7 +3,7 @@ import CollisionEntity from "./collisionentity.js";
 
 class Ship extends CollisionEntity{
     constructor(posX, posY) {
-        super(posX, posY, 326,5,18,18,0xffffffff,48,32,"p");
+        super(posX, posY, 0,4,18,18,0xffffffff,48,32,"p");
         this.fireDelay = 0;
     }
     tick(game){

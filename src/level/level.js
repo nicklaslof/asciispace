@@ -12,13 +12,13 @@ class Level{
         this.entities = [];
         var x = W;
         var y = H/2;
-        /*for (let index = 0; index < 16; index++) {
+        for (let index = 0; index < 16; index++) {
             var sin = Math.cos(((Math.PI*2)/12)*index)*64;
             this.entities.push(new Ball(x + (index*50),y+sin,index));
-        }*/
+        }
         this.starfield = new StarField();
         this.counter = 0;
-        this.entities.push(new Asteroid(W/2,H/2,192,192).setHealth(8));
+        //this.entities.push(new Asteroid(W/2,H/2,192,192).setHealth(8));
 
         this.entities.push(new Ship(50,H/2));
     }
