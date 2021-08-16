@@ -23,6 +23,9 @@ class Level{
         //this.entities.push(new Asteroid(W/2,H/2,192,192).setHealth(8));
         this.player = new Ship(50,H/2).setHealth(8);
         this.entities.push(this.player);
+
+        this.speedX = 0;
+        this.speedY = 0;
     }
 
     tick(game){

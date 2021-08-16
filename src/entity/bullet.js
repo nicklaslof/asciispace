@@ -1,13 +1,17 @@
 import CollisionEntity from "./collisionentity.js";
 
 class Bullet extends CollisionEntity{
-    constructor(posX, posY) {
+    constructor(posX, posY, range=30) {
         super(posX, posY, 0,52,16,12,0xffffffff,50,5,"b");
-        this.setCustomCollisionSize(50,40);
+        this.setCustomCollisionSize(50,50);
+        this.range=range;
     }
 
     tick(game){
+        this.range--;
+        if (this.range == 0) this.disposed = true;
         if (this.disposed) return;
+
         super.tick(game);
         this.position.x +=30;
 

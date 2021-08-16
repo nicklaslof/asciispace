@@ -3,7 +3,7 @@ import Particle from "./particle.js";
 import Resource from "./resource.js";
 class Ball extends CollisionEntity{
     constructor(posX, posY, count) {
-        super(posX, posY, 30,6,21,21,0xff00ffff,64,64,"o");
+        super(posX, posY, 30,6,21,21,0xff00ff00,64,64,"o");
         this.count = -0.52*count;
         this.time = this.time2 = 0;
         this.movementStrength = this.getRandom(1,5);

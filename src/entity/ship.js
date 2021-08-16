@@ -15,8 +15,8 @@ class Ship extends CollisionEntity{
 
         if (game.keys[68] == "keydown")translateX = 10;
         if (game.keys[65] == "keydown")translateX -= 10;
-        if (game.keys[83] == "keydown")translateY += 4;
-        if (game.keys[87] == "keydown")translateY -= 4;
+        if (game.keys[83] == "keydown")translateY += 10;
+        if (game.keys[87] == "keydown")translateY -= 10;
         if (game.keys[32] == "keydown")this.firePressed = true;
 
         if (this.position.x + translateX < 16 || this.position.x + translateX > W - 16) translateX = 0;
@@ -38,13 +38,17 @@ class Ship extends CollisionEntity{
             for (let index = 0; index < 2; index++) {
                 game.level.addEntity(new Particle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-30, this.position.y+30),0x99999999,true,2,2).setHealth(40));
             }  
-        }
-
-        if (translateX < 0){
+        }else if (translateX < 0){
             for (let index = 0; index < 2; index++) {
                 game.level.addEntity(new Particle(this.getRandom(this.position.x-10,this.position.x+10), this.getRandom(this.position.y-10, this.position.y+10),0x999999ff,false,22,1).setHealth(40));
             } 
+        }else{
+            if (Math.floor(this.getRandom(0,15))==1)
+                game.level.addEntity(new Particle(this.getRandom(this.position.x-30,this.position.x-40), this.getRandom(this.position.y-10, this.position.y+10),0x99999999,true,2,2).setHealth(40));
         }
+
+        game.level.speedX = translateX;
+        game.level.speedY = translateY;
       
 
 

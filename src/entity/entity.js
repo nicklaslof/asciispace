@@ -58,6 +58,10 @@ class Entity{
 
             this.hitTimeout--;
         }
+
+        this.position.x -= game.level.speedX/25;
+        //this.position.y -= game.level.speedY;
+
         this.previousPosition.x = this.position.x;
         this.previousPosition.y = this.position.y;
     }
