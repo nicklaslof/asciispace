@@ -5,6 +5,7 @@ class Ball extends CollisionEntity{
         super(posX, posY, 30,6,21,21,0xff00ffff,64,64,"o");
         this.count = -0.52*count;
         this.time = this.time2 = 0;
+        this.movementStrength = this.getRandom(1,5);
     }
 
     tick(game){
@@ -12,7 +13,7 @@ class Ball extends CollisionEntity{
         this.time += 1/10;
         this.time2 += 1/8;
         var sin = Math.sin(this.time+this.count)*10;
-        var cos = Math.cos(this.time2+this.count)*3;
+        var cos = Math.cos(this.time2+this.count)*this.movementStrength;
         this.position.y -= sin+cos;
         this.position.x -= 2;
         this.rotation -= 0.01;

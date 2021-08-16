@@ -1,6 +1,6 @@
 import Bullet from "./bullet.js";
 import CollisionEntity from "./collisionentity.js";
-
+import Particle from "./particle.js";
 class Ship extends CollisionEntity{
     constructor(posX, posY) {
         super(posX, posY, 0,4,18,18,0xffffffff,48,32,"p");
@@ -33,13 +33,29 @@ class Ship extends CollisionEntity{
         }else{
             this.firePressed = false;
         }
+
+        if (translateX > 0){
+            for (let index = 0; index < 2; index++) {
+                game.level.addEntity(new Particle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-30, this.position.y+30),0x99999999,true,2,2).setHealth(40));
+            }  
+        }
+
+        if (translateX < 0){
+            for (let index = 0; index < 2; index++) {
+                game.level.addEntity(new Particle(this.getRandom(this.position.x-10,this.position.x+10), this.getRandom(this.position.y-10, this.position.y+10),0x999999ff,false,22,1).setHealth(40));
+            } 
+        }
+      
+
+
         super.tick(game);
 
     }
     collidedWith(game, otherEntity){
         if (otherEntity.type == "b" && otherEntity.sourceEntity == this) return;
-        this.disposed = true;
-        otherEntity.disposed = true;
+        //this.disposed = true;
+        //otherEntity.disposed = true;
+        this.hit(game,1);
 
     }
 }

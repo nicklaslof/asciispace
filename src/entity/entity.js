@@ -20,6 +20,7 @@ class Entity{
         this.disposed = false;
         this.type = type;
         this.maxHealth = this.health = 1;
+        this.hitTimeout = 0;
     }
 
     setHealth(h){
@@ -27,8 +28,12 @@ class Entity{
         return this;
     }
 
-    hit(game,h){
-        this.health -= h;
+    hit(game,h, force){
+        if (this.hitTimeout <=0 || force){
+            this.health -= h;
+            this.hitTimeout = 16;
+        }
+
     }
     doesCollide(otherEntity){
         return false;
@@ -47,6 +52,11 @@ class Entity{
         if (this.health <=0){
             this.disposed = true;
             this.onDispose(game);
+        }
+
+        if (this.hitTimeout > 0){
+
+            this.hitTimeout--;
         }
         this.previousPosition.x = this.position.x;
         this.previousPosition.y = this.position.y;

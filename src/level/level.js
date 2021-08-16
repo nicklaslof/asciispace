@@ -3,12 +3,14 @@ import Ball from "../entity/ball.js";
 import Bullet from "../entity/bullet.js";
 import Ship from "../entity/ship.js";
 import StarField from "../entity/starfield.js";
+import GameOverlay from "../ui/gameoverlay.js";
 
 class Level{
 
     constructor(game) {
 
         this.game = game;
+        this.gameOverlay = new GameOverlay();
         this.entities = [];
         var x = W;
         var y = H/2;
@@ -19,8 +21,8 @@ class Level{
         this.starfield = new StarField();
         this.counter = 0;
         //this.entities.push(new Asteroid(W/2,H/2,192,192).setHealth(8));
-
-        this.entities.push(new Ship(50,H/2));
+        this.player = new Ship(50,H/2).setHealth(8);
+        this.entities.push(this.player);
     }
 
     tick(game){
@@ -38,6 +40,8 @@ class Level{
             });
             if (e.disposed) this.removeEntity(e);
         });
+
+        this.gameOverlay.tick(game);
     }
 
     render(game,interpolationOffset){
@@ -49,6 +53,8 @@ class Level{
         this.entities.forEach(e => {
             e.render(game,interpolationOffset);
         })
+
+        this.gameOverlay.render(game,interpolationOffset);
     }
 
     addEntity(entity){

@@ -13,7 +13,7 @@ class AsciiTexture{
         textContext.fillText("o",32,24,16);
         textContext.fillText(".",0,60,16);
         this.addAsteriod(textContext);
-
+        this.addHeart(textContext);
         this.image = new Image();
         this.image.src = textCanvas.toDataURL();
 
@@ -30,6 +30,18 @@ class AsciiTexture{
   ‾‾\\__/ n";
 
         this.addAsciiart(textContext,ascii,0,100,172);
+    }
+
+    addHeart(textContext){
+        var ascii =
+" ▄▄ ▄▄  n\
+███████ n\
+ █████  n\
+  ███   n\
+   ▀    n";
+
+        this.addAsciiart(textContext,ascii,200,100,128);
+
     }
 
 
