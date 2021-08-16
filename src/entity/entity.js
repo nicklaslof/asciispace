@@ -66,6 +66,20 @@ class Entity{
         return Math.random() * (max - min) + min
     }
 
+    normalize(v) {
+        let len = v.x * v.x + v.y * v.y;
+        if (len > 0) {
+          len = 1 / Math.sqrt(len);
+        }
+        v.x *= len;
+        v.y *= len;
+    }
+    distance(v1, v2) {
+        let x = v1.x - v2.x
+        let y = v1.y - v2.y;
+        return Math.hypot(x, y);
+    }
+
     translate(x,y){
         this.position.x += x;
         this.position.y += y;

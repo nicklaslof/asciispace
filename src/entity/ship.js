@@ -53,10 +53,11 @@ class Ship extends CollisionEntity{
     }
     collidedWith(game, otherEntity){
         if (otherEntity.type == "b" && otherEntity.sourceEntity == this) return;
-        //this.disposed = true;
-        //otherEntity.disposed = true;
+        if (otherEntity.type == "r"){
+            otherEntity.disposed = true;
+            return;
+        }
         this.hit(game,1);
-
     }
 }
 export default Ship;
