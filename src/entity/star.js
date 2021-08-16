@@ -4,9 +4,9 @@ class Star extends Entity{
     constructor(posX, posY, speed) {
         super(posX, posY, 8,57,1,1,0xffffffff,speed,speed);
         this.speed = speed;
-        this.position.x = this.getRandom(0,W);
-        this.position.y = this.getRandom(-100,H+100);
-        this.color = 0xffffffff/speed*50;
+        this.position.x = this.previousPosition.x = this.getRandom(0,W);
+        this.position.y = this.previousPosition.y = this.getRandom(-100,H+100);
+        this.c = 0xffffffff/speed*50;
     }
 
     tick(game, offsetX, offsetY){

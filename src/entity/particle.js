@@ -25,7 +25,7 @@ class Particle extends Entity{
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
 
-        this.color = (this.alphaCounter & 0xff) << 24 | (this.red & 0xff) << 16 | (this.green & 0xff) << 8 | (this.blue & 0xff);
+        this.c = (this.alphaCounter & 0xff) << 24 | (this.red & 0xff) << 16 | (this.green & 0xff) << 8 | (this.blue & 0xff);
     }
 }
 

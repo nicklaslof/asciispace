@@ -18,14 +18,14 @@ class Asteroid extends CollisionEntity{
         super.hit(game,h);
 
         for (let index = 0; index < h*2; index++) {
-            game.level.addEntity(new Particle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-20, this.position.y+20),this.color,60,30).setHealth(120));
+            game.level.addEntity(new Particle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-20, this.position.y+20),this.c,60,30).setHealth(120));
         }        
 
     }
 
     onDispose(game){
         for (let index = 0; index < 20; index++) {
-            game.level.addEntity(new Particle(this.getRandom(this.position.x-120/this.maxHealth,this.position.x+120/this.maxHealth), this.getRandom(this.position.y-120/this.maxHealth, this.position.y+120/this.maxHealth),this.color,20,10).setHealth(180));
+            game.level.addEntity(new Particle(this.getRandom(this.position.x-120/this.maxHealth,this.position.x+120/this.maxHealth), this.getRandom(this.position.y-120/this.maxHealth, this.position.y+120/this.maxHealth),this.c,20,10).setHealth(180));
         } 
         if (this.maxHealth>3){
             for (let index = 0; index < this.getRandom(1,2); index++) {

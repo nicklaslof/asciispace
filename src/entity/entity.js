@@ -5,7 +5,7 @@ class Entity{
 // b = bullet
 // o = ball
 // pa = particle
-    constructor(posX, posY, texX,texY,texW,texH,color,sizeX, sizeY, type) {
+    constructor(posX, posY, texX,texY,texW,texH,c,sizeX, sizeY, type) {
         this.position = {x:posX, y:posY};
         this.previousPosition = {x:posX, y:posY};
         this.u0 = texX/TZ;
@@ -13,7 +13,7 @@ class Entity{
         this.v0 = this.u0 + (texW/TZ);
         this.v1 = this.u1 + (texH/TZ);
         this.counter = 0;
-        this.color = color;
+        this.c = c;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.rotation = 0;
@@ -75,7 +75,7 @@ class Entity{
         var x = (this.position.x - this.previousPosition.x) * interpolationOffset + this.previousPosition.x;
         var y = (this.position.y - this.previousPosition.y) * interpolationOffset + this.previousPosition.y;
 
-        game.gl.col = this.color;
+        game.gl.col = this.c;
         game.gl.img(game.texture.tex,-this.sizeX/2,-this.sizeY/2,this.sizeX,this.sizeY,this.rotation,x,y,1,1, this.u0, this.u1, this.v0, this.v1);
     }
 }
