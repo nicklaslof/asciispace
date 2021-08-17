@@ -22,7 +22,7 @@ class Game{
     }
     gameloop(){
         if (this.texture.dirty) return;
-
+       
         var now = performance.now();
         var passed = now - this.last;
 
@@ -35,12 +35,13 @@ class Game{
         this.accumulator += passed;
 
         var c = 0;
-        if(this.accumulator >= this.deltaTime) {
+        while(this.accumulator >= this.deltaTime) {
             this.level.tick(this);
             this.accumulator -= this.deltaTime;
            // if (c>0) console.log(c);
             c++;
         }
+
 
         var interpolationOffset = this.accumulator / this.deltaTime;
         //console.log(interpolationOffset);

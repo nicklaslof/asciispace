@@ -49,6 +49,8 @@ class Entity{
     }
 
     tick(game){
+        this.previousPosition.x = this.position.x;
+        this.previousPosition.y = this.position.y;
         if (this.health <=0){
             this.disposed = true;
             this.onDispose(game);
@@ -64,8 +66,7 @@ class Entity{
         this.position.x -= game.level.speedX/25;
         //this.position.y -= game.level.speedY;
 
-        this.previousPosition.x = this.position.x;
-        this.previousPosition.y = this.position.y;
+ 
     }
 
     getRandom(min, max){
