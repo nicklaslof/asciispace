@@ -38,21 +38,24 @@ class Game{
 
         this.accumulator += deltaTime;
 
-        var c = 0;
+        var ticked = false;
         while(this.accumulator >= this.tickRate) {
             this.level.tick(this);
             this.accumulator -= this.tickRate;
-            if (c>0) console.log(c);
-            c++;
             this.ticks++;
+            ticked = true;
         }
 
+        //console.log(this.accumulator);
 
-        var interpolationOffset = this.accumulator / this.tickRate;
+        if (ticked){
+            var interpolationOffset = this.accumulator / this.tickRate;
         
-        this.level.render(this, interpolationOffset);
-        this.fps++;
-        this.gl.flush();
+            this.level.render(this, interpolationOffset);
+            this.fps++;
+            this.gl.flush();
+        }
+
 
         if (this.counter > 1000){
             console.log("FPS:"+this.fps+" Ticks:"+this.ticks);

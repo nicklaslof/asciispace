@@ -49,6 +49,7 @@ class Entity{
     }
 
     tick(game){
+        
         this.previousPosition.x = this.position.x;
         this.previousPosition.y = this.position.y;
         if (this.health <=0){
@@ -92,7 +93,7 @@ class Entity{
         this.position.y += y;
     }
 
-    render(game, interpolationOffset){ 
+    render(game, interpolationOffset){
         var x = (this.position.x - this.previousPosition.x) * interpolationOffset + this.previousPosition.x;
         var y = (this.position.y - this.previousPosition.y) * interpolationOffset + this.previousPosition.y;
 

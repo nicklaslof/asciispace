@@ -79,6 +79,7 @@ class Level{
         })
 
         this.gameOverlay.render(game,interpolationOffset);
+        this.gameOverlay.showUpgrade(game);
     }
 
     setupFormations(){

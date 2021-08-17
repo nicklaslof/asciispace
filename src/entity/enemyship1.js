@@ -9,6 +9,7 @@ class EnemyShip1 extends EnemyEntity{
 
     tick(game){
         super.tick(game);
+        
     }
 }
 
