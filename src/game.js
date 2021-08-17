@@ -28,16 +28,22 @@ class Game{
 
         this.last = now;
 
-        if (passed > 1000) return;
+        if (passed > 1000){
+            passed = this.deltaTime;
+        }
 
         this.accumulator += passed;
 
-        while (this.accumulator >= this.deltaTime) {
+        var c = 0;
+        if(this.accumulator >= this.deltaTime) {
             this.level.tick(this);
             this.accumulator -= this.deltaTime;
+           // if (c>0) console.log(c);
+            c++;
         }
 
         var interpolationOffset = this.accumulator / this.deltaTime;
+        //console.log(interpolationOffset);
         
         this.level.render(this, interpolationOffset);
         this.gl.flush();

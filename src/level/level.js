@@ -20,7 +20,6 @@ class Level{
         this.starfield = new StarField();
         this.range = 0;
         this.lastFormation = -2000;
-        //this.entities.push(new Asteroid(W/2,H/2,192,192).setHealth(8));
         this.player = new Ship(50,H/2).setHealth(8);
         this.entities.push(this.player);
 
@@ -45,6 +44,11 @@ class Level{
                 this.currentFormation = this.formations[rand];
                 this.currentFormation.execute();
             }
+        }
+
+        if (Math.floor(this.getRandom(0,500)) == 1){
+            var size = Math.floor(this.getRandom(48,96));
+            this.entities.push(new Asteroid(W+50,Math.floor(this.getRandom(150,H-150)),size,size).setHealth(8));
         }
         
         this.currentFormation.tick(game);

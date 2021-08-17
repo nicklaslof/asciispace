@@ -28,7 +28,7 @@ class Bullet extends CollisionEntity{
 
     collidedWith(game, otherEntity){
         if (otherEntity === this.sourceEntity) return;
-        if (otherEntity.type === "r") return;
+        if (otherEntity.type == "r" || otherEntity.type == "a") return;
         otherEntity.hit(game, 1);
         this.disposed = true;
     }

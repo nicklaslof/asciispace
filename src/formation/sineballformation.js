@@ -21,7 +21,7 @@ class SineballFormation extends Formation{
         var sin = Math.sin(entity.time+entity.count)*10;
         var cos = Math.cos(entity.time2+entity.count)*entity.movementStrength;
         entity.position.y -= sin+cos;
-        entity.position.x -= 2;
+        entity.position.x -= 3;
         entity.rotation -= 0.01;
     }
 }

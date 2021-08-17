@@ -11,7 +11,7 @@ class EnemyShipFormation2 extends Formation{
         var x = W+100;
         var y = H/2;
         for (let index = 0; index < 16; index++) {
-            this.addEntity(new EnemyShip1(x + 96*index,y,index));
+            this.addEntity(new EnemyShip1(x + 96*index,y,index, 0xffff5555));
         }
     }
 
