@@ -13,41 +13,51 @@ class Game{
         this.texture = new GlTexture(this.gl.g,this.ascii.image);
 
         this.last = performance.now();
-        this.deltaTime = 1000/60;
+        this.tickRate = 1000/60;
         this.accumulator = 0;
 
         this.level = new Level(this);
         this.keys =[];
         onkeydown=onkeyup=e=> this.keys[e.keyCode] = e.type;
+        this.counter = 0;
+        this.fps = 0;
+        this.ticks = 0;
     }
     gameloop(){
         if (this.texture.dirty) return;
-       
+        
         var now = performance.now();
-        var passed = now - this.last;
+        var deltaTime = now - this.last;
+        this.counter += deltaTime;
 
         this.last = now;
 
-        if (passed > 1000){
-            passed = this.deltaTime;
+        if (deltaTime > 1000){
+            deltaTime = this.tickRate;
         }
 
-        this.accumulator += passed;
+        this.accumulator += deltaTime;
 
         var c = 0;
-        while(this.accumulator >= this.deltaTime) {
+        while(this.accumulator >= this.tickRate) {
             this.level.tick(this);
-            this.accumulator -= this.deltaTime;
-           // if (c>0) console.log(c);
+            this.accumulator -= this.tickRate;
+            if (c>0) console.log(c);
             c++;
+            this.ticks++;
         }
 
 
-        var interpolationOffset = this.accumulator / this.deltaTime;
-        //console.log(interpolationOffset);
+        var interpolationOffset = this.accumulator / this.tickRate;
         
         this.level.render(this, interpolationOffset);
+        this.fps++;
         this.gl.flush();
+
+        if (this.counter > 1000){
+            console.log("FPS:"+this.fps+" Ticks:"+this.ticks);
+            this.fps = this.ticks = this.counter = 0;
+        }
     }
 }
 export default Game;
