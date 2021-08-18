@@ -1,7 +1,6 @@
 import AsciiTexture from "./graphic/asciitexture.js";
 import GlTexture from "./graphic/gltexture.js";
 import Level from "./level/level.js";
-import UI from "./ui/ui.js";
 
 class Game{
     constructor(){
@@ -13,7 +12,28 @@ class Game{
         this.ascii = new AsciiTexture();
         this.texture = new GlTexture(this.gl.g,this.ascii.image);
 
-        
+        var player = new CPlayer();
+        player.init(song);
+        //player.generate();
+        var done = false;
+        var audio = document.createElement("audio");
+        audio.play();
+        setInterval(function () {
+            if (done) {
+              return;
+            }
+            done = player.generate() >= 1;
+            if (done) {
+                var wave = player.createWave();
+                var audio = document.createElement("audio");
+                audio.loop = true;
+                audio.src = URL.createObjectURL(new Blob([wave], {type: "audio/wav"}));
+                audio.play();
+            }
+        });
+
+
+       
 
         this.tickRate = 1000/60;
         this.accumulator = 0;
