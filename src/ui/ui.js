@@ -5,11 +5,36 @@ class UI{
         this.cv.width = W;
         this.cv.height = H;
         this.ctx = this.cv.getContext('2d');
+        this.selectedUpgradeButton = 0;
+        this.upgradeButtons = [];
     }
 
     tick(game){
         if (this.upgradePanelNeedUpdate){
             this.updateUpgradePanel(game);
+        }
+
+        if (this.upgradePanelShown){
+            var selectedUpgradeButtonBeforeLoop = this.selectedUpgradeButton;
+
+            if (game.keys[68] == "keydown") this.selectedUpgradeButton++;
+            if (game.keys[65] == "keydown") this.selectedUpgradeButton--;
+            if (game.keys[32] == "keydown") this.upgradeButtons[this.selectedUpgradeButton].action();
+            game.keys[68] = game.keys[65] = game.keys[32] = "keyup";
+
+            if (this.selectedUpgradeButton>2) this.selectedUpgradeButton = 0;
+            if (this.selectedUpgradeButton<0) this.selectedUpgradeButton = 2;
+
+            if (selectedUpgradeButtonBeforeLoop != this.selectedUpgradeButton){
+                for (let index = 0; index < this.upgradeButtons.length; index++) {
+                    var button = this.upgradeButtons[index];
+                    if (index == this.selectedUpgradeButton)
+                        button.selected = true;
+                    else
+                        button.selected = false;
+                }
+                this.upgradePanelNeedUpdate = true;
+            }
         }
     }
 
@@ -17,16 +42,36 @@ class UI{
     }
 
     updateUpgradePanel(game){
+        this.ctx.clearRect(0,0,W,H);
+        this.ctx.fillStyle="black";
+        this.ctx.fillRect((W/2)-170,(H/2)-235,22*16,(18*16)-5)
         this.generateSquare((W/2)-170,(H/2)-250, 22,12,16);
-        new Button(game,this,(W/2)-150,(H/2)-150,16,10,"Increased", "range",true);
-        new Button(game,this,(W/2)+40,(H/2)-150,16,10,"Stronger", "bullets",false);
-        new Button(game,this,(W/2)-150,(H/2)-30,40,5,"Cancel", "",false);
+        if (this.upgradeButtons.length == 0){
+            this.upgradeButtons.push(new Button(game,this,(W/2)-150,(H/2)-150,16,10,"Increased", "range"));
+            this.upgradeButtons.push(new Button(game,this,(W/2)+40,(H/2)-150,16,10,"Stronger", "bullets"));
+            this.upgradeButtons.push(new Button(game,this,(W/2)-150,(H/2)-30,40,5,"Cancel", "",()=>{this.hideUpgradePanel();game.level.showUpgradePanel=false}));
+            this.upgradeButtons[0].selected = true;
+        }
+
+        this.upgradeButtons.forEach(button => {
+            button.update(this);
+        });
+        
+
         this.drawTextAt("Select an upgrade:",(W/2)-106,(H/2)-200,"white",22); 
         this.upgradePanelNeedUpdate = false;
     }
 
     showUpgradePanel(){
         this.upgradePanelNeedUpdate = true;
+        this.upgradePanelShown = true;
+    }
+
+    hideUpgradePanel(){
+        this.ctx.clearRect(0,0,W,H);
+        this.upgradeButtons = [];
+        this.selectedUpgradeButton = 0;
+        this.upgradePanelShown = false;
     }
 
     generateSquare(x ,y,width, height, fontSize=16){

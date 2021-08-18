@@ -29,11 +29,25 @@ class Level{
     
         this.setupFormations();
         this.ui = new UI();
-        this.ui.showUpgradePanel();
+       
+        this.showUpgradePanel = false;
     }
 
     tick(game){
 
+        if (game.keys[69] == "keydown"){
+            game.keys[69] = "keyup" 
+            this.showUpgradePanel = !this.showUpgradePanel;
+            if (this.showUpgradePanel)
+                this.ui.showUpgradePanel();
+            else
+                this.ui.hideUpgradePanel();
+
+        }
+        if (this.showUpgradePanel){
+            this.ui.tick(game);
+            return;
+        }
 
         this.range += 1 + this.speedX;
         this.starfield.tick(game);
@@ -69,7 +83,7 @@ class Level{
         });
 
         this.gameOverlay.tick(game);
-        this.ui.tick(game);
+
     }
 
     render(game,interpolationOffset){
