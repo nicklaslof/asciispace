@@ -29,6 +29,7 @@ class EnemyShipFormation1 extends Formation{
                 }
             }
         }
+        
     }
 }
 export default EnemyShipFormation1;

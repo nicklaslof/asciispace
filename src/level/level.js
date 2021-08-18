@@ -7,6 +7,7 @@ import EnemyShipFormation1 from "../formation/enemyshipformation1.js";
 import EnemyShipFormation2 from "../formation/enemyshipformation2.js";
 import SineballFormation from "../formation/sineballformation.js";
 import GameOverlay from "../ui/gameoverlay.js";
+import UI from "../ui/ui.js";
 
 class Level{
 
@@ -27,6 +28,8 @@ class Level{
         this.speedY = 0;
     
         this.setupFormations();
+        this.ui = new UI();
+        this.ui.showUpgradePanel();
     }
 
     tick(game){
@@ -66,6 +69,7 @@ class Level{
         });
 
         this.gameOverlay.tick(game);
+        this.ui.tick(game);
     }
 
     render(game,interpolationOffset){
@@ -77,9 +81,10 @@ class Level{
         this.entities.forEach(e => {
             e.render(game,interpolationOffset);
         })
-
+        this.ui.render(game);
         this.gameOverlay.render(game,interpolationOffset);
-        this.gameOverlay.showUpgrade(game);
+
+      //  this.gameOverlay.showUpgrade(game);
     }
 
     setupFormations(){

@@ -1,23 +1,17 @@
 class Button{
-    constructor(game, cachedTextures,gameOverlay,x,y,textLine1, textLine2,selected) {
-        if (cachedTextures.get("button") == null){
-            gameOverlay.generateSquare(game, 16,10,"button",8);
-        }
-        this.buttonTexture = cachedTextures.get("button");
+    constructor(game,ui,x,y,w,h,textLine1, textLine2,selected) {
+
+        ui.generateSquare(x,y,w,h,8);
         this.x = x;
         this.y = y;
         this.textLine1 = textLine1;
         this.textLine2 = textLine2;
         this.selected = selected;
-    }
 
-    render(game,gameOverlay){
-        var col = this.selected ? 0xffffffff:0xff555555;
+        var col = this.selected ? "white":"gray";
 
-        gameOverlay.showText(game,this.textLine1,this.x+10, this.y+10,col,16);
-        gameOverlay.showText(game,this.textLine2,this.x+10, this.y+36,col,16);
-        game.gl.col = col;
-        game.gl.img(this.buttonTexture.tex,0,0,1,1,0,this.x,this.y,512,512, 0,0,1,1);
+        ui.drawTextAt(this.textLine1,this.x+10, this.y+36,col,16);
+        ui.drawTextAt(this.textLine2,this.x+10, this.y+60,col,16);
     }
 
     isDirty(){

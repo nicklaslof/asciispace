@@ -1,6 +1,7 @@
 import AsciiTexture from "./graphic/asciitexture.js";
 import GlTexture from "./graphic/gltexture.js";
 import Level from "./level/level.js";
+import UI from "./ui/ui.js";
 
 class Game{
     constructor(){
@@ -12,7 +13,8 @@ class Game{
         this.ascii = new AsciiTexture();
         this.texture = new GlTexture(this.gl.g,this.ascii.image);
 
-        this.last = performance.now();
+        
+
         this.tickRate = 1000/60;
         this.accumulator = 0;
 
@@ -22,6 +24,8 @@ class Game{
         this.counter = 0;
         this.fps = 0;
         this.ticks = 0;
+
+        this.last = performance.now();
     }
     gameloop(){
         if (this.texture.dirty) return;
@@ -32,13 +36,10 @@ class Game{
 
         this.last = now;
 
-        if (deltaTime > 1000){
-            deltaTime = this.tickRate;
-        }
-
         this.accumulator += deltaTime;
 
         var ticked = false;
+
         while(this.accumulator >= this.tickRate) {
             this.level.tick(this);
             this.accumulator -= this.tickRate;
@@ -46,15 +47,13 @@ class Game{
             ticked = true;
         }
 
-        //console.log(this.accumulator);
-
         if (ticked){
             var interpolationOffset = this.accumulator / this.tickRate;
         
             this.level.render(this, interpolationOffset);
             this.fps++;
             this.gl.flush();
-        }
+       }
 
 
         if (this.counter > 1000){

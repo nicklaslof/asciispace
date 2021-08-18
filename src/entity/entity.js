@@ -64,7 +64,7 @@ class Entity{
             this.hitTimeout--;
         }
 
-        this.position.x -= game.level.speedX/25;
+        //this.position.x -= game.level.speedX/25;
         //this.position.y -= game.level.speedY;
 
  
@@ -94,8 +94,8 @@ class Entity{
     }
 
     render(game, interpolationOffset){
-        var x = (this.position.x - this.previousPosition.x) * interpolationOffset + this.previousPosition.x;
-        var y = (this.position.y - this.previousPosition.y) * interpolationOffset + this.previousPosition.y;
+        var x = this.previousPosition.x + (this.position.x - this.previousPosition.x) * interpolationOffset;
+        var y = this.previousPosition.y + (this.position.y - this.previousPosition.y) * interpolationOffset;
 
         game.gl.col = this.c;
         game.gl.img(game.texture.tex,-this.sizeX/2,-this.sizeY/2,this.sizeX,this.sizeY,this.rotation,x,y,1,1, this.u0, this.u1, this.v0, this.v1);

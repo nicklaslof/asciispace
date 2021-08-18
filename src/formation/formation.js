@@ -11,7 +11,9 @@ class Formation{
     tick(game){
         var disposedEntities = 0;
         this.entities.forEach(entity => {
+            //entity.tick(game);
             this.handleEntity(game,entity);
+
             if (entity.disposed) disposedEntities++;
         });
 
