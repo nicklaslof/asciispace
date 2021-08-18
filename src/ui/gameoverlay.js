@@ -1,5 +1,6 @@
 import Heart from "../entity/heart.js";
 import GlTexture from "../graphic/gltexture.js";
+import Button from "./button.js";
 class GameOverlay{
 
     constructor() {
@@ -29,9 +30,9 @@ class GameOverlay{
         }
     }
 
-    showText(game,text,x,y, color){
+    showText(game,text,x,y, color, fontSize){
         if (this.cachedTextures.get(text) == null){
-            this.generateImageFromText(game, text);
+            this.generateImageFromText(game, text,fontSize);
         }
         var texture = this.cachedTextures.get(text);
         if (texture.dirty) return;
@@ -41,33 +42,54 @@ class GameOverlay{
 
     showUpgrade(game){
         if (this.cachedTextures.get("panel") == null){
-            this.generateUpgradePanel(game, "panel");
+            this.generateSquare(game, 22,10,"panel",16);
         }
         var texture = this.cachedTextures.get("panel");
-        if (texture.dirty) return;
 
-        //game.gl.col = 0x99663333;
+        if (this.upgrade1 == null) this.upgrade1 = new Button(game,this.cachedTextures,this,(W/2)-150,(H/2)-150,"Increased", "range",true);
+        if (this.upgrade2 == null) this.upgrade2 = new Button(game,this.cachedTextures,this,(W/2)+40,(H/2)-150,"Stronger", "bullets",false);
+
+        if (texture.dirty || this.upgrade1.isDirty() || this.upgrade2.isDirty()) return;
+
         game.gl.col = 0xffffffff;
-        game.gl.img(texture.tex,0,0,1,1,0,(W/2)-245,(H/2)-250,512,368, 0,0,1,1);
-        this.showText(game,"Select an upgrade",(W/2)-158,(H/2)-240,0xffffffff);
+        game.gl.img(texture.tex,0,0,1,1,0,(W/2)-170,(H/2)-250,512,512, 0,0,1,1);
 
-        
+        this.upgrade1.render(game,this);
+        this.upgrade2.render(game,this);
+
+        this.showText(game,"Select an upgrade:",(W/2)-106,(H/2)-240,0xffffffff,22);        
     }
 
-    generateUpgradePanel(game,name){
+    generateSquare(game, width,height,name, fontSize=16){
         var textCanvas = document.getElementById('t');
-        textCanvas.width = textCanvas.height = 64;
+        textCanvas.width = textCanvas.height = 512;
         var textContext = textCanvas.getContext('2d');
-        textContext.beginPath();
-        textContext.rect(0, 0, 64, 12);
-        textContext.fillStyle = "#4444";
-        textContext.fill();
-        textContext.beginPath();
-        textContext.rect(0, 12, 64, 52);
-        textContext.fillStyle = "#5555";
-        textContext.fill();
-        textContext.strokeStyle = "white";
-        textContext.strokeRect(0, 0, 64, 64);
+
+        textContext.font = "normal "+fontSize+"px monospace";
+        textContext.fillStyle = "white";
+
+        // Top line
+        textContext.fillText("+",0,20);
+        for (let w = 1; w < width; w++) {
+            textContext.fillText("-",w*fontSize,20)
+        }
+        textContext.fillText("+",fontSize*width,20);
+
+        // Sides
+        for (let h = 1; h < height; h++){
+            textContext.fillText("|",0,fontSize+h*(fontSize*1.5));
+            textContext.fillText("|",fontSize*width,fontSize+h*(fontSize*1.5));
+        }
+
+        // Bottom line
+        textContext.fillText("+",0,fontSize+height*(fontSize*1.5));
+
+        for (let w = 1; w < width; w++) {
+            textContext.fillText("-",w*fontSize,fontSize+height*(fontSize*1.5))
+        }
+        textContext.fillText("+",fontSize*width,fontSize+height*(fontSize*1.5));
+
+        // Generate image to GL
         var image = new Image();
         image.src = textCanvas.toDataURL();
 
@@ -75,14 +97,14 @@ class GameOverlay{
         this.cachedTextures.set(name,texture);
     }
 
-    generateImageFromText(game,text){
+    generateImageFromText(game,text,fontSize=32){
         var textCanvas = document.getElementById('t');
         textCanvas.width = textCanvas.height = TZ;
         var textContext = textCanvas.getContext('2d');
         textCanvas.imageSmoothingEnabled = false;
         textContext.imageSmoothingEnabled = false;
         textContext.globalAlpha = 1.0
-        textContext.font = "normal 32px monospace";
+        textContext.font = "normal "+fontSize+"px monospace";
         textContext.fillStyle = "white";
         textContext.fillText(text,0,30);
         var image = new Image();
