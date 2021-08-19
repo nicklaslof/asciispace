@@ -8,6 +8,7 @@ class Entity{
     constructor(posX, posY, texX,texY,texW,texH,c,sizeX, sizeY, type) {
         this.position = {x:posX, y:posY};
         this.previousPosition = {x:posX, y:posY};
+        this.tilePosition = {x:0, y:0};
         this.u0 = texX/TZ;
         this.u1 = texY/TZ;
         this.v0 = this.u0 + (texW/TZ);
@@ -64,10 +65,8 @@ class Entity{
             this.hitTimeout -= deltaTime;
         }
 
-        //this.position.x -= game.level.speedX/25;
-        //this.position.y -= game.level.speedY;
-
- 
+        this.tilePosition.x = Math.floor((this.position.x + game.level.range)/24);
+        this.tilePosition.y = Math.floor(this.position.y/29);
     }
 
     getRandom(min, max){

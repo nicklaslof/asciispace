@@ -12,6 +12,7 @@ class AsciiTexture{
         textContext.fillText(">",0,24,16);
         textContext.fillText("o",32,24,16);
         textContext.fillText(".",0,60,16);
+        textContext.fillText("#",32,60,16);
         this.addAsteriod(textContext);
         this.addHeart(textContext);
         this.image = new Image();
