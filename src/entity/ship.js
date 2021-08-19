@@ -5,27 +5,28 @@ class Ship extends CollisionEntity{
     constructor(posX, posY) {
         super(posX, posY, 0,4,18,18,0xffffffff,48,32,"p");
         this.fireDelay = 0;
+        this.speed = 300;
     }
-    tick(game){
-        this.fireDelay--;
+    tick(game,deltaTime){
+        this.fireDelay -= deltaTime;
         if (this.fireDelay < 0) this.fireDelay = 0;
 
         var translateX = 0;
         var translateY = 0;
 
-        if (game.keys[68] == "keydown")translateX = 10;
-        if (game.keys[65] == "keydown")translateX -= 10;
-        if (game.keys[83] == "keydown")translateY += 10;
-        if (game.keys[87] == "keydown")translateY -= 10;
+        if (game.keys[68] == "keydown")translateX = this.speed;
+        if (game.keys[65] == "keydown")translateX -= this.speed;
+        if (game.keys[83] == "keydown")translateY += this.speed;
+        if (game.keys[87] == "keydown")translateY -= this.speed;
         if (game.keys[32] == "keydown")this.firePressed = true;
 
-        if (this.position.x + translateX < 16 || this.position.x + translateX > W - 16) translateX = 0;
-        if (this.position.y + translateY < 16 || this.position.y + translateY > H - 16) translateY = 0; 
+        if (this.position.x + translateX*deltaTime < 16 || this.position.x + translateX *deltaTime > W - 16) translateX = 0;
+        if (this.position.y + translateY*deltaTime < 16 || this.position.y + translateY *deltaTime> H - 16) translateY = 0; 
 
-        this.position.x += translateX;
-        this.position.y += translateY;
-        game.level.starfield.offsetX = -translateX/105;
-        game.level.starfield.offsetY = -translateY/35;
+        this.position.x += translateX*deltaTime;
+        this.position.y += translateY*deltaTime;
+        game.level.starfield.offsetX = -translateX/2005;
+        game.level.starfield.offsetY = -translateY/3000;
 
         if (this.firePressed && this.fireDelay == 0){
             game.level.addEntity(new Bullet(this.position.x+16, this.position.y).setSource(this));
@@ -52,7 +53,7 @@ class Ship extends CollisionEntity{
       
 
 
-        super.tick(game);
+        super.tick(game,deltaTime);
 
     }
     collidedWith(game, otherEntity){

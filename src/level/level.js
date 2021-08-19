@@ -33,7 +33,7 @@ class Level{
         this.showUpgradePanel = false;
     }
 
-    tick(game){
+    tick(game,deltaTime){
 
         if (game.keys[69] == "keydown"){
             game.keys[69] = "keyup" 
@@ -50,11 +50,11 @@ class Level{
         }
 
         this.range += 1 + this.speedX;
-        this.starfield.tick(game);
+        this.starfield.tick(game, deltaTime);
         
         if (this.currentFormation == null){
-            this.formations[2].execute();
-            this.currentFormation = this.formations[2];
+            this.formations[0].execute();
+            this.currentFormation = this.formations[0];
         }else{
             if (this.currentFormation.done){
                 var rand = Math.floor(this.getRandom(0,this.formations.length));
@@ -63,16 +63,16 @@ class Level{
             }
         }
 
-        if (Math.floor(this.getRandom(0,500)) == 1){
-            var size = Math.floor(this.getRandom(48,96));
-            this.entities.push(new Asteroid(W+50,Math.floor(this.getRandom(150,H-150)),size,size).setHealth(8));
-        }
+        //if (Math.floor(this.getRandom(0,500)) == 1){
+       //     var size = Math.floor(this.getRandom(48,96));
+       //     this.entities.push(new Asteroid(W+50,Math.floor(this.getRandom(150,H-150)),size,size).setHealth(8));
+       // }
         
-        this.currentFormation.tick(game);
+        this.currentFormation.tick(game,deltaTime);
 
 
         this.entities.forEach(e => {
-            e.tick(game);
+            e.tick(game,deltaTime);
             this.entities.forEach(oe => {
                 if (e.disposed || oe.disposed || e.type == "pa" || oe.type == "pa") return;
                 if (e.doesCollide(oe)){

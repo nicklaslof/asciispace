@@ -4,6 +4,8 @@ import Formation from "./formation.js";
 class EnemyShipFormation1 extends Formation{
     constructor(level) {
         super(level);
+        this.xSpeed = 300;
+        this.ySpeed = 200;
     }
 
     execute(){
@@ -15,17 +17,17 @@ class EnemyShipFormation1 extends Formation{
         }
     }
 
-    handleEntity(game, entity){
-        entity.position.x -= 7;
+    handleEntity(game, entity, deltaTime){
+        entity.position.x -= this.xSpeed*deltaTime;
         if (entity.position.x < (W/2)+200){
             if (entity.instanceCount%2 == 1){
-                if (entity.position.y < H-192){
-                    entity.position.y += 10;
+                if (entity.position.y < H-64){
+                    entity.position.y += this.ySpeed*deltaTime;
                 }
             }
             else{
-                if (entity.position.y > 192){
-                    entity.position.y -= 10;
+                if (entity.position.y > 64){
+                    entity.position.y -= this.ySpeed*deltaTime;
                 }
             }
         }

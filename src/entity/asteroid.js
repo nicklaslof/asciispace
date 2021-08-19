@@ -7,11 +7,11 @@ class Asteroid extends CollisionEntity{
         this.yDirection = this.getRandom(-0.2,0.2);
         this.rDirection = this.getRandom(-0.016,0.016);
     }
-    tick(game){
+    tick(game,deltaTime){
         super.tick(game);
-        this.position.x += this.xDirection;
-        this.position.y += this.yDirection;
-        this.rotation += this.rDirection;
+        this.position.x += this.xDirection*20*deltaTime;
+        this.position.y += this.yDirection*20*deltaTime;
+        this.rotation += this.rDirection*deltaTime;
     }
     collidedWith(game, otherEntity){
         if (otherEntity.type == "p") otherEntity.hit(-1);

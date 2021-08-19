@@ -12,7 +12,7 @@ class Game{
         this.ascii = new AsciiTexture();
         this.texture = new GlTexture(this.gl.g,this.ascii.image);
 
-        var player = new CPlayer();
+        /*var player = new CPlayer();
         player.init(song);
         //player.generate();
         var done = false;
@@ -30,20 +30,20 @@ class Game{
                 audio.src = URL.createObjectURL(new Blob([wave], {type: "audio/wav"}));
                 audio.play();
             }
-        });
+        });*/
 
 
        
 
-        this.tickRate = 1000/60;
-        this.accumulator = 0;
+       // this.tickRate = 1000/60;
+       // this.accumulator = 0;
 
         this.level = new Level(this);
         this.keys =[];
         onkeydown=onkeyup=e=> this.keys[e.keyCode] = e.type;
         this.counter = 0;
         this.fps = 0;
-        this.ticks = 0;
+       // this.ticks = 0;
 
         this.last = performance.now();
     }
@@ -51,6 +51,23 @@ class Game{
         if (this.texture.dirty) return;
         
         var now = performance.now();
+        var deltaTime = now - this.last;
+        if (deltaTime>200){
+            console.log(deltaTime);
+            deltaTime = 0;
+        }
+        this.last = now;
+        this.level.tick(this,deltaTime/1000);
+        this.level.render(this,1);
+        this.fps++;
+        this.gl.flush();
+        this.counter += deltaTime/1000;
+        if (this.counter > 1){
+            console.log(Date.now()+" FPS:"+this.fps);
+            this.fps = this.ticks = this.counter = 0;
+            this.counter = 0;
+        }
+        /*var now = performance.now();
         var deltaTime = now - this.last;
         this.counter += deltaTime;
 
@@ -67,19 +84,19 @@ class Game{
             ticked = true;
         }
 
-        if (ticked){
+        //if (ticked){
             var interpolationOffset = this.accumulator / this.tickRate;
         
             this.level.render(this, interpolationOffset);
             this.fps++;
             this.gl.flush();
-       }
+     //  }
 
 
         if (this.counter > 1000){
             console.log("FPS:"+this.fps+" Ticks:"+this.ticks);
             this.fps = this.ticks = this.counter = 0;
-        }
+        }*/
     }
 }
 export default Game;

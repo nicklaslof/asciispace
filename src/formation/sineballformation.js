@@ -15,14 +15,14 @@ class SineballFormation extends Formation{
             this.addEntity(new Ball(x + (index*50),y+sin,index).setHealth(2));
         }    
     }
-    handleEntity(game, entity){
-        entity.time += 1/10;
-        entity.time2 += 1/8;
+    handleEntity(game, entity, deltaTime){
+        entity.time += (1/10)*30*deltaTime;
+        entity.time2 += (1/8)*30*deltaTime;
         var sin = Math.sin(entity.time+entity.count)*10;
         var cos = Math.cos(entity.time2+entity.count)*entity.movementStrength;
-        entity.position.y -= sin+cos;
-        entity.position.x -= 3;
-        entity.rotation -= 0.01;
+        entity.position.y -= (sin+cos)*20*deltaTime;
+        entity.position.x -= 100*deltaTime;
+        entity.rotation -= 0.5*deltaTime;
     }
 }
 

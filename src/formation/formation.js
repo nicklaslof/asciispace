@@ -8,11 +8,11 @@ class Formation{
         this.done = false;
     }
 
-    tick(game){
+    tick(game, deltaTime){
         var disposedEntities = 0;
         this.entities.forEach(entity => {
             //entity.tick(game);
-            this.handleEntity(game,entity);
+            this.handleEntity(game,entity, deltaTime);
 
             if (entity.disposed) disposedEntities++;
         });
@@ -25,7 +25,7 @@ class Formation{
         this.level.addEntity(entity);
     }
 
-    handleEntity(game, entity){
+    handleEntity(game, entity, deltaTime){
     }
 
 

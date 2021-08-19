@@ -48,7 +48,7 @@ class Entity{
 
     }
 
-    tick(game){
+    tick(game,deltaTime){
         
         this.previousPosition.x = this.position.x;
         this.previousPosition.y = this.position.y;
@@ -61,7 +61,7 @@ class Entity{
 
         if (this.hitTimeout > 0){
 
-            this.hitTimeout--;
+            this.hitTimeout -=deltaTime;
         }
 
         //this.position.x -= game.level.speedX/25;
