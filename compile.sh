@@ -3,6 +3,7 @@ rm dist.zip
 mkdir -p dist
 cd src
 rollup i.js --format cjs --file ../dist/bundle.js
+cp m.txt l.txt ../dist/
 cd ../dist
 terser bundle.js -o i.js --compress --mangle --mangle-props reserved=["g","img","flush","bkg","cls","col","init","generate","createWave"] --timings --toplevel --module
 rm bundle.js
@@ -16,9 +17,9 @@ echo "</script>" >> index-template.html
 echo "<script>" >> index-template.html
 cat ../src/songdata.js >> index-template.html
 echo "</script>" >> index-template.html
-echo "<script>" >> index-template.html
-cat ../src/lib/s.js >> index-template.html
-echo "</script>" >> index-template.html
+#echo "<script>" >> index-template.html
+#cat ../src/lib/s.js >> index-template.html
+#echo "</script>" >> index-template.html
 echo "<script>" >> index-template.html
 cat ../src/c.js >> index-template.html
 echo "</script>" >> index-template.html
