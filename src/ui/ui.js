@@ -49,7 +49,7 @@ class UI{
         if (this.upgradeButtons.length == 0){
             this.upgradeButtons.push(new Button(game,this,(W/2)-150,(H/2)-150,16,10,"Increased", "range"));
             this.upgradeButtons.push(new Button(game,this,(W/2)+40,(H/2)-150,16,10,"Stronger", "bullets"));
-            this.upgradeButtons.push(new Button(game,this,(W/2)-150,(H/2)-30,40,5,"Cancel", "",()=>{this.hideUpgradePanel();game.level.showUpgradePanel=false}));
+            this.upgradeButtons.push(new Button(game,this,(W/2)-150,(H/2)-30,40,5,"             Cancel", "",()=>{this.hideUpgradePanel();game.level.showUpgradePanel=false}));
             this.upgradeButtons[0].selected = true;
         }
 

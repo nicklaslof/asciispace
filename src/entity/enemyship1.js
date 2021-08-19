@@ -6,11 +6,6 @@ class EnemyShip1 extends EnemyEntity{
         this.rotation = -Math.PI;
         this.instanceCount = instanceCount;
     }
-
-    tick(game){
-        super.tick(game);
-        
-    }
 }
 
 export default EnemyShip1;

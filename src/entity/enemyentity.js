@@ -18,7 +18,6 @@ class EnemyEntity extends CollisionEntity{
         if (Math.floor(this.getRandom(0,2)) == 1){
             c = 0xff00ffff;
         }
-        console.log(c);
         game.level.addEntity(new Resource(this.position.x, this.position.y, c,"r"));
     }
 }

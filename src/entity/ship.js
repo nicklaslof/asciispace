@@ -30,22 +30,21 @@ class Ship extends CollisionEntity{
 
         if (this.firePressed && this.fireDelay == 0){
             game.level.addEntity(new Bullet(this.position.x+16, this.position.y).setSource(this));
-            this.fireDelay = 20;
+            this.fireDelay = 0.5;
         }else{
             this.firePressed = false;
         }
 
         if (translateX > 0){
-            for (let index = 0; index < 2; index++) {
-                game.level.addEntity(new Particle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-30, this.position.y+30),0x99999999,true,2,2).setHealth(40));
+            if (Math.floor(this.getRandom(0,10))==1) {
+                game.level.addEntity(new Particle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-15, this.position.y+15),0x99999999,true,2,2).setHealth(40));
             }  
         }else if (translateX < 0){
-            for (let index = 0; index < 2; index++) {
+            if (Math.floor(this.getRandom(0,10))==1)
                 game.level.addEntity(new Particle(this.getRandom(this.position.x-10,this.position.x+10), this.getRandom(this.position.y-10, this.position.y+10),0x999999ff,false,22,1).setHealth(40));
-            } 
         }else{
-            if (Math.floor(this.getRandom(0,15))==1)
-                game.level.addEntity(new Particle(this.getRandom(this.position.x-30,this.position.x-40), this.getRandom(this.position.y-10, this.position.y+10),0x99999999,true,2,2).setHealth(40));
+            if (Math.floor(this.getRandom(0,50))==1)
+                game.level.addEntity(new Particle(this.getRandom(this.position.x-30,this.position.x-40), this.getRandom(this.position.y-4, this.position.y+4),0x99999999,true,2,2).setHealth(20));
         }
 
         game.level.speedX = translateX;

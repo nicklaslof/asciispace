@@ -4,8 +4,8 @@ import Formation from "./formation.js";
 class EnemyShipFormation1 extends Formation{
     constructor(level) {
         super(level);
-        this.xSpeed = 300;
-        this.ySpeed = 200;
+        this.xSpeed = 400;
+        this.ySpeed = 300;
     }
 
     execute(){

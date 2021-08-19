@@ -4,8 +4,8 @@ import Formation from "./formation.js";
 class EnemyShipFormation2 extends Formation{
     constructor(level) {
         super(level);
-        this.xSpeed = 300;
-        this.ySpeed = 200;
+        this.xSpeed = 400;
+        this.ySpeed = 300;
     }
 
     execute(){
@@ -19,7 +19,7 @@ class EnemyShipFormation2 extends Formation{
 
     handleEntity(game, entity, deltaTime){
         entity.position.x -= this.xSpeed*deltaTime;
-        if (entity.position.x < (W/2)+800 && entity.position.x > (W/2)){
+        if (entity.position.x < (W/2)+400 && entity.position.x > (W/2)){
             if (entity.instanceCount%2 == 1){
                 if (entity.position.y < H-64){
                     entity.position.y += this.ySpeed *deltaTime;

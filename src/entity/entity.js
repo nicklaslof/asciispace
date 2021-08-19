@@ -31,7 +31,7 @@ class Entity{
     hit(game,h, force){
         if (this.hitTimeout <=0 || force){
             this.health -= h;
-            this.hitTimeout = 16;
+            this.hitTimeout = 0.2;
         }
 
     }
@@ -61,7 +61,7 @@ class Entity{
 
         if (this.hitTimeout > 0){
 
-            this.hitTimeout -=deltaTime;
+            this.hitTimeout -= deltaTime;
         }
 
         //this.position.x -= game.level.speedX/25;
