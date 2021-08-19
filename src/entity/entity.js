@@ -64,9 +64,6 @@ class Entity{
 
             this.hitTimeout -= deltaTime;
         }
-
-        this.tilePosition.x = Math.floor((this.position.x + game.level.range)/24);
-        this.tilePosition.y = Math.floor(this.position.y/29);
     }
 
     getRandom(min, max){

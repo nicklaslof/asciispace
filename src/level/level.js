@@ -9,6 +9,7 @@ import SineballFormation from "../formation/sineballformation.js";
 import GameOverlay from "../ui/gameoverlay.js";
 import UI from "../ui/ui.js";
 import Tile from "./tile.js";
+import AirTile from "./airtile.js";
 
 class Level{
 
@@ -44,8 +45,10 @@ class Level{
                 for (let x = 0; x < this.levelSizeX; x++) {
                     for (let y = 0; y < this.levelSizeY; y++) {
                         var levelChar = data.charAt(x + (y*this.levelSizeX));
-                        if(x == 0 && y == 4) console.log(levelChar);
                         if (levelChar=="#") this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,30,36,20,26);
+
+
+                        if (typeof(this.tiles[x + (y*this.levelSizeX)]) === 'undefined') this.tiles[x + (y*this.levelSizeX)] = new AirTile(x*24, y*29);
                     }
                 }
                 this.ready = true;
@@ -54,6 +57,7 @@ class Level{
 
     tick(game,deltaTime){
         if (!this.ready) return;
+    
         if (game.keys[69] == "keydown"){
             game.keys[69] = "keyup" 
             this.showUpgradePanel = !this.showUpgradePanel;
@@ -71,7 +75,7 @@ class Level{
         this.range += deltaTime*150;
         this.starfield.tick(game, deltaTime);
         
-       /* if (this.currentFormation == null){
+       if (this.currentFormation == null){
             this.formations[0].execute();
             this.currentFormation = this.formations[0];
         }else{
@@ -80,31 +84,18 @@ class Level{
                 this.currentFormation = this.formations[rand];
                 this.currentFormation.execute();
             }
-        }*/
+        }
 
-        //if (Math.floor(this.getRandom(0,500)) == 1){
-       //     var size = Math.floor(this.getRandom(48,96));
-       //     this.entities.push(new Asteroid(W+50,Math.floor(this.getRandom(150,H-150)),size,size).setHealth(8));
-       // }
-        
-      //  this.currentFormation.tick(game,deltaTime);
+        this.currentFormation.tick(game,deltaTime);
 
-      //for (let y = 0; y < this.levelSizeY; y++) {
         var tile = this.tiles[this.player.tilePosition.x + (this.player.tilePosition.y * this.levelSizeX)];
         if (tile != null){
             tile.col = 0xff0000ff;
-     //   }
     }
-
 
         this.entities.forEach(e => {
             e.tick(game,deltaTime);
-            this.entities.forEach(oe => {
-                if (e.disposed || oe.disposed || e.type == "pa" || oe.type == "pa") return;
-                if (e.doesCollide(oe)){
-                    e.collidedWith(game, oe);
-                }
-            });
+            this.checkCollision(game,e);
             if (e.disposed) this.removeEntity(e);
         });
 
@@ -125,8 +116,6 @@ class Level{
             }
         }
 
-        //console.log("rendered "+tileCount+" tiles of "+this.tiles.length);
-
         this.starfield.render(game, interpolationOffset);
 
         this.entities.forEach(e => {
@@ -134,10 +123,21 @@ class Level{
         })
         this.ui.render(game);
         this.gameOverlay.render(game,interpolationOffset);
+    }
 
-       
+    checkCollision(game, entity){
+        this.checkTileForCollision(game, entity, entity.tilePosition.x,entity.tilePosition.y);
+        this.checkTileForCollision(game, entity, entity.tilePosition.x+1,entity.tilePosition.y);
+        this.checkTileForCollision(game, entity, entity.tilePosition.x-1,entity.tilePosition.y);
+        this.checkTileForCollision(game, entity, entity.tilePosition.x,entity.tilePosition.y+1);
+        this.checkTileForCollision(game, entity, entity.tilePosition.x,entity.tilePosition.y-1);
+        
+    }
 
-      //  this.gameOverlay.showUpgrade(game);
+    checkTileForCollision(game,entity,x,y){
+        var tile = this.tiles[x + (y * this.levelSizeX)];
+        if (tile == null) return;
+        tile.checkCollision(game,entity); 
     }
 
     setupFormations(){
@@ -155,6 +155,14 @@ class Level{
                 this.entities.splice(i, 1);
             }
         }
+    }
+
+    addEntityToTile(entity, tileX, tileY){
+        var t = this.tiles[tileX + (tileY * this.levelSizeX)];
+        t.addEntityToTile(entity);
+    }
+    removeEntityFromTile(entity, tileX, tileY){
+        this.tiles[tileX + (tileY * this.levelSizeX)].removeEntityFromTile(entity);
     }
 
     getRandom(min, max){

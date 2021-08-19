@@ -6,6 +6,20 @@ class CollisionEntity extends Entity{
         this.collisionSizeY = sizeY;
     }
 
+    tick(game, deltaTime){
+        super.tick(game,deltaTime);
+        var newTilePosX = Math.floor((this.position.x + game.level.range)/24);
+        var newTilePosY = Math.floor(this.position.y/29);
+
+        if (newTilePosX != this.tilePosition.x || newTilePosY != this.tilePosition.y){
+            game.level.removeEntityFromTile(this, this.tilePosition.x, this.tilePosition.y);
+            game.level.addEntityToTile(this, newTilePosX, newTilePosY);
+        }
+
+        this.tilePosition.x = newTilePosX;
+        this.tilePosition.y = newTilePosY;
+    }
+
     setCustomCollisionSize(sizeX, sizeY){
         this.collisionSizeX = sizeX;
         this.collisionSizeY = sizeY;
