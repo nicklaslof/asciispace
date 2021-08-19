@@ -41,7 +41,7 @@ class Ship extends CollisionEntity{
             }  
         }else if (translateX < 0){
             if (Math.floor(this.getRandom(0,10))==1)
-                game.level.addEntity(new Particle(this.getRandom(this.position.x-10,this.position.x+10), this.getRandom(this.position.y-10, this.position.y+10),0x999999ff,false,22,1).setHealth(40));
+                game.level.addEntity(new Particle(this.getRandom(this.position.x-10,this.position.x+10), this.getRandom(this.position.y-10, this.position.y+10),0x999999ff,false,11,1).setHealth(40));
         }else{
             if (Math.floor(this.getRandom(0,50))==1)
                 game.level.addEntity(new Particle(this.getRandom(this.position.x-30,this.position.x-40), this.getRandom(this.position.y-4, this.position.y+4),0x99999999,true,2,2).setHealth(20));

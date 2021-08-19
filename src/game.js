@@ -45,7 +45,7 @@ class Game{
         this.fps = 0;
        // this.ticks = 0;
 
-        this.last = performance.now();
+        this.last = 0;
     }
     gameloop(){
         if (this.texture.dirty) return;

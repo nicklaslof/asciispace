@@ -24,8 +24,8 @@ class Particle extends Entity{
         if (this.alphaCounter>0) this.alphaCounter -= (15000*deltaTime)/this.maxHealth;
         this.alphaCounter = Math.max(0,this.alphaCounter);
         //console.log(this.alphaCounter);
-        this.sizeX += deltaTime*2;
-        this.sizeY += deltaTime*2;
+        this.sizeX += deltaTime*4;
+        this.sizeY += deltaTime*4;
         this.position.x += this.velocity.x*90*deltaTime;
         this.position.y += this.velocity.y*90*deltaTime;
 

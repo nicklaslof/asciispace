@@ -14,7 +14,8 @@ window.onload = function () {
         gameloop();
         
         function gameloop(){
-            requestAnimationFrame(gameloop);
             game.gameloop();
+            requestAnimationFrame(gameloop);
+
         }
 };
