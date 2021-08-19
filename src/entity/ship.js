@@ -6,10 +6,15 @@ class Ship extends CollisionEntity{
         super(posX, posY, 0,4,18,18,0xffffffff,48,32,"p");
         this.fireDelay = 0;
         this.speed = 300;
+        this.particleDelay = 0;
     }
     tick(game,deltaTime){
         this.fireDelay -= deltaTime;
         if (this.fireDelay < 0) this.fireDelay = 0;
+
+        this.particleDelay -= deltaTime;
+        if (this.particleDelay < 0) this.particleDelay = 0;
+
 
         var translateX = 0;
         var translateY = 0;
@@ -35,17 +40,26 @@ class Ship extends CollisionEntity{
             this.firePressed = false;
         }
 
-        if (translateX > 0){
-            if (Math.floor(this.getRandom(0,10))==1) {
-                game.level.addEntity(new Particle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-15, this.position.y+15),0x99999999,true,2,2).setHealth(40));
-            }  
-        }else if (translateX < 0){
-            if (Math.floor(this.getRandom(0,10))==1)
+        if (translateX > 0 && this.particleDelay == 0){
+            if (Math.floor(this.getRandom(0,2))==1)
+                game.level.addEntity(new Particle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-15, this.position.y+15),0x99999999,true,5,5).setHealth(40));
+            this.particleDelay = 0.01;
+            
+ 
+        }else if (translateX < 0 && this.particleDelay == 0){
+            if (Math.floor(this.getRandom(0,2))==1)
                 game.level.addEntity(new Particle(this.getRandom(this.position.x-10,this.position.x+10), this.getRandom(this.position.y-10, this.position.y+10),0x999999ff,false,11,1).setHealth(40));
+            this.particleDelay = 0.01;
+                
         }else{
-            if (Math.floor(this.getRandom(0,50))==1)
-                game.level.addEntity(new Particle(this.getRandom(this.position.x-30,this.position.x-40), this.getRandom(this.position.y-4, this.position.y+4),0x99999999,true,2,2).setHealth(20));
-        }
+            if (this.particleDelay == 0){
+                if (Math.floor(this.getRandom(0,2))==1){
+                    game.level.addEntity(new Particle(this.getRandom(this.position.x-30,this.position.x-40), this.getRandom(this.position.y-4, this.position.y+4),0x99999999,true,5,5).setHealth(20));
+                }
+                    
+                this.particleDelay = 0.1;
+            }
+    }
 
         game.level.speedX = translateX;
         game.level.speedY = translateY;
