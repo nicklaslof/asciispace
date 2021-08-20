@@ -67,11 +67,11 @@ class UI{
         var posY = 54;
         var gold = game.level.player.gold;
         var metal = game.level.player.metalScrap;
-        if (gold > 99999) gold = "99999"; else gold = (""+gold).padStart(5,0);
-        if (metal > 99999) metal = "99999"; else metal = (""+metal).padStart(5,0);
+        if (gold > 999) gold = "999"; else gold = (""+gold).padStart(3,0);
+        if (metal > 999) metal = "999"; else metal = (""+metal).padStart(3,0);
  
         this.drawTextAt("Gold:"+gold,posX,posY,"white",14);
-        this.drawTextAt("Metal:"+metal,posX+146,posY,"white",14);
+        this.drawTextAt("Metal:"+metal,posX+164,posY,"white",14);
         this.lastGold = game.level.player.gold;
         this.lastMetalScrap = game.level.player.metalScrap;
     }
@@ -83,14 +83,14 @@ class UI{
         this.generateSquare((W/2)-170,(H/2)-250, 22,12,16);
         if (this.upgradeButtons.length == 0){
             var upgradesForCurrentLevel = game.level.upgradeController.getUpgradesForCurrentLevel();
-            this.upgradeButtons.push(new ResourceButton(game,this,(W/2)-150,(H/2)-150,16,10,upgradesForCurrentLevel[0], ()=> {upgradesForCurrentLevel[0].action();game.level.showUpgradePanel=false; this.hideUpgradePanel(game);}));
-            this.upgradeButtons.push(new ResourceButton(game,this,(W/2)+40,(H/2)-150,16,10,upgradesForCurrentLevel[1],()=> {upgradesForCurrentLevel[1].action();game.level.showUpgradePanel=false; this.hideUpgradePanel(game);}));
-            this.upgradeButtons.push(new Button(game,this,(W/2)-150,(H/2)-30,40,5,"             Cancel",()=>{game.level.showUpgradePanel=false; this.hideUpgradePanel(game);}));
+            this.upgradeButtons.push(new ResourceButton((W/2)-150,(H/2)-150,16,10,upgradesForCurrentLevel[0], ()=> {upgradesForCurrentLevel[0].action();game.level.showUpgradePanel=false; this.hideUpgradePanel(game);}));
+            this.upgradeButtons.push(new ResourceButton((W/2)+40,(H/2)-150,16,10,upgradesForCurrentLevel[1],()=> {upgradesForCurrentLevel[1].action();game.level.showUpgradePanel=false; this.hideUpgradePanel(game);}));
+            this.upgradeButtons.push(new Button((W/2)-150,(H/2)-30,40,5,"             Cancel",()=>{game.level.showUpgradePanel=false; this.hideUpgradePanel(game);}));
             this.upgradeButtons[0].selected = true;
         }
 
         this.upgradeButtons.forEach(button => {
-            button.update(this);
+            button.update(game,this);
         });
         
 

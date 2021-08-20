@@ -1,5 +1,5 @@
 class ResourceButton{
-    constructor(game,ui,x,y,w,h,upgrade,onAction) {
+    constructor(x,y,w,h,upgrade,onAction) {
 
 
         this.x = x;
@@ -20,7 +20,7 @@ class ResourceButton{
         if (!this.upgrade.taken) this.onAction();
     }
 
-    update(ui){
+    update(game,ui){
         ui.generateSquare(this.x,this.y,this.w,this.h,8);
         var col = this.selected ? "white":"gray";
 
@@ -30,8 +30,8 @@ class ResourceButton{
             ui.drawTextAt("Already",this.x+10, this.y+96,"red",11);
             ui.drawTextAt("known",this.x+10, this.y+116,"red",11);
         }else{
-            ui.drawTextAt(this.textLine3,this.x+10, this.y+96,col,11);
-            ui.drawTextAt(this.textLine4,this.x+10, this.y+116,col,11);
+            ui.drawTextAt(this.textLine3,this.x+10, this.y+96,this.upgrade.goldCost > game.level.player.gold? "red": "white",11);
+            ui.drawTextAt(this.textLine4,this.x+10, this.y+116,this.upgrade.metalCost > game.level.player.metalScrap? "red": "white",11);
         }
 
     }

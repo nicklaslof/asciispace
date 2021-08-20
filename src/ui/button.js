@@ -1,7 +1,7 @@
 class Button{
 
 
-    constructor(game,ui,x,y,w,h,textLine1,onAction) {
+    constructor(x,y,w,h,textLine1,onAction) {
 
 
         this.x = x;
@@ -20,7 +20,7 @@ class Button{
         this.onAction();
     }
 
-    update(ui){
+    update(game,ui){
         ui.generateSquare(this.x,this.y,this.w,this.h,8);
         var col = this.selected ? "white":"gray";
 
