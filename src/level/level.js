@@ -81,11 +81,12 @@ class Level{
             if (this.showUpgradePanel)
                 this.ui.showUpgradePanel();
             else
-                this.ui.hideUpgradePanel();
+                this.ui.hideUpgradePanel(game);
 
         }
+        this.ui.tick(game);
         if (this.showUpgradePanel){
-            this.ui.tick(game);
+
             return;
         }
 

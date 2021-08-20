@@ -7,6 +7,8 @@ class Ship extends CollisionEntity{
         this.fireDelay = 0;
         this.speed = 300;
         this.particleDelay = 0;
+        this.gold = 0;
+        this.metalScrap = 0;
     }
     tick(game,deltaTime){
         this.fireDelay -= deltaTime;
@@ -71,8 +73,10 @@ class Ship extends CollisionEntity{
     }
     collidedWith(game, otherEntity){
         if (otherEntity.type == "b" && otherEntity.sourceEntity == this) return;
-        if (otherEntity.type == "r"){
+        if (otherEntity.type == "rg" || otherEntity.type == "rm"){
             otherEntity.disposed = true;
+            if (otherEntity.type == "rg") this.gold++;
+            if (otherEntity.type == "rm") this.metalScrap++;
             return;
         }
         this.hit(game,1);

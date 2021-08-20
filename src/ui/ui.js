@@ -10,26 +10,43 @@ class UI{
     }
 
     tick(game){
+        this.tickUpgradePanel(game);
+        this.tickResources(game);
+    }
+
+    tickResources(game){
+        if (this.lastGold != game.level.player.gold || this.lastMetalScrap != game.level.player.metalScrap){
+            this.ctx.clearRect(0,0,W,H);
+            this.updateResources(game);
+        }
+    }
+
+    tickUpgradePanel(game) {
         if (this.upgradePanelNeedUpdate){
             this.updateUpgradePanel(game);
         }
-
-        if (this.upgradePanelShown){
+        if (this.upgradePanelShown) {
             var selectedUpgradeButtonBeforeLoop = this.selectedUpgradeButton;
 
-            if (game.keys[68] == "keydown") this.selectedUpgradeButton++;
-            if (game.keys[65] == "keydown") this.selectedUpgradeButton--;
-            if (game.keys[32] == "keydown") this.upgradeButtons[this.selectedUpgradeButton].action();
+            if (game.keys[68] == "keydown")
+                this.selectedUpgradeButton++;
+            if (game.keys[65] == "keydown")
+                this.selectedUpgradeButton--;
+            if (game.keys[32] == "keydown")
+                this.upgradeButtons[this.selectedUpgradeButton].action();
             game.keys[68] = game.keys[65] = game.keys[32] = "keyup";
 
-            if (this.selectedUpgradeButton>2) this.selectedUpgradeButton = 0;
-            if (this.selectedUpgradeButton<0) this.selectedUpgradeButton = 2;
+            if (this.selectedUpgradeButton > 2)
+                this.selectedUpgradeButton = 0;
+            if (this.selectedUpgradeButton < 0)
+                this.selectedUpgradeButton = 2;
 
-            if (selectedUpgradeButtonBeforeLoop != this.selectedUpgradeButton){
+            if (selectedUpgradeButtonBeforeLoop != this.selectedUpgradeButton) {
                 for (let index = 0; index < this.upgradeButtons.length; index++) {
                     var button = this.upgradeButtons[index];
                     if (index == this.selectedUpgradeButton)
                         button.selected = true;
+
                     else
                         button.selected = false;
                 }
@@ -39,6 +56,20 @@ class UI{
     }
 
     render(game){
+    }
+
+    updateResources(game){
+        var posX = 15;
+        var posY = 54;
+        var gold = game.level.player.gold;
+        var metal = game.level.player.metalScrap;
+        if (gold > 99999) gold = "99999"; else gold = (""+gold).padStart(5,0);
+        if (metal > 99999) metal = "99999"; else metal = (""+metal).padStart(5,0);
+ 
+        this.drawTextAt("Gold:"+gold,posX,posY,"white",14);
+        this.drawTextAt("Metal:"+metal,posX+146,posY,"white",14);
+        this.lastGold = game.level.player.gold;
+        this.lastMetalScrap = game.level.player.metalScrap;
     }
 
     updateUpgradePanel(game){
@@ -60,6 +91,7 @@ class UI{
 
         this.drawTextAt("Select an upgrade:",(W/2)-106,(H/2)-200,"white",22); 
         this.upgradePanelNeedUpdate = false;
+        this.updateResources(game);
     }
 
     showUpgradePanel(){
@@ -67,11 +99,13 @@ class UI{
         this.upgradePanelShown = true;
     }
 
-    hideUpgradePanel(){
+    hideUpgradePanel(game){
         this.ctx.clearRect(0,0,W,H);
         this.upgradeButtons = [];
         this.selectedUpgradeButton = 0;
         this.upgradePanelShown = false;
+
+        this.updateResources(game);
     }
 
     generateSquare(x ,y,width, height, fontSize=16){
