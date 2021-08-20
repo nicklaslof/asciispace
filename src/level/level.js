@@ -24,7 +24,7 @@ class Level{
         this.tiles = [];
 
         this.starfield = new StarField();
-        this.range = 3000;
+        this.levelPositionX = 0;
         this.lastFormation = -2000;
         this.player = new Ship(50,H/2).setHealth(8);
         this.entities.push(this.player);
@@ -45,7 +45,24 @@ class Level{
                 for (let x = 0; x < this.levelSizeX; x++) {
                     for (let y = 0; y < this.levelSizeY; y++) {
                         var levelChar = data.charAt(x + (y*this.levelSizeX));
-                        if (levelChar=="#") this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,30,36,20,26);
+                        if (levelChar=="#") this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,30,36,20,26,0xffda7d84);
+                        if (levelChar=="."){
+
+                            var r = Math.floor(this.getRandom(1,4));
+                            switch(r){
+                                case 1:
+                                    this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,66,40,11,22,0xff444444);
+                                    break;
+                                case 2:
+                                    this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,1,49,11,12,0xff888888);
+                                    break;
+                                case 3:
+                                    this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,98,32,11,16,0xff222222);
+                                    break;
+                            }
+
+                           
+                        } 
 
 
                         if (typeof(this.tiles[x + (y*this.levelSizeX)]) === 'undefined') this.tiles[x + (y*this.levelSizeX)] = new AirTile(x*24, y*29);
@@ -72,7 +89,7 @@ class Level{
             return;
         }
 
-        this.range += deltaTime*150;
+        this.levelPositionX += deltaTime*75;
         this.starfield.tick(game, deltaTime);
         
        if (this.currentFormation == null){
@@ -107,7 +124,7 @@ class Level{
         game.gl.bkg(0.0,0.0,0.08,0);
         game.gl.cls();
         var tileCount = 0;
-        for (let x = Math.floor(this.range/24); x < Math.floor(this.range/24)+60; x++) {
+        for (let x = Math.floor(this.levelPositionX/24); x < Math.floor(this.levelPositionX/24)+60; x++) {
             for (let y = 0; y < this.levelSizeY; y++){
                 let tile = this.tiles[x + (y*this.levelSizeX)];
                 if (tile == null) continue;
@@ -159,6 +176,7 @@ class Level{
 
     addEntityToTile(entity, tileX, tileY){
         var t = this.tiles[tileX + (tileY * this.levelSizeX)];
+        if (t == null) return;
         t.addEntityToTile(entity);
     }
     removeEntityFromTile(entity, tileX, tileY){

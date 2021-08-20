@@ -8,6 +8,12 @@ class EnemyEntity extends CollisionEntity{
         this.dropResource(game);   
     }
 
+    hit(game,h, force){
+        super.hit(game,h,force);
+        for (let index = 0; index < 10; index++) {
+            game.level.addEntity(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),this.c,5,2.5).setHealth(70));
+        }
+    }
 
     dropResource(game){
         for (let index = 0; index < 20; index++) {

@@ -33,7 +33,8 @@ loadImage("level.png").then((image) => {
                 c = (c & 0x0FFFFFF);
 
                 //Based on the color set an asciicharacter in the level textfile
-                if (c == 0xffffff) addToLevel(level,x,y,"#"); // Ground 
+                if (c == 0xffffff) addToLevel(level,x,y,"#"); // Ground
+                if (c == 0xaaaaaa) addToLevel(level,x,y,"."); // Below ground 
             }
         }
     

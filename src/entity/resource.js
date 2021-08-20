@@ -3,6 +3,7 @@ class Resource extends CollisionEntity{
 
     constructor(posX, posY, c, type) {
         super(posX, posY,0,52,16,12,c,32,32,type);
+        this.velocity = {x: this.getRandom(-0.1,0.1), y: this.getRandom(-0.1,0.1)};
     }
 
     tick(game,deltaTime){
@@ -14,6 +15,9 @@ class Resource extends CollisionEntity{
             this.position.x += velocity.x*50*deltaTime*(500/dist);
             this.position.y += velocity.y*50*deltaTime*(500/dist);
             super.tick(game,deltaTime);
+        }else{
+            this.position.x += this.velocity.x*50*deltaTime;
+            this.position.y += this.velocity.y*50*deltaTime;
         }
     }
 
