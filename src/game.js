@@ -63,7 +63,7 @@ class Game{
         this.gl.flush();
         this.counter += deltaTime/1000;
         if (this.counter > 1){
-            console.log(Date.now()+" FPS:"+this.fps);
+           // console.log(Date.now()+" FPS:"+this.fps);
             this.fps = this.ticks = this.counter = 0;
             this.counter = 0;
         }

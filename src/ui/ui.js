@@ -1,4 +1,5 @@
-import Button from "./button.js";
+import ResourceButton from "./resourcebutton.js";
+import Button from "./button.js"
 class UI{
     constructor() {
         this.cv = document.getElementById("u");
@@ -22,6 +23,9 @@ class UI{
     }
 
     tickUpgradePanel(game) {
+
+        console.log("need update:" + this.upgradePanelNeedUpdate +" panelshown:"+this.upgradePanelShown);
+        if (!this.upgradePanelShown) return;
         if (this.upgradePanelNeedUpdate){
             this.updateUpgradePanel(game);
         }
@@ -78,9 +82,10 @@ class UI{
         this.ctx.fillRect((W/2)-170,(H/2)-235,22*16,(18*16)-5)
         this.generateSquare((W/2)-170,(H/2)-250, 22,12,16);
         if (this.upgradeButtons.length == 0){
-            this.upgradeButtons.push(new Button(game,this,(W/2)-150,(H/2)-150,16,10,"Increased", "range"));
-            this.upgradeButtons.push(new Button(game,this,(W/2)+40,(H/2)-150,16,10,"Stronger", "bullets"));
-            this.upgradeButtons.push(new Button(game,this,(W/2)-150,(H/2)-30,40,5,"             Cancel", "",()=>{this.hideUpgradePanel();game.level.showUpgradePanel=false}));
+            var upgradesForCurrentLevel = game.level.upgradeController.getUpgradesForCurrentLevel();
+            this.upgradeButtons.push(new ResourceButton(game,this,(W/2)-150,(H/2)-150,16,10,upgradesForCurrentLevel[0], ()=> {upgradesForCurrentLevel[0].action();game.level.showUpgradePanel=false; this.hideUpgradePanel(game);}));
+            this.upgradeButtons.push(new ResourceButton(game,this,(W/2)+40,(H/2)-150,16,10,upgradesForCurrentLevel[1],()=> {upgradesForCurrentLevel[1].action();game.level.showUpgradePanel=false; this.hideUpgradePanel(game);}));
+            this.upgradeButtons.push(new Button(game,this,(W/2)-150,(H/2)-30,40,5,"             Cancel",()=>{game.level.showUpgradePanel=false; this.hideUpgradePanel(game);}));
             this.upgradeButtons[0].selected = true;
         }
 

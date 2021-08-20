@@ -10,6 +10,7 @@ import GameOverlay from "../ui/gameoverlay.js";
 import UI from "../ui/ui.js";
 import Tile from "./tile.js";
 import AirTile from "./airtile.js";
+import UpgradeController from "../upgrade/upgradecontroller.js";
 
 class Level{
 
@@ -36,6 +37,8 @@ class Level{
         this.ui = new UI();
        
         this.showUpgradePanel = false;
+
+        this.upgradeController = new UpgradeController(this);
 
         this.ready = false;
 

@@ -9,6 +9,8 @@ class Ship extends CollisionEntity{
         this.particleDelay = 0;
         this.gold = 0;
         this.metalScrap = 0;
+        this.shootRange = 200;
+        this.bulletStrength = 1;
     }
     tick(game,deltaTime){
         this.fireDelay -= deltaTime;
@@ -36,7 +38,7 @@ class Ship extends CollisionEntity{
         game.level.starfield.offsetY = -translateY/3000;
 
         if (this.firePressed && this.fireDelay == 0){
-            game.level.addEntity(new Bullet(this.position.x+16, this.position.y).setSource(this));
+            game.level.addEntity(new Bullet(this.position.x+16, this.position.y,this.shootRange).setSource(this));
             this.fireDelay = 0.5;
         }else{
             this.firePressed = false;

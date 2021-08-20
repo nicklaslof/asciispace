@@ -1,6 +1,6 @@
 import Heart from "../entity/heart.js";
 import GlTexture from "../graphic/gltexture.js";
-import Button from "./button.js";
+import Button from "./resourcebutton.js";
 class GameOverlay{
 
     constructor() {
