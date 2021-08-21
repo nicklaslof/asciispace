@@ -19,7 +19,7 @@ loadImage("level.png").then((image) => {
         //Draw the image and then loop over it
         for (let x = 0; x < width; x++) {
             for (let y = 0; y < height; y++) {
-                console.log(x+" "+y);
+                //console.log(x+" "+y);
                 //Get the color of the pixel
                 let c = new Uint32Array(ctx.getImageData(x, y, 1, 1).data.buffer);
                 //Bit shift the color to extract just the alpha value
@@ -35,6 +35,12 @@ loadImage("level.png").then((image) => {
                 //Based on the color set an asciicharacter in the level textfile
                 if (c == 0xffffff) addToLevel(level,x,y,"#"); // Ground
                 if (c == 0xaaaaaa) addToLevel(level,x,y,"."); // Below ground 
+
+                if (c == 0x0000ff) addToLevel(level,x,y,"B"); // Formation 2
+                if (c == 0x6666ff) addToLevel(level,x,y,"C"); // Formation 3
+
+                if (c == 0xee4feb) addToLevel(level,x,y,"a"); // Shooter 1
+
             }
         }
     
@@ -53,6 +59,7 @@ function saveLevel(filename, data){
 
 function addToLevel(level,x,y,data){
     //if (x == 33 && y == 3) console.log(x+" "+ y +" " +data);
+    console.log(x+ " "+y+" "+data);
     level[x + (y*width)] = data;
 }
 

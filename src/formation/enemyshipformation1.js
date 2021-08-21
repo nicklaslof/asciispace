@@ -6,6 +6,7 @@ class EnemyShipFormation1 extends Formation{
         super(level);
         this.xSpeed = 400;
         this.ySpeed = 300;
+        this.execute();
     }
 
     execute(){

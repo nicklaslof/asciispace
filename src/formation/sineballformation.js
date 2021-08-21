@@ -2,8 +2,8 @@ import Formation from "./formation.js";
 import Ball from "../entity/ball.js";
 class SineballFormation extends Formation{
 
-    constructor(level) {
-        super(level);
+    constructor(level,x,y) {
+        super(level,x,y);
     }
 
     execute(){

@@ -11,6 +11,7 @@ import UI from "../ui/ui.js";
 import Tile from "./tile.js";
 import AirTile from "./airtile.js";
 import UpgradeController from "../upgrade/upgradecontroller.js";
+import Shooter1 from "../entity/shooter1.js";
 
 class Level{
 
@@ -21,11 +22,15 @@ class Level{
         this.game = game;
         this.gameOverlay = new GameOverlay();
         this.entities = [];
+        this.entitiesToSpawn = [];
         this.formations = [];
+        this.formationTemplates = [];
+        this.activeFormations = [];
         this.tiles = [];
 
         this.starfield = new StarField();
-        this.levelPositionX = 0;
+        this.levelPositionX = -250;
+        this.lastCheckedTilePostionX = 0;
         this.lastFormation = -2000;
         this.player = new Ship(50,H/2).setHealth(8);
         this.entities.push(this.player);
@@ -47,6 +52,7 @@ class Level{
             .then(data => {
                 for (let x = 0; x < this.levelSizeX; x++) {
                     for (let y = 0; y < this.levelSizeY; y++) {
+                        this.tiles[x + (y*this.levelSizeX)] = new AirTile(x*24, y*29);
                         var levelChar = data.charAt(x + (y*this.levelSizeX));
                         if (levelChar=="#") this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,30,36,20,26,0xffda7d84);
                         if (levelChar=="."){
@@ -63,12 +69,15 @@ class Level{
                                     this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,98,32,11,16,0xff222222);
                                     break;
                             }
+                        }
+                        if (levelChar=="B" || levelChar == "C"){
+                            this.formations[x + (y* this.levelSizeX)] = levelChar;
+                        }
 
-                           
-                        } 
-
-
-                        if (typeof(this.tiles[x + (y*this.levelSizeX)]) === 'undefined') this.tiles[x + (y*this.levelSizeX)] = new AirTile(x*24, y*29);
+                        if (levelChar=="a"){
+                            console.log(x +" "+y);
+                            this.entitiesToSpawn[x + (y * this.levelSizeX)] = levelChar;
+                        }
                     }
                 }
                 this.ready = true;
@@ -89,25 +98,38 @@ class Level{
         }
         this.ui.tick(game);
         if (this.showUpgradePanel){
-
             return;
         }
 
         this.levelPositionX += deltaTime*75;
         this.starfield.tick(game, deltaTime);
-        
-       if (this.currentFormation == null){
-            this.formations[0].execute();
-            this.currentFormation = this.formations[0];
-        }else{
-            if (this.currentFormation.done){
-                var rand = Math.floor(this.getRandom(0,this.formations.length));
-                this.currentFormation = this.formations[rand];
-                this.currentFormation.execute();
+
+        var levelTilePositionX = Math.floor((this.levelPositionX/24)+42);
+
+        if (this.lastCheckedTilePostionX < levelTilePositionX){
+            this.lastCheckedTilePostionX = levelTilePositionX;
+            var x = this.lastCheckedTilePostionX;
+            for (let y = 0; y < this.levelSizeY; y++) {
+                var formation = this.formations[x + (y * this.levelSizeX)];
+                if (formation != null){
+                    console.log("Adding formation "+formation);
+                    if (formation == "B") this.activeFormations.push(new EnemyShipFormation1(this));
+                    if (formation == "C") this.activeFormations.push(new EnemyShipFormation2(this));
+                }
+
+                var entityToSpawn = this.entitiesToSpawn[x + (y * this.levelSizeX)];
+                if (entityToSpawn != null){
+                    console.log("Adding entity "+entityToSpawn);
+                    if (entityToSpawn == "a") this.addEntity(new Shooter1(W,(y+0.10)*30));
+                }
+
             }
         }
 
-        this.currentFormation.tick(game,deltaTime);
+
+        this.activeFormations.forEach(f => {
+            f.tick(game,deltaTime);
+        });
 
         var tile = this.tiles[this.player.tilePosition.x + (this.player.tilePosition.y * this.levelSizeX)];
         if (tile != null){
@@ -127,6 +149,7 @@ class Level{
     render(game,interpolationOffset){
         game.gl.bkg(0.0,0.0,0.04,0);
         game.gl.cls();
+        this.starfield.render(game, interpolationOffset);
         var tileCount = 0;
         for (let x = Math.floor(this.levelPositionX/24); x < Math.floor(this.levelPositionX/24)+60; x++) {
             for (let y = 0; y < this.levelSizeY; y++){
@@ -137,7 +160,7 @@ class Level{
             }
         }
 
-        this.starfield.render(game, interpolationOffset);
+
 
         this.entities.forEach(e => {
             e.render(game,interpolationOffset);
@@ -162,9 +185,9 @@ class Level{
     }
 
     setupFormations(){
-        this.formations.push(new SineballFormation(this));
-        this.formations.push(new EnemyShipFormation1(this));
-        this.formations.push(new EnemyShipFormation2(this));
+       // this.formationTemplates.push(new SineballFormation(this));
+       // this.formationTemplates.push(new EnemyShipFormation1(this));
+       // this.formationTemplates.push(new EnemyShipFormation2(this));
     }
 
     addEntity(entity){
@@ -184,6 +207,7 @@ class Level{
         t.addEntityToTile(entity);
     }
     removeEntityFromTile(entity, tileX, tileY){
+        if (tileX > this.levelSizeX-1 || tileX < 0 || tileY > this.levelSizeY-1 || tileY < 0) return;
         this.tiles[tileX + (tileY * this.levelSizeX)].removeEntityFromTile(entity);
     }
 

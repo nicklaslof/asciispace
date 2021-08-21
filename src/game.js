@@ -40,16 +40,11 @@ class Game{
         this.gl.flush();
         this.counter += deltaTime/1000;
         if (this.counter > 1){
-           // console.log(Date.now()+" FPS:"+this.fps);
+            console.log(Date.now()+" FPS:"+this.fps);
             this.fps = this.ticks = this.counter = 0;
             this.counter = 0;
         }
         
-
-        if (this.counter > 1000){
-            console.log("FPS:"+this.fps+" Ticks:"+this.ticks);
-            this.fps = this.ticks = this.counter = 0;
-        }
     }
     playExplosion(){
         zzfx(20000,...[2.44,,375,.03,.05,.35,2,3.15,,.4,,,.06,.7,-6,.7,.05,.59,.06]);
