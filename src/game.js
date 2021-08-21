@@ -1,6 +1,7 @@
 import AsciiTexture from "./graphic/asciitexture.js";
 import GlTexture from "./graphic/gltexture.js";
 import Level from "./level/level.js";
+import { zzfx } from "./lib/z.js";
 
 class Game{
     constructor(){
@@ -46,6 +47,10 @@ class Game{
        // this.ticks = 0;
 
         this.last = 0;
+        this.playBackgroundSound();
+        console.log(zzfx);
+        setInterval(()=>{this.playBackgroundSound();},3000);
+        
     }
     gameloop(){
         if (this.texture.dirty) return;
@@ -99,26 +104,37 @@ class Game{
         }*/
     }
     playExplosion(){
-        zzfx(...[2.44,,375,.03,.05,.35,2,3.15,,.4,,,.06,.7,-6,.7,.05,.59,.06]);
+        zzfx(20000,...[2.44,,375,.03,.05,.35,2,3.15,,.4,,,.06,.7,-6,.7,.05,.59,.06]);
     }
     playPickup(){
-        zzfx(...[,,1123,,.03,.18,,.23,,,,,,,,,,.59,.01]);
+        zzfx(20000,...[,,1123,,.03,.18,,.23,,,,,,,,,,.59,.01]);
     }
 
     playHit(){
-        zzfx(...[1.03,,340,,.06,.09,4,1.15,-2.7,2.3,,,,.8,,.3,,.56,.03,.04]);
+        zzfx(20000,...[1.03,,340,,.06,.09,4,1.15,-2.7,2.3,,,,.8,,.3,,.56,.03,.04]);
     }
 
     playShoot(){
-        zzfx(...[,,475,,.07,.03,,.96,6.3,-0.1,,,,,,,,.83,.01,.29]);
+        zzfx(20000,...[,,475,,.07,.03,,.96,6.3,-0.1,,,,,,,,.83,.01,.29]);
     }
 
     playPowerup(){
-        zzfx(...[1.36,,601,.04,.21,.92,,1.97,,-1.8,69,.03,.2,,,,.12,.92]);
+        zzfx(20000,...[1.36,,601,.04,.21,.92,,1.97,,-1.8,69,.03,.2,,,,.12,.92]);
     }
 
     playDenied(){
-        zzfx(...[1.05,,85,,.04,.22,2,1.63,,,,,,.2,,,,.65,.03]);
+        zzfx(20000,...[1.05,,85,,.04,.22,2,1.63,,,,,,.2,,,,.65,.03]);
+    }
+
+    playBlip1(){
+        zzfx(20000,...[1.99,,58,.03,.01,.02,,.3,,31,-30,.16,,,,,.05,,.01,.13]);
+    }
+
+    playBackgroundSound(){
+        if (Math.random()<0.5) zzfx(1000,...[.5,100,3e3,,3,.04,1,7.3,,,3333,,.04]);
+        else
+        zzfx(1000,...[.5,100,3e3,,3,0,1,7.3,,,50,,.04]);
+
     }
 }
 export default Game;

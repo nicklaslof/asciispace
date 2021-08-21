@@ -34,6 +34,7 @@ class UI{
 
             if (game.keys[68] == "keydown")
                 this.selectedUpgradeButton++;
+                
             if (game.keys[65] == "keydown")
                 this.selectedUpgradeButton--;
             if (game.keys[32] == "keydown")
@@ -48,6 +49,7 @@ class UI{
             if (selectedUpgradeButtonBeforeLoop != this.selectedUpgradeButton) {
                 for (let index = 0; index < this.upgradeButtons.length; index++) {
                     var button = this.upgradeButtons[index];
+                    game.playBlip1();
                     if (index == this.selectedUpgradeButton)
                         button.selected = true;
 
