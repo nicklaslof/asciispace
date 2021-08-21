@@ -9,7 +9,6 @@ class Upgrade{
         this.level = level;
         this.taken = false;
         this.player = player;
-        console.log(this.player);
     }
 
     action(game){

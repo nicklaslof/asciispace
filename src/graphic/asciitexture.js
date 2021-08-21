@@ -50,17 +50,12 @@ class AsciiTexture{
 
 
     addAsciiart(textContext,ascii, x,y, maxWidth){
-        console.log(ascii);
         var lines = ascii.split("n");
         for (let index = 0; index < lines.length; index++) {
             var line = lines[index];
-            console.log(line);
             textContext.fillText(line,x,y,maxWidth);
             y +=28;
         }
-
-
     }
-
 }
 export default AsciiTexture;

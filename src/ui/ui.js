@@ -23,8 +23,6 @@ class UI{
     }
 
     tickUpgradePanel(game) {
-
-        console.log("need update:" + this.upgradePanelNeedUpdate +" panelshown:"+this.upgradePanelShown);
         if (!this.upgradePanelShown) return;
         if (this.upgradePanelNeedUpdate){
             this.updateUpgradePanel(game);

@@ -13,43 +13,15 @@ class Game{
         this.ascii = new AsciiTexture();
         this.texture = new GlTexture(this.gl.g,this.ascii.image);
 
-        /*var player = new CPlayer();
-        player.init(song);
-        //player.generate();
-        var done = false;
-        var audio = document.createElement("audio");
-        audio.play();
-        setInterval(function () {
-            if (done) {
-              return;
-            }
-            done = player.generate() >= 1;
-            if (done) {
-                var wave = player.createWave();
-                var audio = document.createElement("audio");
-                audio.loop = true;
-                audio.src = URL.createObjectURL(new Blob([wave], {type: "audio/wav"}));
-                audio.play();
-            }
-        });*/
-
-
-       
-
-       // this.tickRate = 1000/60;
-       // this.accumulator = 0;
-
         this.level = new Level(this);
         this.keys =[];
         onkeydown=onkeyup=e=> this.keys[e.keyCode] = e.type;
         this.counter = 0;
         this.fps = 0;
-       // this.ticks = 0;
 
         this.last = 0;
         this.playBackgroundSound();
-        console.log(zzfx);
-        setInterval(()=>{this.playBackgroundSound();},3000);
+        setInterval(()=>{this.playBackgroundSound();},6000);
         
     }
     gameloop(){
@@ -57,7 +29,7 @@ class Game{
         
         var now = performance.now();
         var deltaTime = now - this.last;
-        if (deltaTime>200){
+        if (deltaTime>1000){
             console.log(deltaTime);
             deltaTime = 0;
         }
@@ -72,36 +44,12 @@ class Game{
             this.fps = this.ticks = this.counter = 0;
             this.counter = 0;
         }
-        /*var now = performance.now();
-        var deltaTime = now - this.last;
-        this.counter += deltaTime;
-
-        this.last = now;
-
-        this.accumulator += deltaTime;
-
-        var ticked = false;
-
-        while(this.accumulator >= this.tickRate) {
-            this.level.tick(this);
-            this.accumulator -= this.tickRate;
-            this.ticks++;
-            ticked = true;
-        }
-
-        //if (ticked){
-            var interpolationOffset = this.accumulator / this.tickRate;
         
-            this.level.render(this, interpolationOffset);
-            this.fps++;
-            this.gl.flush();
-     //  }
-
 
         if (this.counter > 1000){
             console.log("FPS:"+this.fps+" Ticks:"+this.ticks);
             this.fps = this.ticks = this.counter = 0;
-        }*/
+        }
     }
     playExplosion(){
         zzfx(20000,...[2.44,,375,.03,.05,.35,2,3.15,,.4,,,.06,.7,-6,.7,.05,.59,.06]);
@@ -131,9 +79,12 @@ class Game{
     }
 
     playBackgroundSound(){
-        if (Math.random()<0.5) zzfx(1000,...[.5,100,3e3,,3,.04,1,7.3,,,3333,,.04]);
+        var r = Math.random();
+        if (r<0.3) zzfx(1500,...[.5,100,3e3,,6,.04,1,7.3,,,3333,,.04]);
+        else if (r>0.3 && r < 0.7)
+        zzfx(1500,...[.5,100,3e3,,6,0,1,7.3,,,50,,.04]);
         else
-        zzfx(1000,...[.5,100,3e3,,3,0,1,7.3,,,50,,.04]);
+        zzfx(1500,...[.2,100,3e3,,3,0,1,11.2,,,250,,.03,,,,.67]);
 
     }
 }
