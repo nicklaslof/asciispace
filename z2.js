@@ -1,1 +1,46 @@
-"use strict";export function zzfx(...t){return ZZFX.play(...t)}export const ZZFX={volume:.3,sampleRate:44100,x:new(window.AudioContext||webkitAudioContext),play:function(t,...e){return this.playSamples(t,this.buildSamples(...e))},playSamples:function(t,...e){const a=this.x.createBuffer(e.length,e[0].length,this.sampleRate),n=this.x.createBufferSource();e.map((t,e)=>a.getChannelData(e).set(t)),n.buffer=a;let s=this.x.createBiquadFilter();return s.connect(this.x.destination),n.connect(s),s.frequency.value=t,n.start(),n},buildSamples:function(t=1,e=.05,a=220,n=0,s=0,i=.1,o=0,r=1,h=0,u=0,l=0,c=0,f=0,p=0,m=0,M=0,x=0,d=1,b=0,y=0){const S=2*Math.PI;let g,w,Z=this.sampleRate,v=t=>t>0?1:-1,B=h*=500*S/Z/Z,C=a*=(1+2*e*Math.random()-e)*S/Z,F=[],R=0,q=0,z=0,A=1,X=0,k=0,D=0;for(u*=500*S/Z**3,m*=S/Z,l*=S/Z,c*=Z,f=f*Z|0,w=(n=n*Z+9)+(b*=Z)+(s*=Z)+(i*=Z)+(x*=Z)|0;z<w;F[z++]=D)++k%(100*M|0)||(D=o?o>1?o>2?o>3?Math.sin((R%S)**3):Math.max(Math.min(Math.tan(R),1),-1):1-(2*R/S%2+2)%2:1-4*Math.abs(Math.round(R/S)-R/S):Math.sin(R),D=(f?1-y+y*Math.sin(S*z/f):1)*v(D)*Math.abs(D)**r*t*this.volume*(z<n?z/n:z<n+b?1-(z-n)/b*(1-d):z<n+b+s?d:z<w-x?(w-z-x)/i*d:0),D=x?D/2+(x>z?0:(z<w-x?1:(w-z)/x)*F[z-x|0]/2):D),R+=(g=(a+=h+=u)*Math.cos(m*q++))-g*p*(1-1e9*(Math.sin(z)+1)%2),A&&++A>c&&(a+=l,C+=l,A=0),!f||++X%f||(a=C,h=B,A=A||1);return F},getNote:function(t=0,e=440){return e*2**(t/12)}};
+// ZzFXMicro - Zuper Zmall Zound Zynth - v1.1.7 ~ 884 bytes minified
+zzfxV = .3 // volume
+zzfx = // play sound
+	(lp = 20000,p = 1, k = .05, b = 220, e = 0, r = 0, t = .1, q = 0, D = 1, u = 0, y = 0, v = 0, z = 0, l = 0, E = 0, A = 0, F = 0, c = 0, w = 1, m = 0, B = 0) => {
+		let
+			M = Math,
+			R = 44100,
+			d = 2 * M.PI,
+			G = u *= 500 * d / R / R,
+			C = b *= (1 - k + 2 * k * M.random(k = [])) * d / R,
+			g = 0,
+			H = 0,
+			a = 0,
+			n = 1,
+			I = 0,
+			J = 0,
+			f = 0,
+			x, h;
+		e = R * e + 9;
+		m *= R;
+		r *= R;
+		t *= R;
+		c *= R;
+		y *= 500 * d / R ** 3;
+		A *= d / R;
+		v *= d / R;
+		z *= R;
+		l = R * l | 0;
+		for (h = e + m +
+			r + t + c | 0; a < h; k[a++] = f) ++J % (100 * F | 0) || (f = q ? 1 < q ? 2 < q ? 3 < q ? M.sin((g % d) ** 3) : M.max(M.min(M.tan(g), 1), -1) : 1 - (2 * g / d % 2 + 2) % 2 : 1 - 4 * M.abs(M.round(g / d) - g / d) : M.sin(g), f = (l ? 1 - B + B * M.sin(d * a / l) : 1) * (0 < f ? 1 :
+				-1) * M.abs(f) ** D * p * zzfxV * (a < e ? a / e : a < e + m ? 1 - (a - e) / m * (1 - w) : a < e + m + r ? w : a < h - c ? (h - a - c) / t * w : 0), f = c ? f /
+			2 + (c > a ? 0 : (a < h - c ? 1 : (h - a) / c) * k[a - c | 0] / 2) : f), x = (b += u += y) * M.cos(A * H++), g += x - x * E * (1 - 1E9 * (M.sin(a) +
+			1) % 2), n && ++n > z && (b += v, C += v, n = 0), !l || ++I % l || (b = C, u = G, n = n || 1);
+		p = zzfxX.createBuffer(1, h, R);
+        e = zzfxX.createBiquadFilter();
+        e.connect(zzfxX.destination);
+		p.
+		getChannelData(0).set(k);
+        e.frequency.value = lp;
+		b = zzfxX.createBufferSource();
+		b.buffer = p;
+		b.connect(e);
+		b.start();
+		return b
+	};
+zzfxX = new(window.AudioContext || webkitAudioContext) // audio context

@@ -1,7 +1,7 @@
 import AsciiTexture from "./graphic/asciitexture.js";
 import GlTexture from "./graphic/gltexture.js";
 import Level from "./level/level.js";
-import { zzfx } from "./lib/z.js";
+//import { zzfx } from "./lib/z.js";
 
 class Game{
     constructor(){
