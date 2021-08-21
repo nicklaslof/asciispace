@@ -125,7 +125,7 @@ class Level{
     }
 
     render(game,interpolationOffset){
-        game.gl.bkg(0.0,0.0,0.08,0);
+        game.gl.bkg(0.0,0.0,0.04,0);
         game.gl.cls();
         var tileCount = 0;
         for (let x = Math.floor(this.levelPositionX/24); x < Math.floor(this.levelPositionX/24)+60; x++) {

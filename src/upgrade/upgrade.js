@@ -1,10 +1,10 @@
 class Upgrade{
-    constructor(player, string1, string2, metalCost, goldCost, onAction, level) {
+    constructor(player, string1, string2, metalCost, mineralCost, onAction, level) {
         this.player = player;
         this.string1 = string1;
         this.string2 = string2;
         this.metalCost = metalCost;
-        this.goldCost = goldCost;
+        this.mineralCost = mineralCost;
         this.onAction = onAction;
         this.level = level;
         this.taken = false;
@@ -13,9 +13,9 @@ class Upgrade{
     }
 
     action(){
-        if (this.player.gold < this.goldCost || this.player.metalScrap < this.metalCost) return;
+        if (this.player.mineral < this.mineralCost || this.player.metalScrap < this.metalCost) return;
 
-        this.player.gold -= this.goldCost;
+        this.player.mineral -= this.mineralCost;
         this.player.metalScrap -= this.metalCost;
         this.taken = true;
         this.onAction();

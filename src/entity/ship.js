@@ -7,7 +7,7 @@ class Ship extends CollisionEntity{
         this.fireDelay = 0;
         this.speed = 300;
         this.particleDelay = 0;
-        this.gold = 0;
+        this.mineral = 0;
         this.metalScrap = 0;
         this.shootRange = 200;
         this.bulletStrength = 1;
@@ -77,7 +77,7 @@ class Ship extends CollisionEntity{
         if (otherEntity.type == "b" && otherEntity.sourceEntity == this) return;
         if (otherEntity.type == "rg" || otherEntity.type == "rm"){
             otherEntity.disposed = true;
-            if (otherEntity.type == "rg") this.gold++;
+            if (otherEntity.type == "rg") this.mineral++;
             if (otherEntity.type == "rm") this.metalScrap++;
             return;
         }

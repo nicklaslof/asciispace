@@ -1,7 +1,7 @@
 import Entity from "./entity.js";
 
 class Particle extends Entity{
-    constructor(posX, posY, col, movements=true, sizeX=10, sizeY=5){
+    constructor(posX, posY, col, movements=true, sizeX=10, sizeY=5, speed=90){
         super(posX,posY,0,52,16,12,col,sizeX,sizeY,"pa");
         this.alphaCounter = 255;
         this.alpha = (col >>> 24) & 0xFF;
@@ -9,6 +9,7 @@ class Particle extends Entity{
         this.green = (col >>>  8) & 0xFF;
         this.blue  = (col >>>  0) & 0xFF;
         this.ttl = 1;
+        this.speed = speed;
         if (movements)
             this.velocity = {x:this.getRandom(-1,1), y: this.getRandom(-1,1)};
         else
@@ -26,8 +27,8 @@ class Particle extends Entity{
         //console.log(this.alphaCounter);
         this.sizeX += deltaTime*4;
         this.sizeY += deltaTime*4;
-        this.position.x += this.velocity.x*90*deltaTime;
-        this.position.y += this.velocity.y*90*deltaTime;
+        this.position.x += this.velocity.x*this.speed*deltaTime;
+        this.position.y += this.velocity.y*this.speed*deltaTime;
 
         this.c = (this.alphaCounter & 0xff) << 24 | (this.red & 0xff) << 16 | (this.green & 0xff) << 8 | (this.blue & 0xff);
     }

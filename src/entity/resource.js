@@ -3,7 +3,7 @@ import Particle from "./particle.js";
 class Resource extends CollisionEntity{
 
     constructor(posX, posY, c, type) {
-        super(posX, posY,0,52,16,12,c,32,32,type);
+        super(posX, posY,128,36,16,24,c,16,16,type);
         this.velocity = {x: this.getRandom(-0.1,0.1), y: this.getRandom(-0.1,0.1)};
         this.particleDelay = 0;
     }
@@ -27,7 +27,7 @@ class Resource extends CollisionEntity{
 
         if (this.particleDelay == 0){
             if (Math.floor(this.getRandom(0,4))==1)
-                game.level.addEntity(new Particle(this.getRandom(this.position.x-10,this.position.x+10), this.getRandom(this.position.y-10, this.position.y+10),this.c,true,8,1).setHealth(40));
+                game.level.addEntity(new Particle(this.getRandom(this.position.x-10,this.position.x+10), this.getRandom(this.position.y-10, this.position.y+10),this.c,true,8,1,20).setHealth(40));
             this.particleDelay = 0.01;
         }
 

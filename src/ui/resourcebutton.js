@@ -8,7 +8,7 @@ class ResourceButton{
         this.h = h;
         this.textLine1 = upgrade.string1;
         this.textLine2 = upgrade.string2;
-        this.textLine3 = "Gold cost:"+upgrade.goldCost;
+        this.textLine3 = "Mineral cost:"+upgrade.mineralCost;
         this.textLine4 = "Metal cost:"+upgrade.metalCost;
         this.selected = false;
         this.upgrade = upgrade;
@@ -30,7 +30,7 @@ class ResourceButton{
             ui.drawTextAt("Already",this.x+10, this.y+96,"red",11);
             ui.drawTextAt("known",this.x+10, this.y+116,"red",11);
         }else{
-            ui.drawTextAt(this.textLine3,this.x+10, this.y+96,this.upgrade.goldCost > game.level.player.gold? "red": "white",11);
+            ui.drawTextAt(this.textLine3,this.x+10, this.y+96,this.upgrade.mineralCost > game.level.player.mineral? "red": "white",11);
             ui.drawTextAt(this.textLine4,this.x+10, this.y+116,this.upgrade.metalCost > game.level.player.metalScrap? "red": "white",11);
         }
 

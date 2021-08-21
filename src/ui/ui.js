@@ -16,7 +16,7 @@ class UI{
     }
 
     tickResources(game){
-        if (this.lastGold != game.level.player.gold || this.lastMetalScrap != game.level.player.metalScrap){
+        if (this.lastmineral != game.level.player.mineral || this.lastMetalScrap != game.level.player.metalScrap){
             this.ctx.clearRect(0,0,W,H);
             this.updateResources(game);
         }
@@ -65,14 +65,15 @@ class UI{
     updateResources(game){
         var posX = 15;
         var posY = 54;
-        var gold = game.level.player.gold;
+        var mineral = game.level.player.mineral;
         var metal = game.level.player.metalScrap;
-        if (gold > 999) gold = "999"; else gold = (""+gold).padStart(3,0);
+        if (mineral > 999) mineral = "999"; else mineral = (""+mineral).padStart(3,0);
         if (metal > 999) metal = "999"; else metal = (""+metal).padStart(3,0);
- 
-        this.drawTextAt("Gold:"+gold,posX,posY,"white",14);
-        this.drawTextAt("Metal:"+metal,posX+164,posY,"white",14);
-        this.lastGold = game.level.player.gold;
+        this.drawTextAt("Mineral:",posX,posY,"#e180ff",14);
+        this.drawTextAt(mineral,posX+70,posY,"white",14);
+        this.drawTextAt("Metal:",posX+154,posY,"#999999",14);
+        this.drawTextAt(metal,posX+154+55,posY,"white",14);
+        this.lastmineral = game.level.player.mineral;
         this.lastMetalScrap = game.level.player.metalScrap;
     }
 
