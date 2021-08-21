@@ -38,6 +38,7 @@ class Ship extends CollisionEntity{
         game.level.starfield.offsetY = -translateY/3000;
 
         if (this.firePressed && this.fireDelay == 0){
+            game.playShoot();
             game.level.addEntity(new Bullet(this.position.x+16, this.position.y,this.shootRange).setSource(this));
             this.fireDelay = 0.5;
         }else{
@@ -76,6 +77,7 @@ class Ship extends CollisionEntity{
     collidedWith(game, otherEntity){
         if (otherEntity.type == "b" && otherEntity.sourceEntity == this) return;
         if (otherEntity.type == "rg" || otherEntity.type == "rm"){
+            game.playPickup();
             otherEntity.disposed = true;
             if (otherEntity.type == "rg") this.mineral++;
             if (otherEntity.type == "rm") this.metalScrap++;

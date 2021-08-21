@@ -37,7 +37,7 @@ class UI{
             if (game.keys[65] == "keydown")
                 this.selectedUpgradeButton--;
             if (game.keys[32] == "keydown")
-                this.upgradeButtons[this.selectedUpgradeButton].action();
+                this.upgradeButtons[this.selectedUpgradeButton].action(game);
             game.keys[68] = game.keys[65] = game.keys[32] = "keyup";
 
             if (this.selectedUpgradeButton > 2)
@@ -84,8 +84,8 @@ class UI{
         this.generateSquare((W/2)-170,(H/2)-250, 22,12,16);
         if (this.upgradeButtons.length == 0){
             var upgradesForCurrentLevel = game.level.upgradeController.getUpgradesForCurrentLevel();
-            this.upgradeButtons.push(new ResourceButton((W/2)-150,(H/2)-150,16,10,upgradesForCurrentLevel[0], ()=> {upgradesForCurrentLevel[0].action();game.level.showUpgradePanel=false; this.hideUpgradePanel(game);}));
-            this.upgradeButtons.push(new ResourceButton((W/2)+40,(H/2)-150,16,10,upgradesForCurrentLevel[1],()=> {upgradesForCurrentLevel[1].action();game.level.showUpgradePanel=false; this.hideUpgradePanel(game);}));
+            this.upgradeButtons.push(new ResourceButton((W/2)-150,(H/2)-150,16,10,upgradesForCurrentLevel[0], ()=> {upgradesForCurrentLevel[0].action(game);game.level.showUpgradePanel=false; this.hideUpgradePanel(game);}));
+            this.upgradeButtons.push(new ResourceButton((W/2)+40,(H/2)-150,16,10,upgradesForCurrentLevel[1],()=> {upgradesForCurrentLevel[1].action(game);game.level.showUpgradePanel=false; this.hideUpgradePanel(game);}));
             this.upgradeButtons.push(new Button((W/2)-150,(H/2)-30,40,5,"             Cancel",()=>{game.level.showUpgradePanel=false; this.hideUpgradePanel(game);}));
             this.upgradeButtons[0].selected = true;
         }

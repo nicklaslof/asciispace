@@ -12,9 +12,12 @@ class Upgrade{
         console.log(this.player);
     }
 
-    action(){
-        if (this.player.mineral < this.mineralCost || this.player.metalScrap < this.metalCost) return;
-
+    action(game){
+        if (this.player.mineral < this.mineralCost || this.player.metalScrap < this.metalCost){
+            game.playDenied();
+            return;
+        }
+        game.playPowerup();
         this.player.mineral -= this.mineralCost;
         this.player.metalScrap -= this.metalCost;
         this.taken = true;
