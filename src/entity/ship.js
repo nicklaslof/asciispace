@@ -1,5 +1,6 @@
 import Bullet from "./bullet.js";
 import CollisionEntity from "./collisionentity.js";
+import Laser from "./laser.js";
 import Particle from "./particle.js";
 class Ship extends CollisionEntity{
     constructor(posX, posY) {
@@ -39,7 +40,7 @@ class Ship extends CollisionEntity{
 
         if (this.firePressed && this.fireDelay == 0){
             game.playShoot();
-            game.level.addEntity(new Bullet(this.position.x+16, this.position.y,this.shootRange).setSource(this));
+            game.level.addEntity(new Laser(this.position.x+16, this.position.y,this.shootRange).setSource(this));
             this.fireDelay = 0.5;
         }else{
             this.firePressed = false;

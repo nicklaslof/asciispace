@@ -1,9 +1,8 @@
 import CollisionEntity from "./collisionentity.js";
 
 class Bullet extends CollisionEntity{
-    constructor(posX, posY, range=200, direction = {x:1,y:0}) {
-        super(posX, posY, 0,52,16,12,0xffffffff,50,5,"b");
-        this.setCustomCollisionSize(50,50);
+    constructor(x, y, texX,texY,texW,texH,c,sizeX, sizeY,type, range=200, direction = {x:1,y:0}) {
+        super(x, y, texX,texY,texW,texH,c,sizeX,sizeY,type);
         this.range=range;
         this.direction = direction;
     }
