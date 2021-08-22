@@ -12,8 +12,14 @@ class Ship extends CollisionEntity{
         this.metalScrap = 0;
         this.shootRange = 200;
         this.bulletStrength = 1;
+        this.entityTimeoutOnHit = 2;
+        this.showHurtCounter = 0;
     }
     tick(game,deltaTime){
+        super.tick(game,deltaTime);
+
+        // Counters
+
         this.fireDelay -= deltaTime;
         if (this.fireDelay < 0) this.fireDelay = 0;
 
@@ -21,6 +27,20 @@ class Ship extends CollisionEntity{
         if (this.particleDelay < 0) this.particleDelay = 0;
 
 
+        if (this.hitTimeout>0){
+            this.showHurtCounter += deltaTime;
+            if (this.showHurtCounter>0.3){
+                if (this.c == 0xffffffff)this.c = 0xff0000ff;
+                else if (this.c == 0xff0000ff) this.c = 0xffffffff;
+                this.showHurtCounter = 0;
+            }
+        }else{
+            this.c = 0xffffffff;
+        }
+
+
+
+        // Player movements
         var translateX = 0;
         var translateY = 0;
 
@@ -38,6 +58,8 @@ class Ship extends CollisionEntity{
         game.level.starfield.offsetX = -translateX/2005;
         game.level.starfield.offsetY = -translateY/3000;
 
+        // Fire laser
+
         if (this.firePressed && this.fireDelay == 0){
             game.playShoot();
             game.level.addEntity(new Laser(this.position.x+16, this.position.y,this.shootRange).setSource(this));
@@ -45,6 +67,9 @@ class Ship extends CollisionEntity{
         }else{
             this.firePressed = false;
         }
+
+
+        // Player movement particles
 
         if (translateX > 0 && this.particleDelay == 0){
             if (Math.floor(this.getRandom(0,2))==1)
@@ -66,15 +91,16 @@ class Ship extends CollisionEntity{
                 this.particleDelay = 0.1;
             }
     }
-
         game.level.speedX = translateX;
         game.level.speedY = translateY;
-      
+    }
 
-
-        super.tick(game,deltaTime);
+    hit(game,h,force){
+        if (this.hitTimeout<=0) game.playPlayerHit();
+        super.hit(game,h,force);
 
     }
+
     collidedWith(game, otherEntity){
         if (otherEntity.type == "b" && otherEntity.sourceEntity == this) return;
         if (otherEntity.type == "rg" || otherEntity.type == "rm"){

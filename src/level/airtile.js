@@ -11,5 +11,9 @@ class AirTile extends Tile{
     render(game){
 
     }
+
+    addEntityToTile(game,entity){
+        this.entities.push(entity);
+    }
 }
 export default AirTile;

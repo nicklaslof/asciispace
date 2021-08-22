@@ -2,8 +2,9 @@ import Formation from "./formation.js";
 import Ball from "../entity/ball.js";
 class SineballFormation extends Formation{
 
-    constructor(level,x,y) {
-        super(level,x,y);
+    constructor(level) {
+        super(level);
+        this.execute();
     }
 
     execute(){
@@ -21,7 +22,7 @@ class SineballFormation extends Formation{
         var sin = Math.sin(entity.time+entity.count)*10;
         var cos = Math.cos(entity.time2+entity.count)*entity.movementStrength;
         entity.position.y -= (sin+cos)*20*deltaTime;
-        entity.position.x -= 100*deltaTime;
+        entity.position.x -= 130*deltaTime;
        // entity.rotation -= 0.5*deltaTime;
     }
 }

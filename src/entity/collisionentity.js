@@ -13,7 +13,7 @@ class CollisionEntity extends Entity{
 
         if (newTilePosX != this.tilePosition.x || newTilePosY != this.tilePosition.y){
             game.level.removeEntityFromTile(this, this.tilePosition.x, this.tilePosition.y);
-            game.level.addEntityToTile(this, newTilePosX, newTilePosY);
+            game.level.addEntityToTile(game, this, newTilePosX, newTilePosY);
         }
 
         this.tilePosition.x = newTilePosX;

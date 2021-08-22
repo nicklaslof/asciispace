@@ -29,7 +29,7 @@ class Level{
         this.tiles = [];
 
         this.starfield = new StarField();
-        this.levelPositionX = -250;
+        this.levelPositionX = 1050;
         this.lastCheckedTilePostionX = 0;
         this.lastFormation = -2000;
         this.player = new Ship(50,H/2).setHealth(8);
@@ -70,7 +70,7 @@ class Level{
                                     break;
                             }
                         }
-                        if (levelChar=="B" || levelChar == "C"){
+                        if (levelChar=="A" ||levelChar=="B" || levelChar == "C"){
                             this.formations[x + (y* this.levelSizeX)] = levelChar;
                         }
 
@@ -113,6 +113,7 @@ class Level{
                 var formation = this.formations[x + (y * this.levelSizeX)];
                 if (formation != null){
                     console.log("Adding formation "+formation);
+                    if (formation == "A") this.activeFormations.push(new SineballFormation(this));
                     if (formation == "B") this.activeFormations.push(new EnemyShipFormation1(this));
                     if (formation == "C") this.activeFormations.push(new EnemyShipFormation2(this));
                 }
@@ -201,10 +202,10 @@ class Level{
         }
     }
 
-    addEntityToTile(entity, tileX, tileY){
+    addEntityToTile(game, entity, tileX, tileY){
         var t = this.tiles[tileX + (tileY * this.levelSizeX)];
         if (t == null) return;
-        t.addEntityToTile(entity);
+        t.addEntityToTile(game, entity);
     }
     removeEntityFromTile(entity, tileX, tileY){
         if (tileX > this.levelSizeX-1 || tileX < 0 || tileY > this.levelSizeY-1 || tileY < 0) return;

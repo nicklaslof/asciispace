@@ -21,8 +21,10 @@ class Tile{
 
     }
 
-    addEntityToTile(entity){
+    addEntityToTile(game,entity){
         this.entities.push(entity);
+        if (entity.type == "rb")entity.hit(game,1,true);
+        if (entity.type == "p") entity.hit(game,1,false);
     }
 
     removeEntityFromTile(entity){

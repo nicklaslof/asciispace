@@ -22,6 +22,7 @@ class Entity{
         this.type = type;
         this.maxHealth = this.health = 1;
         this.hitTimeout = 0;
+        this.entityTimeoutOnHit = 0.2;
     }
 
     setHealth(h){
@@ -32,7 +33,7 @@ class Entity{
     hit(game,h, force){
         if (this.hitTimeout <=0 || force){
             this.health -= h;
-            this.hitTimeout = 0.2;
+            this.hitTimeout = this.entityTimeoutOnHit;
         }
 
     }
