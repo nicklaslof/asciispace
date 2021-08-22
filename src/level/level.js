@@ -5,6 +5,7 @@ import Ship from "../entity/ship.js";
 import StarField from "../entity/starfield.js";
 import EnemyShipFormation1 from "../formation/enemyshipformation1.js";
 import EnemyShipFormation2 from "../formation/enemyshipformation2.js";
+import EnemyShipFormation3 from "../formation/enemyshipformation3.js";
 import SineballFormation from "../formation/sineballformation.js";
 import GameOverlay from "../ui/gameoverlay.js";
 import UI from "../ui/ui.js";
@@ -32,8 +33,8 @@ class Level{
         this.tiles = [];
 
         this.starfield = new StarField();
-        //this.levelPositionX = 7500;
-        this.levelPositionX = -1000;
+        this.levelPositionX = 6500;
+        //this.levelPositionX = -1000;
         this.lastCheckedTilePostionX = 0;
         this.lastFormation = -2000;
         this.player = new Ship(50,H/2).setHealth(8);
@@ -76,7 +77,7 @@ class Level{
                                     break;
                             }
                         }
-                        if (levelChar=="A" ||levelChar=="B" || levelChar == "C" || levelChar == "M" || levelChar == "U"){
+                        if (levelChar=="A" ||levelChar=="B" || levelChar == "C" || levelChar == "D" || levelChar == "M" || levelChar == "U"){
                             this.formations[x + (y* this.levelSizeX)] = levelChar;
                         }
 
@@ -124,6 +125,7 @@ class Level{
                     if (formation == "A") this.activeFormations.push(new SineballFormation(this));
                     if (formation == "B") this.activeFormations.push(new EnemyShipFormation1(this));
                     if (formation == "C") this.activeFormations.push(new EnemyShipFormation2(this));
+                    if (formation == "D") this.activeFormations.push(new EnemyShipFormation3(this));
                     if (formation == "U") this.activeFormations.push(new RotatingBallFormation(this,y*29));
                     if (formation == "M") this.activeFormations.push(new BossFormation1(this));
                 }
@@ -132,8 +134,8 @@ class Level{
                 if (entityToSpawn != null){
                     console.log("Adding entity "+entityToSpawn);
                     if (entityToSpawn == "a") this.addEntity(new Shooter1(W-5,(y+0.10)*30));
-                    if (entityToSpawn == "b") this.addEntity(new Shooter2(W-5,(y-0.10)*30,{x:-0.25,y:0.25}));
-                    if (entityToSpawn == "c") this.addEntity(new Shooter2(W-5,(y+0.10)*30,{x:-0.25,y:-0.25},true));
+                    if (entityToSpawn == "b") this.addEntity(new Shooter2(W-5,(y-0.10)*30,{x:-0.25,y:0.25},{x:0.25,y:0.25}));
+                    if (entityToSpawn == "c") this.addEntity(new Shooter2(W-5,(y+0.10)*30,{x:-0.25,y:-0.25},{x:0.25,y:-0.25},true));
                 }
 
             }
