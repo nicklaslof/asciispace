@@ -32,8 +32,8 @@ class Level{
         this.tiles = [];
 
         this.starfield = new StarField();
-        this.levelPositionX = 7500;
-        //this.levelPositionX = -1000;
+        //this.levelPositionX = 7500;
+        this.levelPositionX = -1000;
         this.lastCheckedTilePostionX = 0;
         this.lastFormation = -2000;
         this.player = new Ship(50,H/2).setHealth(8);
