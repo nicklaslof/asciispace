@@ -121,7 +121,7 @@ class Level{
                 var entityToSpawn = this.entitiesToSpawn[x + (y * this.levelSizeX)];
                 if (entityToSpawn != null){
                     console.log("Adding entity "+entityToSpawn);
-                    if (entityToSpawn == "a") this.addEntity(new Shooter1(W,(y+0.10)*30));
+                    if (entityToSpawn == "a") this.addEntity(new Shooter1(W-5,(y+0.10)*30));
                 }
 
             }

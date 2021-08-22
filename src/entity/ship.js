@@ -96,7 +96,12 @@ class Ship extends CollisionEntity{
     }
 
     hit(game,h,force){
-        if (this.hitTimeout<=0) game.playPlayerHit();
+        if (this.hitTimeout<=0){ 
+            game.playPlayerHit();
+            for (let index = 0; index < 20; index++) {
+                game.level.addEntity(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff0000ff,30,15).setHealth(90));
+            }
+        }
         super.hit(game,h,force);
 
     }

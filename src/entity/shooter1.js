@@ -1,16 +1,15 @@
-import Bullet from "./bullet.js";
-import Entity from "./entity.js";
 import RoundBullet from "./roundbullet.js";
-
-class Shooter1 extends Entity{
+import StaticEntity from "./staticentity.js";
+class Shooter1 extends StaticEntity{
     constructor(posX, posY) {
-        super(posX, posY, 30,6,21,21,0xff0000ff,24,24,"s1");
+        super(posX, posY, 0,271,64,35,0xff0000ff,48,24,"s1");
         this.shootCounter = this.shootCounter2 = 0;
+        this.orginalPosX = posX;
     }
 
     tick(game, deltaTime){
         super.tick(game, deltaTime);
-
+        
         this.shootCounter += deltaTime;
 
         if (this.shootCounter >= 3){
@@ -25,8 +24,7 @@ class Shooter1 extends Entity{
                 this.shootCounter2 = 0;
             }
         }
-
-        this.position.x -= deltaTime*75;
+      
     }
     
 }

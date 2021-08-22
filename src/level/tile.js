@@ -23,7 +23,7 @@ class Tile{
 
     addEntityToTile(game,entity){
         this.entities.push(entity);
-        if (entity.type == "rb")entity.hit(game,1,true);
+        if (entity.type == "rb" || entity.type == "b")entity.hit(game,1,true);
         if (entity.type == "p") entity.hit(game,1,false);
     }
 

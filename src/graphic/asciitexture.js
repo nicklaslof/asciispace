@@ -18,10 +18,16 @@ class AsciiTexture{
         textContext.fillText("\u2666",128,60,16);
         this.addAsteriod(textContext);
         this.addHeart(textContext);
+        this.addShooter1(textContext);
         this.image = new Image();
         this.image.src = textCanvas.toDataURL();
 
 
+    }
+
+    addShooter1(textContext){
+        var ascii = "‾\\_/‾n";
+        this.addAsciiart(textContext,ascii,0,300,64);
     }
 
     addAsteriod(textContext){
