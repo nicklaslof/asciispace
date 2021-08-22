@@ -8,17 +8,25 @@ class UI{
         this.ctx = this.cv.getContext('2d');
         this.selectedUpgradeButton = 0;
         this.upgradeButtons = [];
+        this.showUpgradeAvailableMessage = false;
+        this.upgradeMessagePlayed = false;
     }
 
     tick(game){
         this.tickUpgradePanel(game);
-        this.tickResources(game);
+        this.tickResourcesAndUpgradeAvailable(game);
     }
 
-    tickResources(game){
-        if (this.lastmineral != game.level.player.mineral || this.lastMetalScrap != game.level.player.metalScrap){
-            this.ctx.clearRect(0,0,W,H);
-            this.updateResources(game);
+    tickResourcesAndUpgradeAvailable(game){
+        if (this.upgradePanelShown) return;
+        this.ctx.clearRect(0,0,W,H);
+        this.updateResources(game);
+        if (!this.upgradeMessagePlayed && this.showUpgradeAvailableMessage){
+            game.playUpgradesAvailable();
+            this.upgradeMessagePlayed = true;
+        }
+        if (this.showUpgradeAvailableMessage){
+            this.drawTextAt("New upgrades available! Press E",W/2,20,"#ffffff",14);
         }
     }
 
@@ -28,6 +36,8 @@ class UI{
             this.updateUpgradePanel(game);
         }
         if (this.upgradePanelShown) {
+            this.showUpgradeAvailableMessage = false;
+            this.upgradeMessagePlayed = false;
             var selectedUpgradeButtonBeforeLoop = this.selectedUpgradeButton;
 
             if (game.keys[68] == "keydown")
@@ -60,6 +70,10 @@ class UI{
     }
 
     render(game){
+    }
+
+    showUpgradeAvailable(){
+        this.showUpgradeAvailableMessage = true;
     }
 
     updateResources(game){

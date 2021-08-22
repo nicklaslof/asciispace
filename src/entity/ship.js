@@ -29,7 +29,7 @@ class Ship extends CollisionEntity{
 
         if (this.hitTimeout>0){
             this.showHurtCounter += deltaTime;
-            if (this.showHurtCounter>0.3){
+            if (this.showHurtCounter>0.1){
                 if (this.c == 0xffffffff)this.c = 0xff0000ff;
                 else if (this.c == 0xff0000ff) this.c = 0xffffffff;
                 this.showHurtCounter = 0;
