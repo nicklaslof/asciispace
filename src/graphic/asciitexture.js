@@ -16,7 +16,7 @@ class AsciiTexture{
         textContext.fillText(":",64,60,16);
         textContext.fillText("'",96,60,16);
         textContext.fillText("\u2666",128,60,16);
-        this.addAsteriod(textContext);
+        this.addBlueShip(textContext);
         this.addHeart(textContext);
         this.addShooter1(textContext);
         this.image = new Image();
@@ -30,14 +30,11 @@ class AsciiTexture{
         this.addAsciiart(textContext,ascii,0,300,64);
     }
 
-    addAsteriod(textContext){
+    addBlueShip(textContext){
         var ascii =
-" /‾‾\\__  n\
-¡ : .  \\ n\
-|. : : ¡ n\
-!. :. : \\n\
- \\ . .: ¡n\
-  ‾‾\\__/ n";
+"    ___    n\
+ __/:::\\__ n\
+{_________}n";
 
         this.addAsciiart(textContext,ascii,0,100,172);
     }

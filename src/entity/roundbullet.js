@@ -25,6 +25,13 @@ class RoundBullet extends Bullet{
         }
         game.playExplosion();   
     }
+
+    collidedWith(game, otherEntity){
+        if (otherEntity === this.sourceEntity) return;
+        if (otherEntity.type == "rg" || otherEntity.type == "rm" || otherEntity.type == "a" || otherEntity.type == "o" || otherEntity.type == "s") return;
+        otherEntity.hit(game, 1);
+        this.hit(game,1,true);
+    }
 }
 
 export default RoundBullet;

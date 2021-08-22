@@ -12,6 +12,7 @@ import Tile from "./tile.js";
 import AirTile from "./airtile.js";
 import UpgradeController from "../upgrade/upgradecontroller.js";
 import Shooter1 from "../entity/shooter1.js";
+import RotatingBallFormation from "../formation/rotatingballformation.js";
 
 class Level{
 
@@ -29,6 +30,7 @@ class Level{
         this.tiles = [];
 
         this.starfield = new StarField();
+        //this.levelPositionX = 4500;
         this.levelPositionX = -1000;
         this.lastCheckedTilePostionX = 0;
         this.lastFormation = -2000;
@@ -70,7 +72,7 @@ class Level{
                                     break;
                             }
                         }
-                        if (levelChar=="A" ||levelChar=="B" || levelChar == "C"){
+                        if (levelChar=="A" ||levelChar=="B" || levelChar == "C"|| levelChar == "U"){
                             this.formations[x + (y* this.levelSizeX)] = levelChar;
                         }
 
@@ -116,6 +118,7 @@ class Level{
                     if (formation == "A") this.activeFormations.push(new SineballFormation(this));
                     if (formation == "B") this.activeFormations.push(new EnemyShipFormation1(this));
                     if (formation == "C") this.activeFormations.push(new EnemyShipFormation2(this));
+                    if (formation == "U") this.activeFormations.push(new RotatingBallFormation(this,y*29));
                 }
 
                 var entityToSpawn = this.entitiesToSpawn[x + (y * this.levelSizeX)];
