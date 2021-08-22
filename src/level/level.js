@@ -144,6 +144,7 @@ class Level{
         });
 
         this.gameOverlay.tick(game);
+        this.upgradeController.tick(game);
 
     }
 
