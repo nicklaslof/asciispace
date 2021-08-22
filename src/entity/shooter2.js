@@ -6,7 +6,7 @@ class Shooter2 extends StaticEntity{
         this.shootCounter = this.shootCounter2 = 0;
         this.orginalPosX = posX;
         this.direction = direction;
-        if (flip) this.rotation = 3.14;
+        if (flip) this.rotation = Math.PI;
     }
 
     tick(game, deltaTime){

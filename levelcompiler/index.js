@@ -40,6 +40,7 @@ loadImage("level.png").then((image) => {
                 if (c == 0x0000ff) addToLevel(level,x,y,"B"); // Formation 1
                 if (c == 0x6666ff) addToLevel(level,x,y,"C"); // Formation 2
                 if (c == 0xff0000) addToLevel(level,x,y,"U"); // UFO formation
+                if (c == 0x00ffff) addToLevel(level,x,y,"M"); // Boss1
 
                 if (c == 0xee4feb) addToLevel(level,x,y,"a"); // Shooter 1
                 if (c == 0xaa4feb) addToLevel(level,x,y,"b"); // Shooter 2

@@ -14,6 +14,7 @@ import UpgradeController from "../upgrade/upgradecontroller.js";
 import Shooter1 from "../entity/shooter1.js";
 import Shooter2 from "../entity/shooter2.js";
 import RotatingBallFormation from "../formation/rotatingballformation.js";
+import BossFormation1 from "../formation/bossformation1.js";
 
 class Level{
 
@@ -31,7 +32,7 @@ class Level{
         this.tiles = [];
 
         this.starfield = new StarField();
-        this.levelPositionX = -1000;
+        this.levelPositionX = 7500;
         //this.levelPositionX = -1000;
         this.lastCheckedTilePostionX = 0;
         this.lastFormation = -2000;
@@ -49,6 +50,8 @@ class Level{
         this.upgradeController = new UpgradeController(this);
 
         this.ready = false;
+
+        this.stopped = false;
 
         fetch('l.txt')
             .then(response => response.text())
@@ -73,7 +76,7 @@ class Level{
                                     break;
                             }
                         }
-                        if (levelChar=="A" ||levelChar=="B" || levelChar == "C"|| levelChar == "U"){
+                        if (levelChar=="A" ||levelChar=="B" || levelChar == "C" || levelChar == "M" || levelChar == "U"){
                             this.formations[x + (y* this.levelSizeX)] = levelChar;
                         }
 
@@ -104,8 +107,10 @@ class Level{
             return;
         }
 
-        this.levelPositionX += deltaTime*75;
-        this.starfield.tick(game, deltaTime);
+        if (!this.stopped){
+            this.levelPositionX += deltaTime*75;
+             this.starfield.tick(game, deltaTime);
+        }
 
         var levelTilePositionX = Math.floor((this.levelPositionX/24)+42);
 
@@ -120,6 +125,7 @@ class Level{
                     if (formation == "B") this.activeFormations.push(new EnemyShipFormation1(this));
                     if (formation == "C") this.activeFormations.push(new EnemyShipFormation2(this));
                     if (formation == "U") this.activeFormations.push(new RotatingBallFormation(this,y*29));
+                    if (formation == "M") this.activeFormations.push(new BossFormation1(this));
                 }
 
                 var entityToSpawn = this.entitiesToSpawn[x + (y * this.levelSizeX)];

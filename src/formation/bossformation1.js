@@ -1,43 +1,56 @@
-import UFO from "../entity/ufo.js";
+import Ball from "../entity/ball.js";
 import Formation from "./formation.js";
 
-class Bossformation1 extends Formation{
+class BossFormation1 extends Formation{
     constructor(level) {
         super(level);
-        this.xSpeed = 100;
-        this.ySpeed = 100;
-        this.execute();
+        this.xSpeed = 10;
         this.counter = 0;
+        this.angle = 0;
+        this.movementX = 0;
+        this.execute();
+        this.stopped = false;
         
     }
 
     execute(){
         super.execute();
-        var x = W-200;
+        var x = W+100;
         var y = H/2;
-        for (let index = 0; index < 16; index++) {
-            var sin = Math.sin(index/10)*80;
-            var cos = Math.cos(index/10)*80;
-            console.log(sin +" "+cos);
-            this.addEntity(new UFO(x + sin,y+cos,index));
+
+        this.addEntity(new Ball(x,y,0,60,0xff0000ff).setHealth(20));
+        
+        for (let index = 1; index < 40; index++) {
+            this.addEntity(new Ball(x,y,index,32,0xffff9999).setHealth(1));
         }
     }
 
-    handleEntity(game, entity, deltaTime,counter){
+    handleEntity(game, entity, deltaTime){
+
+        if (entity.count == 0 && entity.position.x <= (W/2)+100){
+            this.stopped = true;
+            game.level.stopped = true;
+        } 
+
+        this.angle += deltaTime/10;
+        if (!this.stopped) this.movementX += deltaTime*this.xSpeed/2;
+        var distance = 100;
+
+        if (entity.count == 0){
+            if (!this.stopped) entity.position.x -= deltaTime*this.xSpeed*20;
+            return;
+        }
+
+
+        var x = (Math.cos(this.angle+(entity.count/3.14)) * distance) + entity.orginalPositionX;
+        var y = (Math.sin(this.angle+(entity.count/3.14)) * distance) + entity.orginalPositionY;
         
-        //this.counter += deltaTime;
-        
-        //console.log(this.counter);
-        var sin = Math.sin((counter+(entity.count/10))*2)*2;
-        var cos = Math.cos((counter+(entity.count/80))*2)*2;
+        entity.position.x = x - this.movementX;
+        entity.position.y = y;
+    }
 
-       entity.position.x += sin * this.xSpeed* deltaTime;
-        entity.position.y += cos * this.xSpeed* deltaTime;
-
-       // entity.position.x -= this.xSpeed*deltaTime;
-
-        //console.log(entity.position);
-
+    onDone(game){
+        game.level.stopped = false;
     }
 }
-export default Bossformation1;
+export default BossFormation1;

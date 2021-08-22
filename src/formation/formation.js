@@ -1,7 +1,6 @@
 class Formation{
     constructor(level) {
         this.level = level;
-        this.counter = 0;
     }
 
     execute(){
@@ -10,16 +9,19 @@ class Formation{
     }
 
     tick(game, deltaTime){
+        if (this.done) return;
         var disposedEntities = 0;
-        this.counter += deltaTime;
         this.entities.forEach(entity => {
             //entity.tick(game);
-            this.handleEntity(game,entity, deltaTime,this.counter);
+            this.handleEntity(game,entity, deltaTime);
 
             if (entity.disposed) disposedEntities++;
         });
 
         if (disposedEntities == this.entities.length) this.done = true;
+        if (this.done){
+            this.onDone(game);
+        }
     }
 
     addEntity(entity){
@@ -28,6 +30,10 @@ class Formation{
     }
 
     handleEntity(game, entity, deltaTime,counter){
+    }
+
+    onDone(game){
+
     }
 
 

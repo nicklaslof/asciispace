@@ -1,5 +1,4 @@
 import Ball from "../entity/ball.js";
-import UFO from "../entity/ufo.js";
 import Formation from "./formation.js";
 
 class RotatingBallFormation extends Formation{
@@ -22,7 +21,7 @@ class RotatingBallFormation extends Formation{
         }
     }
 
-    handleEntity(game, entity, deltaTime,counter){
+    handleEntity(game, entity, deltaTime){
         
         this.angle += deltaTime/5;
         this.movementX += deltaTime*this.xSpeed;
