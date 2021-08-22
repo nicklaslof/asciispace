@@ -12,6 +12,7 @@ import Tile from "./tile.js";
 import AirTile from "./airtile.js";
 import UpgradeController from "../upgrade/upgradecontroller.js";
 import Shooter1 from "../entity/shooter1.js";
+import Shooter2 from "../entity/shooter2.js";
 import RotatingBallFormation from "../formation/rotatingballformation.js";
 
 class Level{
@@ -30,8 +31,8 @@ class Level{
         this.tiles = [];
 
         this.starfield = new StarField();
-        //this.levelPositionX = 4500;
         this.levelPositionX = -1000;
+        //this.levelPositionX = -1000;
         this.lastCheckedTilePostionX = 0;
         this.lastFormation = -2000;
         this.player = new Ship(50,H/2).setHealth(8);
@@ -76,7 +77,7 @@ class Level{
                             this.formations[x + (y* this.levelSizeX)] = levelChar;
                         }
 
-                        if (levelChar=="a"){
+                        if (levelChar=="a" || levelChar=="b" || levelChar=="c"){
                             console.log(x +" "+y);
                             this.entitiesToSpawn[x + (y * this.levelSizeX)] = levelChar;
                         }
@@ -125,6 +126,8 @@ class Level{
                 if (entityToSpawn != null){
                     console.log("Adding entity "+entityToSpawn);
                     if (entityToSpawn == "a") this.addEntity(new Shooter1(W-5,(y+0.10)*30));
+                    if (entityToSpawn == "b") this.addEntity(new Shooter2(W-5,(y-0.10)*30,{x:-0.25,y:0.25}));
+                    if (entityToSpawn == "c") this.addEntity(new Shooter2(W-5,(y+0.10)*30,{x:-0.25,y:-0.25},true));
                 }
 
             }

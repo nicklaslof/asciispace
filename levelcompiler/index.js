@@ -42,6 +42,8 @@ loadImage("level.png").then((image) => {
                 if (c == 0xff0000) addToLevel(level,x,y,"U"); // UFO formation
 
                 if (c == 0xee4feb) addToLevel(level,x,y,"a"); // Shooter 1
+                if (c == 0xaa4feb) addToLevel(level,x,y,"b"); // Shooter 2
+                if (c == 0x774feb) addToLevel(level,x,y,"c"); // Shooter 3
 
             }
         }
