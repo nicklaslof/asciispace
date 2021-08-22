@@ -15,10 +15,7 @@ echo "<script>" >> index-template.html
 cat ../src/lib/t.js >> index-template.html
 echo "</script>" >> index-template.html
 echo "<script>" >> index-template.html
-#cat ../src/songdata.js >> index-template.html
-echo "</script>" >> index-template.html
-echo "<script>" >> index-template.html
-cat ../src/lib/z.js >> index-template.html
+cat  ../src/lib/z.js >> index-template.html
 echo "</script>" >> index-template.html
 echo "<script>" >> index-template.html
 cat ../src/c.js >> index-template.html
