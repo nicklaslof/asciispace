@@ -8,8 +8,14 @@ class EnemyEntity extends CollisionEntity{
     }
 
     onDispose(game){
-        game.playExplosion();
+        if (this.onDeathAction != null) this.onDeathAction();
+        else game.playExplosion();
         this.dropResource(game);   
+    }
+
+    onDeath(action){
+        this.onDeathAction = action;
+        return this;
     }
 
     hit(game,h, force){

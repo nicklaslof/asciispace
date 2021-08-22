@@ -2,24 +2,24 @@ import Ball from "../entity/ball.js";
 import Formation from "./formation.js";
 
 class BossFormation1 extends Formation{
-    constructor(level) {
+    constructor(game,level) {
         super(level);
         this.xSpeed = 10;
         this.counter = 0;
         this.angle = 0;
         this.movementX = 0;
-        this.execute();
+        this.execute(game);
         this.stopped = false;
         this.distance = 100;
         
     }
 
-    execute(){
+    execute(game){
         super.execute();
         var x = W+100;
         var y = H/2;
 
-        this.addEntity(new Ball(x,y,0,70,0xff0000ff,15).setHealth(20));
+        this.addEntity(new Ball(x,y,0,70,0xff0000ff,15).setHealth(20).onDeath(()=>{game.playBossExplosion()}));
         
         for (let index = 1; index < 40; index++) {
             this.addEntity(new Ball(x,y,index,32,0xffff9999,0).setHealth(1));

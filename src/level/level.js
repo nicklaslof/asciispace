@@ -33,7 +33,7 @@ class Level{
         this.tiles = [];
 
         this.starfield = new StarField();
-        this.levelPositionX = 6500;
+        this.levelPositionX = 7500;
         //this.levelPositionX = -1000;
         this.lastCheckedTilePostionX = 0;
         this.lastFormation = -2000;
@@ -127,7 +127,7 @@ class Level{
                     if (formation == "C") this.activeFormations.push(new EnemyShipFormation2(this));
                     if (formation == "D") this.activeFormations.push(new EnemyShipFormation3(this));
                     if (formation == "U") this.activeFormations.push(new RotatingBallFormation(this,y*29));
-                    if (formation == "M") this.activeFormations.push(new BossFormation1(this));
+                    if (formation == "M") this.activeFormations.push(new BossFormation1(game,this));
                 }
 
                 var entityToSpawn = this.entitiesToSpawn[x + (y * this.levelSizeX)];

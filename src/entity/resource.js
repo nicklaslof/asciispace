@@ -4,7 +4,7 @@ class Resource extends CollisionEntity{
 
     constructor(posX, posY, c, type) {
         super(posX, posY,128,36,16,24,c,16,16,type);
-        this.velocity = {x: this.getRandom(-0.1,0.1), y: this.getRandom(-0.1,0.1)};
+        this.velocity = {x: this.getRandom(-0.6,0.6), y: this.getRandom(-0.6,0.6)};
         this.particleDelay = 0;
     }
 
