@@ -1,5 +1,6 @@
 import Bullet from "./bullet.js";
 import CollisionEntity from "./collisionentity.js";
+import Drone from "./drone.js";
 import Laser from "./laser.js";
 import Particle from "./particle.js";
 class Ship extends CollisionEntity{
@@ -11,9 +12,16 @@ class Ship extends CollisionEntity{
         this.mineral = 0;
         this.metalScrap = 0;
         this.shootRange = 200;
-        this.bulletStrength = 1;
+        this.laserStrength = 1;
         this.entityTimeoutOnHit = 2;
         this.showHurtCounter = 0;
+        this.dualLaser = false;
+        this.fireUpperLaser = false;
+        this.rearLaser = false;
+        this.sideLaser = false;
+
+        this.drones = [];
+        this.numberOfDrones = 0;
     }
     tick(game,deltaTime){
         super.tick(game,deltaTime);
@@ -61,11 +69,37 @@ class Ship extends CollisionEntity{
         // Fire laser
 
         if (this.firePressed && this.fireDelay == 0){
-            game.playShoot();
-            game.level.addEntity(new Laser(this.position.x+16, this.position.y,this.shootRange).setSource(this));
-            this.fireDelay = 0.5;
+            if (this.dualLaser){
+                game.playShoot();
+                if (this.fireUpperLaser)game.level.addEntity(new Laser(this.position.x+16, this.position.y+12,this.shootRange,{x:1,y:0},this.laserStrength).setSource(this));
+                else game.level.addEntity(new Laser(this.position.x+16, this.position.y-8,this.shootRange,{x:1,y:0},this.laserStrength).setSource(this));
+                this.fireUpperLaser = !this.fireUpperLaser;
+                this.fireDelay = 0.4;
+            }else{
+                game.playShoot();
+                game.level.addEntity(new Laser(this.position.x+16, this.position.y,this.shootRange,{x:1,y:0},this.laserStrength).setSource(this));
+                this.drones.forEach(drone => {
+                    drone.shoot(game,this,this.shootRange,this.laserStrength);
+                });
+                this.fireDelay = 0.5;
+            }
+
+            if (this.rearLaser){
+                game.level.addEntity(new Laser(this.position.x-32, this.position.y+1,this.shootRange,{x:-1,y:0},this.laserStrength).setSource(this));
+            }
+
+            if (this.sideLaser){
+                game.level.addEntity(new Laser(this.position.x, this.position.y+12,this.shootRange,{x:0,y:1},this.laserStrength,Math.PI/2,40,7).setSource(this));
+                game.level.addEntity(new Laser(this.position.x, this.position.y-8,this.shootRange,{x:0,y:-1},this.laserStrength,Math.PI/2,40,7).setSource(this));
+            }
+            
         }else{
             this.firePressed = false;
+        }
+
+        if (this.drones.length < this.numberOfDrones){
+            var startAngle = Math.PI * this.drones.length;
+            this.drones.push(new Drone(this.position.x,this.position.y,startAngle));
         }
 
 
@@ -90,7 +124,12 @@ class Ship extends CollisionEntity{
                     
                 this.particleDelay = 0.1;
             }
-    }
+        }
+
+        this.drones.forEach(drone => {
+            drone.tick(game,deltaTime);
+        });
+
         game.level.speedX = translateX;
         game.level.speedY = translateY;
     }
@@ -123,6 +162,14 @@ class Ship extends CollisionEntity{
         for (let index = 0; index < 50; index++) {
             game.level.addEntity(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff999999,true,30,30).setHealth(300));
         }
+    }
+
+    render(game){
+        this.drones.forEach(drone => {
+            drone.render(game);
+        });
+
+        super.render(game);
     }
 }
 export default Ship;

@@ -1,10 +1,11 @@
 import CollisionEntity from "./collisionentity.js";
 
 class Bullet extends CollisionEntity{
-    constructor(x, y, texX,texY,texW,texH,c,sizeX, sizeY,type, range=200, direction = {x:1,y:0}) {
+    constructor(x, y, texX,texY,texW,texH,c,sizeX, sizeY,type, range=200, direction = {x:1,y:0},damage=1) {
         super(x, y, texX,texY,texW,texH,c,sizeX,sizeY,type);
         this.range=range;
         this.direction = direction;
+        this.damage = damage;
     }
 
     tick(game,deltaTime){
@@ -29,8 +30,8 @@ class Bullet extends CollisionEntity{
 
     collidedWith(game, otherEntity){
         if (otherEntity === this.sourceEntity) return;
-        if (otherEntity.type == "rg" || otherEntity.type == "rm" || otherEntity.type == "a") return;
-        otherEntity.hit(game, 1);
+        if (otherEntity.type == "rg" || otherEntity.type == "rm" || otherEntity.type == "a" || otherEntity.type == "b") return;
+        otherEntity.hit(game, this.damage);
         this.hit(game,1,true);
     }
 }

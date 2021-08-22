@@ -1,9 +1,10 @@
 import Bullet from "./bullet.js"
 import Particle from "./particle.js";
 class Laser extends Bullet{
-    constructor(x,y,range=200,direction={x:1,y:0}) {
-        super(x, y, 0,52,16,12,0xff00ffff,70,7,"b");
+    constructor(x,y,range=200,direction={x:1,y:0},damage=1,rotate=0,sizeX=70, sizeY=7,color=0xff00ffff) {
+        super(x, y, 0,52,16,12,color,sizeX,sizeY,"b",range,direction,damage);
         this.setCustomCollisionSize(50,50);
+        this.rotation = rotate;
     }
 
     onDispose(game){
