@@ -117,5 +117,12 @@ class Ship extends CollisionEntity{
         }
         this.hit(game,1);
     }
+
+    onDispose(game){
+        game.playPlayerDied();
+        for (let index = 0; index < 50; index++) {
+            game.level.addEntity(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff999999,true,30,30).setHealth(300));
+        }
+    }
 }
 export default Ship;
