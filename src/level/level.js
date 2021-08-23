@@ -19,6 +19,7 @@ import RotatingBallFormation from "../formation/rotatingballformation.js";
 import RotatingBallFormation2 from "../formation/rotatingballformation2.js";
 import BossFormation1 from "../formation/bossformation1.js";
 import UfoFormation from "../formation/ufoformation.js";
+import FastBallsFormation from "../formation/fastballsformation.js";
 
 class Level{
 
@@ -40,7 +41,7 @@ class Level{
         this.snapshotTimeout = 0;
         this.snapshot = snapshot;
 
-        //this.levelPositionX = 10900;
+        //this.levelPositionX = 12200;
         //this.levelPositionX = 7800;
         this.levelPositionX = -1000;
         
@@ -97,7 +98,7 @@ class Level{
                             break;
                     }
                 }
-                if (levelChar=="A" ||levelChar=="B" || levelChar == "C" || levelChar == "D" || levelChar == "M" || levelChar == "R" || levelChar == "T" || levelChar == "U"){
+                if (levelChar=="A" ||levelChar=="B" || levelChar == "C" || levelChar == "D" || levelChar == "E"|| levelChar == "M" || levelChar == "R" || levelChar == "T" || levelChar == "U"){
                     this.formations[x + (y* this.levelSizeX)] = levelChar;
                 }
 
@@ -150,6 +151,7 @@ class Level{
                     if (formation == "B") this.activeFormations.push(new EnemyShipFormation1(this));
                     if (formation == "C") this.activeFormations.push(new EnemyShipFormation2(this));
                     if (formation == "D") this.activeFormations.push(new EnemyShipFormation3(this));
+                    if (formation == "E") this.activeFormations.push(new FastBallsFormation(this));
                     if (formation == "R") this.activeFormations.push(new RotatingBallFormation(this,y*29));
                     if (formation == "T") this.activeFormations.push(new RotatingBallFormation2(this,y*29));
                     if (formation == "M") this.activeFormations.push(new BossFormation1(game,this));
