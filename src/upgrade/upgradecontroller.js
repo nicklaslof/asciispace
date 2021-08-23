@@ -1,12 +1,9 @@
 import Upgrade from "../upgrade/upgrade.js";
 class UpgradeController{
 
-    constructor(level) {
+    constructor(level,snapshot) {
         this.upgrades = [];
         this.level = 1;
-
-        //this.upgrades.push(new Upgrade(level.player,"Increased", "laser range",10,12,()=>{level.player.shootRange +=100},1));
-        //this.upgrades.push(new Upgrade(level.player,"Stronger", "laser",18,12,()=>{level.player.bulletStrength +=1},1));
         this.upgrades.push(new Upgrade(level.player,"Increased", "laser range",1,1,()=>{level.player.shootRange +=100},1));
         this.upgrades.push(new Upgrade(level.player,"Stronger", "laser 1",3,3,()=>{level.player.laserStrength +=1},1));
         this.upgrades.push(new Upgrade(level.player,"Dual", "lasers",4,4,()=>{level.player.dualLaser=true},2));
@@ -17,6 +14,13 @@ class UpgradeController{
         this.upgrades.push(new Upgrade(level.player,"Stronger", "laser 3",13,15,()=>{level.player.laserStrength +=1},4));
         this.upgrades.push(new Upgrade(level.player,"Dual", "drones",14,16,()=>{level.player.numberOfDrones=2},5));
         this.upgrades.push(new Upgrade(level.player,"Extra", "max health",15,16,()=>{level.player.maxHealth+=4;level.player.health=level.player.maxHealth},5));
+        
+        if (snapshot != null){
+            this.level = snapshot.upgradeLevel;
+            for (let index = 0; index < snapshot.upgrades.length; index++) {
+                this.upgrades[index].taken = snapshot.upgrades[index].taken;
+            }
+        }
     }
 
     tick(game){

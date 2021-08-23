@@ -52,6 +52,8 @@ loadImage("level.png").then((image) => {
                 if (c == 0x774feb) addToLevel(level,x,y,"c"); // Shooter 3
                 if (c == 0x00ff00) addToLevel(level,x,y,"e"); // Obstacle
 
+                if (c == 0x008cff) addToLevel(level,x,y,"f"); // Checkpoint
+
             }
         }
     

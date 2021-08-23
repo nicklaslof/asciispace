@@ -22,7 +22,7 @@ import UfoFormation from "../formation/ufoformation.js";
 
 class Level{
 
-    constructor(game) {
+    constructor(game, snapshot) {
         this.levelSizeX = 1024;
         this.levelSizeY = 20;
 
@@ -36,13 +36,33 @@ class Level{
         this.tiles = [];
 
         this.starfield = new StarField();
+
+        this.snapshotTimeout = 0;
+        this.snapshot = snapshot;
+
         //this.levelPositionX = 10900;
         //this.levelPositionX = 7800;
         this.levelPositionX = -1000;
+        
+        if (snapshot != null) this.levelPositionX = snapshot.levelPositionX;
+
         this.lastCheckedTilePostionX = 0;
         this.lastFormation = -2000;
         this.player = new Ship(50,H/2).setHealth(8);
         this.entities.push(this.player);
+
+        if (snapshot != null){
+            this.player.mineral = snapshot.playerMineral;
+            this.player.metalScrap = snapshot.playerMetal;
+            this.player.shootRange = snapshot.playerShootRange;
+            this.player.laserStrength = snapshot.playerLaserStrength;
+            this.player.dualLaser = snapshot.playerDualLaser;
+            this.player.rearLaser = snapshot.playerRearLaser;
+            this.player.sideLaser = snapshot.playerSideLaser;
+            this.player.numberOfDrones = snapshot.playerNumberOfDrones;
+            this.player.maxHealth = this.player.health = snapshot.playerMaxHealth;
+            this.snapshotTimeout = 5;
+        }
 
         this.speedX = 0;
         this.speedY = 0;
@@ -52,7 +72,7 @@ class Level{
        
         this.showUpgradePanel = false;
 
-        this.upgradeController = new UpgradeController(this);
+        this.upgradeController = new UpgradeController(this,snapshot);
 
         this.stopped = false;
 
@@ -81,7 +101,7 @@ class Level{
                     this.formations[x + (y* this.levelSizeX)] = levelChar;
                 }
 
-                if (levelChar=="a" || levelChar=="b" || levelChar=="c"|| levelChar=="d"|| levelChar=="e"){
+                if (levelChar=="a" || levelChar=="b" || levelChar=="c"|| levelChar=="d"|| levelChar=="e"|| levelChar=="f"){
                    // console.log(levelChar +" "+ x +" "+y);
                     this.entitiesToSpawn[x + (y * this.levelSizeX)] = levelChar;
                 }
@@ -99,15 +119,23 @@ class Level{
                 this.ui.hideUpgradePanel(game);
 
         }
-        this.ui.tick(game);
+
+        if (this.player.health<= 0){
+            game.playerDead = true;
+        }
+
+
+        if (!game.playerDead) this.ui.tick(game);
         if (this.showUpgradePanel){
             return;
         }
 
-        if (!this.stopped){
+        if (!this.stopped && !game.playerDead){
             this.levelPositionX += deltaTime*75;
              this.starfield.tick(game, deltaTime);
         }
+
+        if(this.snapshotTimeout>0) this.snapshotTimeout -= deltaTime;
 
         var levelTilePositionX = Math.floor((this.levelPositionX/24)+42);
 
@@ -136,6 +164,12 @@ class Level{
                     if (entityToSpawn == "b") this.addEntity(new Shooter2(W-5,(y-0.10)*30,{x:-0.25,y:0.25},{x:0.25,y:0.25}));
                     if (entityToSpawn == "c") this.addEntity(new Shooter2(W-5,(y+0.10)*30,{x:-0.25,y:-0.25},{x:0.25,y:-0.25},true));
                     if (entityToSpawn == "e") this.addEntity(new Obstacle(W-5,y*30).setHealth(3));
+
+
+
+
+                    if (this.snapshotTimeout <=0)if (entityToSpawn == "f") this.snapshotCheckpoint();
+
                 }
 
             }
@@ -181,8 +215,8 @@ class Level{
         this.entities.forEach(e => {
             e.render(game);
         })
-        this.ui.render(game);
-        this.gameOverlay.render(game);
+        if (!game.playerDead) this.ui.render(game);
+        if (!game.playerDead) this.gameOverlay.render(game);
     }
 
     checkCollision(game, entity){
@@ -229,6 +263,24 @@ class Level{
 
     getRandom(min, max){
         return Math.random() * (max - min) + min
+    }
+    snapshotCheckpoint(){
+        this.snapshot = {
+            levelPositionX : this.levelPositionX,
+            playerMineral : this.player.mineral,
+            playerMetal : this.player.metalScrap,
+            playerShootRange : this.player.shootRange,
+            playerLaserStrength : this.player.laserStrength,
+            playerDualLaser : this.player.dualLaser,
+            playerRearLaser : this.player.rearLaser,
+            playerSideLaser : this.player.sideLaser,
+            playerNumberOfDrones : this.player.numberOfDrones,
+            playerMaxHealth : this.player.maxHealth,
+            upgradeLevel : this.upgradeController.level,
+            upgrades : this.upgradeController.upgrades
+        };
+
+        console.log(this.snapshot);
     }
 }
 export default Level;

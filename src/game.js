@@ -2,6 +2,7 @@ import AsciiTexture from "./graphic/asciitexture.js";
 import GlTexture from "./graphic/gltexture.js";
 import Level from "./level/level.js";
 import Intro from "./ui/intro.js";
+import RestartGame from "./ui/restartgame.js";
 //import { zzfx } from "./lib/z.js";
 
 class Game{
@@ -26,11 +27,13 @@ class Game{
         setInterval(()=>{this.playBackgroundSound();},6000);
 
         this.showIntro = true;
+        this.playerDead = false;
+        this.restartGameUI = null;
         
     }
     gameloop(){
         if (this.texture.dirty) return;
-        
+
         var now = performance.now();
         var deltaTime = now - this.last;
         if (deltaTime>1000){
@@ -38,6 +41,18 @@ class Game{
             deltaTime = 0;
         }
         this.last = now;
+
+        if (this.playerDead){
+            this.level.tick(this,deltaTime/1000);
+            this.level.render(this);
+            this.gl.flush();
+            if (this.restartGameUI == null) this.restartGameUI = new RestartGame(
+                ()=> {this.level = new Level(this, this.level.snapshot); this.playerDead = false});
+            this.restartGameUI.tick(this,deltaTime);
+            return;
+        }
+        
+       
 
         if (!this.showIntro){
             this.level.tick(this,deltaTime/1000);
