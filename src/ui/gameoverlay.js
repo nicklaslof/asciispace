@@ -12,11 +12,11 @@ class GameOverlay{
 
     }
 
-    render(game, interpolationOffset){
-        this.renderHealth(game, interpolationOffset);
+    render(game){
+        this.renderHealth(game);
     }
 
-    renderHealth(game, interpolationOffset){
+    renderHealth(game){
         for (let index = 0; index < game.level.player.maxHealth; index++) {
             if (game.level.player.health <= index)
                 this.heart.c = 0xff000055;
@@ -25,7 +25,7 @@ class GameOverlay{
             this.heart.position.x = 22 + 32*index;
             this.heart.position.y = 22;
             this.heart.tick(game);
-            this.heart.render(game, interpolationOffset);
+            this.heart.render(game);
             
         }
     }

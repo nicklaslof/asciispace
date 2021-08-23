@@ -41,7 +41,7 @@ class Game{
 
         if (!this.showIntro){
             this.level.tick(this,deltaTime/1000);
-            this.level.render(this,1);
+            this.level.render(this);
             this.fps++;
             this.gl.flush();
             this.counter += deltaTime/1000;

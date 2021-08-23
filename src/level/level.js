@@ -162,10 +162,10 @@ class Level{
 
     }
 
-    render(game,interpolationOffset){
+    render(game){
         game.gl.bkg(0.0,0.0,0.04,0);
         game.gl.cls();
-        this.starfield.render(game, interpolationOffset);
+        this.starfield.render(game);
         var tileCount = 0;
         for (let x = Math.floor(this.levelPositionX/24); x < Math.floor(this.levelPositionX/24)+60; x++) {
             for (let y = 0; y < this.levelSizeY; y++){
@@ -179,10 +179,10 @@ class Level{
 
 
         this.entities.forEach(e => {
-            e.render(game,interpolationOffset);
+            e.render(game);
         })
         this.ui.render(game);
-        this.gameOverlay.render(game,interpolationOffset);
+        this.gameOverlay.render(game);
     }
 
     checkCollision(game, entity){

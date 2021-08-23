@@ -22,9 +22,9 @@ class StarField{
             star.tick(game, this.offsetX, this.offsetY, deltaTime);
         });
     }
-    render(game,interpolationOffset){
+    render(game){
         this.stars.forEach(star => {
-            star.render(game,interpolationOffset);
+            star.render(game);
         });
     }
 }
