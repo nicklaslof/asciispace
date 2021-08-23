@@ -40,18 +40,20 @@ loadImage("level.png").then((image) => {
                 if (c == 0x0000ff) addToLevel(level,x,y,"B"); // Formation 1
                 if (c == 0x6666ff) addToLevel(level,x,y,"C"); // Formation 2
                 if (c == 0x9999ff) addToLevel(level,x,y,"D"); // Formation 3
-                if (c == 0xff0000) addToLevel(level,x,y,"U"); // UFO formation
+                if (c == 0xff0000) addToLevel(level,x,y,"R"); // RotatingBall formation
+                if (c == 0xff7e7e) addToLevel(level,x,y,"U"); // UFO formation
                 if (c == 0x00ffff) addToLevel(level,x,y,"M"); // Boss1
 
                 if (c == 0xee4feb) addToLevel(level,x,y,"a"); // Shooter 1
+                if (c == 0xdd4feb) addToLevel(level,x,y,"d"); // Shooter 1 alternative
                 if (c == 0xaa4feb) addToLevel(level,x,y,"b"); // Shooter 2
                 if (c == 0x774feb) addToLevel(level,x,y,"c"); // Shooter 3
 
             }
         }
     
-        saveLevel("../src/l.txt",getLevelString(level));
-        saveLevel("../src/m.txt",getLevelString(metaData));
+        saveLevel("../src/l.js",getLevelString(level));
+        //saveLevel("../src/m.txt",getLevelString(metaData));
 });
 
 // Save the metadata and level data to a text file that will be used in the game.
@@ -70,12 +72,13 @@ function addToLevel(level,x,y,data){
 }
 
 function getLevelString(level){
-    let txt = "";
+    let txt = "const level=\"";
     for (let x = 0; x < width; x++) {
         for (let y = 0; y < height; y++) {
             txt += level[y + (x*height)];
         }
     }
+    txt += "\";"
     return txt;
 }
 

@@ -16,6 +16,7 @@ import Shooter1 from "../entity/shooter1.js";
 import Shooter2 from "../entity/shooter2.js";
 import RotatingBallFormation from "../formation/rotatingballformation.js";
 import BossFormation1 from "../formation/bossformation1.js";
+import UfoFormation from "../formation/ufoformation.js";
 
 class Level{
 
@@ -33,8 +34,8 @@ class Level{
         this.tiles = [];
 
         this.starfield = new StarField();
-        //this.levelPositionX = 7500;
-        this.levelPositionX = -1000;
+        this.levelPositionX = 8600;
+        //this.levelPositionX = -1000;
         this.lastCheckedTilePostionX = 0;
         this.lastFormation = -2000;
         this.player = new Ship(50,H/2).setHealth(8);
@@ -50,52 +51,43 @@ class Level{
 
         this.upgradeController = new UpgradeController(this);
 
-        this.ready = false;
-
         this.stopped = false;
 
-        fetch('l.txt')
-            .then(response => response.text())
-            .then(data => {
-                for (let x = 0; x < this.levelSizeX; x++) {
-                    for (let y = 0; y < this.levelSizeY; y++) {
-                        this.tiles[x + (y*this.levelSizeX)] = new AirTile(x*24, y*29);
-                        var levelChar = data.charAt(x + (y*this.levelSizeX));
-                        if (levelChar=="#") this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,30,36,20,26,0xffda7d84);
-                        if (levelChar=="."){
+        for (let x = 0; x < this.levelSizeX; x++) {
+            for (let y = 0; y < this.levelSizeY; y++) {
+                this.tiles[x + (y*this.levelSizeX)] = new AirTile(x*24, y*29);
+                var levelChar = level.charAt(x + (y*this.levelSizeX));
+                if (levelChar=="#") this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,30,36,20,26,0xffda7d84);
+                if (levelChar=="."){
 
-                            var r = Math.floor(this.getRandom(1,4));
-                            switch(r){
-                                case 1:
-                                    this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,66,40,11,22,0xff444444);
-                                    break;
-                                case 2:
-                                    this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,1,49,11,12,0xff888888);
-                                    break;
-                                case 3:
-                                    this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,98,32,11,16,0xff222222);
-                                    break;
-                            }
-                        }
-                        if (levelChar=="A" ||levelChar=="B" || levelChar == "C" || levelChar == "D" || levelChar == "M" || levelChar == "U"){
-                            this.formations[x + (y* this.levelSizeX)] = levelChar;
-                        }
-
-                        if (levelChar=="a" || levelChar=="b" || levelChar=="c"){
-                            console.log(x +" "+y);
-                            this.entitiesToSpawn[x + (y * this.levelSizeX)] = levelChar;
-                        }
+                    var r = Math.floor(this.getRandom(1,4));
+                    switch(r){
+                        case 1:
+                            this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,66,40,11,22,0xff444444);
+                            break;
+                        case 2:
+                            this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,1,49,11,12,0xff888888);
+                            break;
+                        case 3:
+                            this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,98,32,11,16,0xff222222);
+                            break;
                     }
                 }
-                this.ready = true;
-            });
+                if (levelChar=="A" ||levelChar=="B" || levelChar == "C" || levelChar == "D" || levelChar == "M" || levelChar == "R" || levelChar == "U"){
+                    this.formations[x + (y* this.levelSizeX)] = levelChar;
+                }
+
+                if (levelChar=="a" || levelChar=="b" || levelChar=="c"|| levelChar=="d"){
+                    console.log(x +" "+y);
+                    this.entitiesToSpawn[x + (y * this.levelSizeX)] = levelChar;
+                }
+            }
+        }
     }
 
     tick(game,deltaTime){
-        if (!this.ready) return;
-    
         if (game.keys[69] == "keydown"){
-            game.keys[69] = "keyup" 
+            game.keys[69] = "" 
             this.showUpgradePanel = !this.showUpgradePanel;
             if (this.showUpgradePanel)
                 this.ui.showUpgradePanel();
@@ -126,14 +118,16 @@ class Level{
                     if (formation == "B") this.activeFormations.push(new EnemyShipFormation1(this));
                     if (formation == "C") this.activeFormations.push(new EnemyShipFormation2(this));
                     if (formation == "D") this.activeFormations.push(new EnemyShipFormation3(this));
-                    if (formation == "U") this.activeFormations.push(new RotatingBallFormation(this,y*29));
+                    if (formation == "R") this.activeFormations.push(new RotatingBallFormation(this,y*29));
                     if (formation == "M") this.activeFormations.push(new BossFormation1(game,this));
+                    if (formation == "U") this.activeFormations.push(new UfoFormation(this));
                 }
 
                 var entityToSpawn = this.entitiesToSpawn[x + (y * this.levelSizeX)];
                 if (entityToSpawn != null){
                     console.log("Adding entity "+entityToSpawn);
                     if (entityToSpawn == "a") this.addEntity(new Shooter1(W-5,(y+0.10)*30));
+                    if (entityToSpawn == "d") this.addEntity(new Shooter1(W-5,(y+0.10)*30,true));
                     if (entityToSpawn == "b") this.addEntity(new Shooter2(W-5,(y-0.10)*30,{x:-0.25,y:0.25},{x:0.25,y:0.25}));
                     if (entityToSpawn == "c") this.addEntity(new Shooter2(W-5,(y+0.10)*30,{x:-0.25,y:-0.25},{x:0.25,y:-0.25},true));
                 }

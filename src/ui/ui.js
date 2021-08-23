@@ -26,7 +26,7 @@ class UI{
             this.upgradeMessagePlayed = true;
         }
         if (this.showUpgradeAvailableMessage){
-            this.drawTextAt("New upgrades available! Press E",W/2,20,"#ffffff",14);
+            this.drawTextAt("Upgrades are available! Press E",W/2,20,"#ffffff",14);
         }
     }
 
@@ -47,7 +47,7 @@ class UI{
                 this.selectedUpgradeButton--;
             if (game.keys[32] == "keydown")
                 if (this.upgradeButtons[this.selectedUpgradeButton] != null) this.upgradeButtons[this.selectedUpgradeButton].action(game);
-            game.keys[68] = game.keys[65] = game.keys[32] = "keyup";
+            game.keys[68] = game.keys[65] = game.keys[32] = "";
 
             if (this.selectedUpgradeButton > 2)
                 this.selectedUpgradeButton = 0;
@@ -166,8 +166,6 @@ class UI{
         this.ctx.font = "normal "+fontSize+"px monospace";
         this.ctx.fillStyle = col;
         this.ctx.fillText(text,x,y);
-        console.log(text);
-        
     }
 
 }

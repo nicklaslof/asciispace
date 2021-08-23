@@ -26,7 +26,7 @@ class AsciiTexture{
     }
 
     addShooter1(textContext){
-        var ascii = "‾\\_/‾n";
+        var ascii = "‾\\ /‾n";
         this.addAsciiart(textContext,ascii,0,300,64);
     }
 
