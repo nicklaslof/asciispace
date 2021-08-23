@@ -4,8 +4,8 @@ class Star extends Entity{
     constructor(posX, posY, speed) {
         super(posX, posY, 8,57,1,1,0xffffffff,speed/50,speed/50);
         this.speed = speed;
-        this.position.x = this.previousPosition.x = this.getRandom(0,W);
-        this.position.y = this.previousPosition.y = this.getRandom(-100,H+100);
+        this.position.x = this.getRandom(0,W);
+        this.position.y = this.getRandom(-100,H+100);
         //this.c = 0xffffffff/speed*50;
     }
 
@@ -15,8 +15,8 @@ class Star extends Entity{
         this.position.x += offsetX*(this.speed*5)*deltaTime;
         this.position.y += offsetY*(this.speed*5)*deltaTime;
         if (this.position.x < 0){
-            this.position.x = this.previousPosition.x = W;
-            this.position.y = this.previousPosition.y = this.getRandom(-100,H+100);
+            this.position.x = W;
+            this.position.y = this.getRandom(-100,H+100);
         }
 
     }

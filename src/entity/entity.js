@@ -7,7 +7,6 @@ class Entity{
 // pa = particle
     constructor(posX, posY, texX,texY,texW,texH,c,sizeX, sizeY, type) {
         this.position = {x:posX, y:posY};
-        this.previousPosition = {x:posX, y:posY};
         this.tilePosition = {x:0, y:0};
         this.u0 = texX/TZ;
         this.u1 = texY/TZ;
@@ -52,8 +51,6 @@ class Entity{
 
     tick(game,deltaTime){
         
-        this.previousPosition.x = this.position.x;
-        this.previousPosition.y = this.position.y;
         if (this.health <=0){
             this.disposed = true;
             this.onDispose(game);

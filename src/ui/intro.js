@@ -27,7 +27,7 @@ this.drawTextAt(
         
 this.drawTextAt("A game for JS13k 2021 by Nicklas Löf",(W/2)-150,(H/2)+100,"white",14);
 this.drawTextAt("Play with WASD, SPACE and E",(W/2)-110,(H/2)+150,"white",14);  
-//this.drawTextAt("Collect metal and minerals and upgrade your ship",(W/2)-200,(H/2)+170,"white",14); 
+this.drawTextAt("Press SPACE to start",(W/2)-75,(H/2)+170,"white",14); 
     
     //this.generateSquare((W/2)-170,(H/2)-250, 22,12,16);
 
