@@ -1,6 +1,7 @@
 import AsciiTexture from "./graphic/asciitexture.js";
 import GlTexture from "./graphic/gltexture.js";
 import Level from "./level/level.js";
+import Intro from "./ui/intro.js";
 //import { zzfx } from "./lib/z.js";
 
 class Game{
@@ -14,6 +15,7 @@ class Game{
         this.texture = new GlTexture(this.gl.g,this.ascii.image);
 
         this.level = new Level(this);
+        this.intro = new Intro(this);
         this.keys =[];
         onkeydown=onkeyup=e=> this.keys[e.keyCode] = e.type;
         this.counter = 0;
@@ -22,6 +24,8 @@ class Game{
         this.last = 0;
         this.playBackgroundSound();
         setInterval(()=>{this.playBackgroundSound();},6000);
+
+        this.showIntro = true;
         
     }
     gameloop(){
@@ -34,15 +38,22 @@ class Game{
             deltaTime = 0;
         }
         this.last = now;
-        this.level.tick(this,deltaTime/1000);
-        this.level.render(this,1);
-        this.fps++;
-        this.gl.flush();
-        this.counter += deltaTime/1000;
-        if (this.counter > 1){
-            console.log(Date.now()+" FPS:"+this.fps);
-            this.fps = this.ticks = this.counter = 0;
-            this.counter = 0;
+
+        if (!this.showIntro){
+            this.level.tick(this,deltaTime/1000);
+            this.level.render(this,1);
+            this.fps++;
+            this.gl.flush();
+            this.counter += deltaTime/1000;
+            if (this.counter > 1){
+                console.log(Date.now()+" FPS:"+this.fps);
+                this.fps = this.ticks = this.counter = 0;
+                this.counter = 0;
+            }
+        }else{
+            this.intro.tick(this, deltaTime/1000);
+            this.intro.render(this);
+            this.gl.flush();
         }
         
     }

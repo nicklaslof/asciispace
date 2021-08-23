@@ -166,6 +166,7 @@ class UI{
         this.ctx.font = "normal "+fontSize+"px monospace";
         this.ctx.fillStyle = col;
         this.ctx.fillText(text,x,y);
+        console.log(text);
         
     }
 
