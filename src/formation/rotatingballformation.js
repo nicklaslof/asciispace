@@ -9,6 +9,7 @@ class RotatingBallFormation extends Formation{
         this.angle = 0;
         this.movementX = 0;
         this.execute(y);
+        this.distance = 50;
         
     }
 
@@ -25,9 +26,8 @@ class RotatingBallFormation extends Formation{
         
         this.angle += deltaTime/5;
         this.movementX += deltaTime*this.xSpeed;
-        var distance = 50;
-        var x = (Math.cos(this.angle+(entity.count)) * distance) + entity.orginalPositionX;
-        var y = (Math.sin(this.angle+(entity.count)) * distance) + entity.orginalPositionY;
+        var x = (Math.cos(this.angle+(entity.count)) * this.distance) + entity.orginalPositionX;
+        var y = (Math.sin(this.angle+(entity.count)) * this.distance) + entity.orginalPositionY;
         
         entity.position.x = x - this.movementX;
         entity.position.y = y;

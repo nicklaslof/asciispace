@@ -19,7 +19,7 @@ class UfoFormation extends Formation{
         
         for (let index = 0; index < 4; index++) {
             y = 128+(128 * index);
-            this.addEntity(new UFO(x,y,index,32,0xffff9999).setHealth(3));
+            this.addEntity(new UFO(x,y,index,32,0xffff9999).setHealth(4));
         }
     }
 
@@ -37,8 +37,9 @@ class UfoFormation extends Formation{
 
         entity.shootCounter += deltaTime;
 
-        if (entity.shootCounter > 2.5){
+        if (entity.shootCounter > 3.5){
             this.level.addEntity(new Laser(entity.position.x, entity.position.y,400,{x:-1,y:0},2));
+            game.playShoot2();
             entity.shootCounter = 0;
         }
     }

@@ -33,7 +33,8 @@ loadImage("level.png").then((image) => {
                 c = (c & 0x0FFFFFF);
 
                 //Based on the color set an asciicharacter in the level textfile
-                if (c == 0xffffff) addToLevel(level,x,y,"#"); // Ground
+                if (c == 0xffffff) addToLevel(level,x,y,"#"); // White ground
+                if (c == 0xeeeeee) addToLevel(level,x,y,":"); // Green ground
                 if (c == 0xaaaaaa) addToLevel(level,x,y,"."); // Below ground 
 
                 if (c == 0x3333ff) addToLevel(level,x,y,"A"); // Sineball movements
@@ -41,6 +42,7 @@ loadImage("level.png").then((image) => {
                 if (c == 0x6666ff) addToLevel(level,x,y,"C"); // Formation 2
                 if (c == 0x9999ff) addToLevel(level,x,y,"D"); // Formation 3
                 if (c == 0xff0000) addToLevel(level,x,y,"R"); // RotatingBall formation
+                if (c == 0xff2222) addToLevel(level,x,y,"T"); // RotatingBall formation 2
                 if (c == 0xff7e7e) addToLevel(level,x,y,"U"); // UFO formation
                 if (c == 0x00ffff) addToLevel(level,x,y,"M"); // Boss1
 
@@ -48,6 +50,7 @@ loadImage("level.png").then((image) => {
                 if (c == 0xdd4feb) addToLevel(level,x,y,"d"); // Shooter 1 alternative
                 if (c == 0xaa4feb) addToLevel(level,x,y,"b"); // Shooter 2
                 if (c == 0x774feb) addToLevel(level,x,y,"c"); // Shooter 3
+                if (c == 0x00ff00) addToLevel(level,x,y,"e"); // Obstacle
 
             }
         }

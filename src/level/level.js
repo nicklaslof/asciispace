@@ -14,7 +14,9 @@ import AirTile from "./airtile.js";
 import UpgradeController from "../upgrade/upgradecontroller.js";
 import Shooter1 from "../entity/shooter1.js";
 import Shooter2 from "../entity/shooter2.js";
+import Obstacle from "../entity/obstacle.js";
 import RotatingBallFormation from "../formation/rotatingballformation.js";
+import RotatingBallFormation2 from "../formation/rotatingballformation2.js";
 import BossFormation1 from "../formation/bossformation1.js";
 import UfoFormation from "../formation/ufoformation.js";
 
@@ -34,8 +36,9 @@ class Level{
         this.tiles = [];
 
         this.starfield = new StarField();
-        this.levelPositionX = 8600;
-        //this.levelPositionX = -1000;
+        //this.levelPositionX = 10900;
+        //this.levelPositionX = 7800;
+        this.levelPositionX = -1000;
         this.lastCheckedTilePostionX = 0;
         this.lastFormation = -2000;
         this.player = new Ship(50,H/2).setHealth(8);
@@ -58,6 +61,7 @@ class Level{
                 this.tiles[x + (y*this.levelSizeX)] = new AirTile(x*24, y*29);
                 var levelChar = level.charAt(x + (y*this.levelSizeX));
                 if (levelChar=="#") this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,30,36,20,26,0xffda7d84);
+                if (levelChar==":") this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,30,36,20,26,0xff00ff00);
                 if (levelChar=="."){
 
                     var r = Math.floor(this.getRandom(1,4));
@@ -73,12 +77,12 @@ class Level{
                             break;
                     }
                 }
-                if (levelChar=="A" ||levelChar=="B" || levelChar == "C" || levelChar == "D" || levelChar == "M" || levelChar == "R" || levelChar == "U"){
+                if (levelChar=="A" ||levelChar=="B" || levelChar == "C" || levelChar == "D" || levelChar == "M" || levelChar == "R" || levelChar == "T" || levelChar == "U"){
                     this.formations[x + (y* this.levelSizeX)] = levelChar;
                 }
 
-                if (levelChar=="a" || levelChar=="b" || levelChar=="c"|| levelChar=="d"){
-                    console.log(x +" "+y);
+                if (levelChar=="a" || levelChar=="b" || levelChar=="c"|| levelChar=="d"|| levelChar=="e"){
+                   // console.log(levelChar +" "+ x +" "+y);
                     this.entitiesToSpawn[x + (y * this.levelSizeX)] = levelChar;
                 }
             }
@@ -119,6 +123,7 @@ class Level{
                     if (formation == "C") this.activeFormations.push(new EnemyShipFormation2(this));
                     if (formation == "D") this.activeFormations.push(new EnemyShipFormation3(this));
                     if (formation == "R") this.activeFormations.push(new RotatingBallFormation(this,y*29));
+                    if (formation == "T") this.activeFormations.push(new RotatingBallFormation2(this,y*29));
                     if (formation == "M") this.activeFormations.push(new BossFormation1(game,this));
                     if (formation == "U") this.activeFormations.push(new UfoFormation(this));
                 }
@@ -130,6 +135,7 @@ class Level{
                     if (entityToSpawn == "d") this.addEntity(new Shooter1(W-5,(y+0.10)*30,true));
                     if (entityToSpawn == "b") this.addEntity(new Shooter2(W-5,(y-0.10)*30,{x:-0.25,y:0.25},{x:0.25,y:0.25}));
                     if (entityToSpawn == "c") this.addEntity(new Shooter2(W-5,(y+0.10)*30,{x:-0.25,y:-0.25},{x:0.25,y:-0.25},true));
+                    if (entityToSpawn == "e") this.addEntity(new Obstacle(W-5,y*30).setHealth(3));
                 }
 
             }

@@ -8,6 +8,7 @@ class Ball extends EnemyEntity{
         this.movementStrength = this.getRandom(1,5);
         this.orginalPositionX = posX;
         this.orginalPositionY = posY;
+        this.shootCounter = count/12;
     }
 }
 

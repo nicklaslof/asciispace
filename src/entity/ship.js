@@ -12,13 +12,13 @@ class Ship extends CollisionEntity{
         this.mineral = 0;
         this.metalScrap = 0;
         this.shootRange = 200;
-        this.laserStrength = 2;
+        this.laserStrength = 1;
         this.entityTimeoutOnHit = 2;
         this.showHurtCounter = 0;
-        this.dualLaser = true;
+        this.dualLaser = false;
         this.fireUpperLaser = false;
         this.rearLaser = false;
-        this.sideLaser = true;
+        this.sideLaser = false;
 
         this.drones = [];
         this.numberOfDrones = 0;
@@ -78,11 +78,12 @@ class Ship extends CollisionEntity{
             }else{
                 game.playShoot();
                 game.level.addEntity(new Laser(this.position.x+16, this.position.y,this.shootRange,{x:1,y:0},this.laserStrength).setSource(this));
-                this.drones.forEach(drone => {
-                    drone.shoot(game,this,this.shootRange,this.laserStrength);
-                });
+                
                 this.fireDelay = 0.5;
             }
+            this.drones.forEach(drone => {
+                drone.shoot(game,this,this.shootRange,this.laserStrength);
+            });
 
             if (this.rearLaser){
                 game.level.addEntity(new Laser(this.position.x-32, this.position.y+1,this.shootRange,{x:-1,y:0},this.laserStrength).setSource(this));
