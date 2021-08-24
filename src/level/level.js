@@ -42,7 +42,7 @@ class Level{
 
         this.snapshot = snapshot;
 
-        this.levelPositionX = 17200;
+        this.levelPositionX = 14200;
         //this.levelPositionX = 12900;
         //this.levelPositionX = 8200;
         //this.levelPositionX = -1000;
@@ -165,7 +165,7 @@ class Level{
                     if (entityToSpawn == "a") this.addEntity(new Shooter1(W-5,(y+0.10)*30));
                     if (entityToSpawn == "d") this.addEntity(new Shooter1(W-5,(y+0.10)*30,true));
                     if (entityToSpawn == "h") this.addEntity(new Shooter1(W-5,(y+0.10)*30,false,true));
-                    if (entityToSpawn == "b") this.addEntity(new Shooter2(W-5,(y-0.10)*30,{x:-0.25,y:0.25},{x:0.25,y:0.25}));
+                    if (entityToSpawn == "b") this.addEntity(new Shooter2(W-5,(y-0.10)*30,{x:-0.25,y:0.25},{x:0.50,y:0.00}));
                     if (entityToSpawn == "c") this.addEntity(new Shooter2(W-5,(y+0.10)*30,{x:-0.25,y:-0.25},{x:0.25,y:-0.25},true));
                     if (entityToSpawn == "e") this.addEntity(new Obstacle(W-5,y*30).setHealth(3));
                     if (entityToSpawn == "f") this.addEntity(new Checkpoint(W-5,y*30));
