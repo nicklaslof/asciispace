@@ -18,7 +18,10 @@ class UpgradeController{
         if (snapshot != null){
             this.level = snapshot.upgradeLevel;
             for (let index = 0; index < snapshot.upgrades.length; index++) {
+                console.log(this.upgrades[index]);
+                console.log(snapshot.upgrades[index]);
                 this.upgrades[index].taken = snapshot.upgrades[index].taken;
+
             }
         }
     }

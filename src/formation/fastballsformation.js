@@ -15,7 +15,6 @@ class FastBallsFormation extends Formation{
             var x = W + (48 * index);
             var y = 150 + (48 * index);
             this.addEntity(new NonstaticObstacle(x,y,0xff2222ff,32,32).setHealth(10));
-            console.log(x + " "+y);
         }
 
         for (let index = 0; index < 6; index++) {

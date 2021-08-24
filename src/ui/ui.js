@@ -10,9 +10,13 @@ class UI{
         this.upgradeButtons = [];
         this.showUpgradeAvailableMessage = false;
         this.upgradeMessagePlayed = false;
+        this.showCheckpointTakenMessage = true;
+        this.checkpointMessageTimer = 0;
     }
 
-    tick(game){
+    tick(game, deltaTime){
+        if (this.checkpointMessageTimer >0) this.checkpointMessageTimer -=deltaTime ;
+        if (this.checkpointMessageTimer<=0) this.showCheckpointTakenMessage = false;
         this.tickUpgradePanel(game);
         this.tickResourcesAndUpgradeAvailable(game);
     }
@@ -27,6 +31,10 @@ class UI{
         }
         if (this.showUpgradeAvailableMessage){
             this.drawTextAt("Upgrades are available! Press E",W/2,20,"#ffffff",14);
+        }
+
+        if (this.showCheckpointTakenMessage){
+            this.drawTextAt("Checkpoint saved",(W/2)-80,H/2,"#ffffff",14);
         }
     }
 
@@ -72,6 +80,10 @@ class UI{
     render(game){
     }
 
+    showCheckpointTaken(){
+        this.showCheckpointTakenMessage = true;
+        this.checkpointMessageTimer = 2;
+    }
     showUpgradeAvailable(){
         this.showUpgradeAvailableMessage = true;
     }

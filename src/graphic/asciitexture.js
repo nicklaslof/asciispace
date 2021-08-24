@@ -11,6 +11,7 @@ class AsciiTexture{
         textContext.fillStyle = "white";
         textContext.fillText(">",0,24,16);
         textContext.fillText("o",32,24,16);
+        textContext.fillText("c",64,24,16);
         textContext.fillText(".",0,60,16);
         textContext.fillText("#",32,60,16);
         textContext.fillText(":",64,60,16);

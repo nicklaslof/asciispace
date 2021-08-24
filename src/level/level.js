@@ -1,6 +1,3 @@
-import Asteroid from "../entity/asteroid.js";
-import Ball from "../entity/ball.js";
-import Bullet from "../entity/bullet.js";
 import Ship from "../entity/ship.js";
 import StarField from "../entity/starfield.js";
 import EnemyShipFormation1 from "../formation/enemyshipformation1.js";
@@ -20,6 +17,7 @@ import RotatingBallFormation2 from "../formation/rotatingballformation2.js";
 import BossFormation1 from "../formation/bossformation1.js";
 import UfoFormation from "../formation/ufoformation.js";
 import FastBallsFormation from "../formation/fastballsformation.js";
+import Checkpoint from "../entity/checkpoint.js";
 
 class Level{
 
@@ -38,11 +36,10 @@ class Level{
 
         this.starfield = new StarField();
 
-        this.snapshotTimeout = 0;
         this.snapshot = snapshot;
 
-        //this.levelPositionX = 12200;
-        //this.levelPositionX = 7800;
+        //this.levelPositionX = 11800;
+        //this.levelPositionX = 8200;
         this.levelPositionX = -1000;
         
         if (snapshot != null) this.levelPositionX = snapshot.levelPositionX;
@@ -62,13 +59,11 @@ class Level{
             this.player.sideLaser = snapshot.playerSideLaser;
             this.player.numberOfDrones = snapshot.playerNumberOfDrones;
             this.player.maxHealth = this.player.health = snapshot.playerMaxHealth;
-            this.snapshotTimeout = 5;
         }
 
         this.speedX = 0;
         this.speedY = 0;
-    
-        this.setupFormations();
+
         this.ui = new UI();
        
         this.showUpgradePanel = false;
@@ -126,7 +121,7 @@ class Level{
         }
 
 
-        if (!game.playerDead) this.ui.tick(game);
+        if (!game.playerDead) this.ui.tick(game, deltaTime);
         if (this.showUpgradePanel){
             return;
         }
@@ -135,8 +130,6 @@ class Level{
             this.levelPositionX += deltaTime*75;
              this.starfield.tick(game, deltaTime);
         }
-
-        if(this.snapshotTimeout>0) this.snapshotTimeout -= deltaTime;
 
         var levelTilePositionX = Math.floor((this.levelPositionX/24)+42);
 
@@ -166,12 +159,7 @@ class Level{
                     if (entityToSpawn == "b") this.addEntity(new Shooter2(W-5,(y-0.10)*30,{x:-0.25,y:0.25},{x:0.25,y:0.25}));
                     if (entityToSpawn == "c") this.addEntity(new Shooter2(W-5,(y+0.10)*30,{x:-0.25,y:-0.25},{x:0.25,y:-0.25},true));
                     if (entityToSpawn == "e") this.addEntity(new Obstacle(W-5,y*30).setHealth(3));
-
-
-
-
-                    if (this.snapshotTimeout <=0)if (entityToSpawn == "f") this.snapshotCheckpoint();
-
+                    if (entityToSpawn == "f") this.addEntity(new Checkpoint(W-5,y*30));
                 }
 
             }
@@ -217,6 +205,7 @@ class Level{
         this.entities.forEach(e => {
             e.render(game);
         })
+
         if (!game.playerDead) this.ui.render(game);
         if (!game.playerDead) this.gameOverlay.render(game);
     }
@@ -234,12 +223,6 @@ class Level{
         var tile = this.tiles[x + (y * this.levelSizeX)];
         if (tile == null) return;
         tile.checkCollision(game,entity); 
-    }
-
-    setupFormations(){
-       // this.formationTemplates.push(new SineballFormation(this));
-       // this.formationTemplates.push(new EnemyShipFormation1(this));
-       // this.formationTemplates.push(new EnemyShipFormation2(this));
     }
 
     addEntity(entity){
@@ -266,7 +249,7 @@ class Level{
     getRandom(min, max){
         return Math.random() * (max - min) + min
     }
-    snapshotCheckpoint(){
+    snapshotCheckpoint(game){
         this.snapshot = {
             levelPositionX : this.levelPositionX,
             playerMineral : this.player.mineral,
@@ -283,6 +266,8 @@ class Level{
         };
 
         console.log(this.snapshot);
+        game.playCheckpoint();
+        this.ui.showCheckpointTaken();
     }
 }
 export default Level;
