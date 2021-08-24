@@ -25,7 +25,6 @@ class FastBallsFormation extends Formation{
     }
     handleEntity(game, entity, deltaTime){
         entity.position.x -= 500*deltaTime;
-        console.log(entity.position.x);
     }
 
 }

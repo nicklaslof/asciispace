@@ -38,12 +38,14 @@ loadImage("level.png").then((image) => {
                 if (c == 0xaaaaaa) addToLevel(level,x,y,"."); // Below ground 
 
                 if (c == 0x3333ff) addToLevel(level,x,y,"A"); // Sineball movements
+                if (c == 0x1111ff) addToLevel(level,x,y,"F"); // Sineball movements 2
                 if (c == 0x0000ff) addToLevel(level,x,y,"B"); // Formation 1
                 if (c == 0x6666ff) addToLevel(level,x,y,"C"); // Formation 2
                 if (c == 0x9999ff) addToLevel(level,x,y,"D"); // Formation 3
                 if (c == 0xff0000) addToLevel(level,x,y,"R"); // RotatingBall formation
                 if (c == 0xff2222) addToLevel(level,x,y,"T"); // RotatingBall formation 2
                 if (c == 0xff7e7e) addToLevel(level,x,y,"U"); // UFO formation
+                if (c == 0xee7e7e) addToLevel(level,x,y,"V"); // UFO formation
                 if (c == 0x00ffff) addToLevel(level,x,y,"M"); // Boss1
                 if (c == 0x2222ff) addToLevel(level,x,y,"E"); // Fast balls formation
 

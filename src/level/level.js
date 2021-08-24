@@ -18,6 +18,8 @@ import BossFormation1 from "../formation/bossformation1.js";
 import UfoFormation from "../formation/ufoformation.js";
 import FastBallsFormation from "../formation/fastballsformation.js";
 import Checkpoint from "../entity/checkpoint.js";
+import SineballFormation2 from "../formation/sineballformation2.js";
+import UfoFormation2 from "../formation/ufoformation2.js";
 
 class Level{
 
@@ -38,7 +40,7 @@ class Level{
 
         this.snapshot = snapshot;
 
-        //this.levelPositionX = 11800;
+        //this.levelPositionX = 12900;
         //this.levelPositionX = 8200;
         this.levelPositionX = -1000;
         
@@ -93,7 +95,7 @@ class Level{
                             break;
                     }
                 }
-                if (levelChar=="A" ||levelChar=="B" || levelChar == "C" || levelChar == "D" || levelChar == "E"|| levelChar == "M" || levelChar == "R" || levelChar == "T" || levelChar == "U"){
+                if (levelChar=="A" ||levelChar=="B" || levelChar == "C" || levelChar == "D" || levelChar == "E"|| levelChar == "F" || levelChar == "M" || levelChar == "R" || levelChar == "T" || levelChar == "U"|| levelChar == "V"){
                     this.formations[x + (y* this.levelSizeX)] = levelChar;
                 }
 
@@ -145,10 +147,12 @@ class Level{
                     if (formation == "C") this.activeFormations.push(new EnemyShipFormation2(this));
                     if (formation == "D") this.activeFormations.push(new EnemyShipFormation3(this));
                     if (formation == "E") this.activeFormations.push(new FastBallsFormation(this));
+                    if (formation == "F") this.activeFormations.push(new SineballFormation2(this));
                     if (formation == "R") this.activeFormations.push(new RotatingBallFormation(this,y*29));
                     if (formation == "T") this.activeFormations.push(new RotatingBallFormation2(this,y*29));
                     if (formation == "M") this.activeFormations.push(new BossFormation1(game,this));
                     if (formation == "U") this.activeFormations.push(new UfoFormation(this));
+                    if (formation == "V") this.activeFormations.push(new UfoFormation2(this));
                 }
 
                 var entityToSpawn = this.entitiesToSpawn[x + (y * this.levelSizeX)];
