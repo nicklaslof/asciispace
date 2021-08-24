@@ -18,6 +18,7 @@ import BossFormation1 from "../formation/bossformation1.js";
 import UfoFormation from "../formation/ufoformation.js";
 import FastBallsFormation from "../formation/fastballsformation.js";
 import Checkpoint from "../entity/checkpoint.js";
+import Health from "../entity/health.js";
 import SineballFormation2 from "../formation/sineballformation2.js";
 import UfoFormation2 from "../formation/ufoformation2.js";
 
@@ -99,7 +100,7 @@ class Level{
                     this.formations[x + (y* this.levelSizeX)] = levelChar;
                 }
 
-                if (levelChar=="a" || levelChar=="b" || levelChar=="c"|| levelChar=="d"|| levelChar=="e"|| levelChar=="f"){
+                if (levelChar=="a" || levelChar=="b" || levelChar=="c"|| levelChar=="d"|| levelChar=="e"|| levelChar=="f" || levelChar=="g" || levelChar=="h"){
                    // console.log(levelChar +" "+ x +" "+y);
                     this.entitiesToSpawn[x + (y * this.levelSizeX)] = levelChar;
                 }
@@ -160,10 +161,12 @@ class Level{
                     console.log("Adding entity "+entityToSpawn);
                     if (entityToSpawn == "a") this.addEntity(new Shooter1(W-5,(y+0.10)*30));
                     if (entityToSpawn == "d") this.addEntity(new Shooter1(W-5,(y+0.10)*30,true));
+                    if (entityToSpawn == "h") this.addEntity(new Shooter1(W-5,(y+0.10)*30,false,true));
                     if (entityToSpawn == "b") this.addEntity(new Shooter2(W-5,(y-0.10)*30,{x:-0.25,y:0.25},{x:0.25,y:0.25}));
                     if (entityToSpawn == "c") this.addEntity(new Shooter2(W-5,(y+0.10)*30,{x:-0.25,y:-0.25},{x:0.25,y:-0.25},true));
                     if (entityToSpawn == "e") this.addEntity(new Obstacle(W-5,y*30).setHealth(3));
                     if (entityToSpawn == "f") this.addEntity(new Checkpoint(W-5,y*30));
+                    if (entityToSpawn == "g") this.addEntity(new Health(W-5,y*30));
                 }
 
             }

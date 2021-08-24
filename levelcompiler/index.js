@@ -51,11 +51,12 @@ loadImage("level.png").then((image) => {
 
                 if (c == 0xee4feb) addToLevel(level,x,y,"a"); // Shooter 1
                 if (c == 0xdd4feb) addToLevel(level,x,y,"d"); // Shooter 1 alternative
+                if (c == 0xcc4feb) addToLevel(level,x,y,"h"); // Shooter 1 alternative2
                 if (c == 0xaa4feb) addToLevel(level,x,y,"b"); // Shooter 2
                 if (c == 0x774feb) addToLevel(level,x,y,"c"); // Shooter 3
                 if (c == 0x00ff00) addToLevel(level,x,y,"e"); // Obstacle
-
                 if (c == 0x008cff) addToLevel(level,x,y,"f"); // Checkpoint
+                if (c == 0x4444d5) addToLevel(level,x,y,"g"); // Health
 
             }
         }

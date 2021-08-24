@@ -158,6 +158,11 @@ class Ship extends CollisionEntity{
             if (otherEntity.type == "rm") this.metalScrap++;
             return;
         }
+        if (otherEntity.type == "hp"){
+            this.health = this.maxHealth;
+            game.playHealth();
+            otherEntity.disposed = true;
+        }
         if (otherEntity.type == "c"){
             game.level.snapshotCheckpoint(game);
             otherEntity.disposed = true;

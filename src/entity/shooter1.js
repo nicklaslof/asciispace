@@ -1,12 +1,13 @@
 import RoundBullet from "./roundbullet.js";
 import StaticEntity from "./staticentity.js";
 class Shooter1 extends StaticEntity{
-    constructor(posX, posY,alternative=false) {
+    constructor(posX, posY,alternative=false,alternative2=false) {
         super(posX, posY, 0,271,64,35,0xff0000ff,48,24,"s1");
         this.shootCounter = this.shootCounter2 = 0;
         this.orginalPosX = posX;
         this.alternative = alternative;
         this.shootTime = this.alternative == true ? 7 : 3;
+        this.shootDirection = alternative2 ? {x:0,y:-0.25} : {x:0,y:0.25};
     }
 
     tick(game, deltaTime){
@@ -22,7 +23,7 @@ class Shooter1 extends StaticEntity{
             if (this.shootCounter <=1 || this.shootCounter >=1.75){
                 this.shootCounter2 += deltaTime;
                 if (this.shootCounter2>0.3){
-                    game.level.addEntity(new RoundBullet(this.position.x, this.position.y,800,{x:0,y:0.25}));
+                    game.level.addEntity(new RoundBullet(this.position.x, this.position.y,800,this.shootDirection));
                     game.playShoot2();
                     this.shootCounter2 = 0;
                 }
@@ -31,7 +32,7 @@ class Shooter1 extends StaticEntity{
             if (this.shootCounter >= 2){
                 this.shootCounter2 += deltaTime;
                 if (this.shootCounter2>0.3){
-                    game.level.addEntity(new RoundBullet(this.position.x, this.position.y,800,{x:0,y:0.25}));
+                    game.level.addEntity(new RoundBullet(this.position.x, this.position.y,800,this.shootDirection));
                     game.playShoot2();
                     this.shootCounter2 = 0;
                 }
