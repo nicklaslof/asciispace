@@ -1,0 +1,71 @@
+import Ball from "../entity/ball.js";
+import Formation from "./formation.js";
+import RoundBullet from "../entity/roundbullet.js";
+
+class BossFormation2 extends Formation{
+    constructor(game,level) {
+        super(level);
+        this.xSpeed = 10;
+        this.counter = 0;
+        this.angle = 0;
+        this.movementX = 0;
+        this.execute(game);
+        this.stopped = false;
+        this.distance = 100;
+        
+    }
+
+    execute(game){
+        super.execute();
+        var x = 0;
+        var y = (H/2);
+        this.yy = 0;
+
+        this.addEntity(new Ball(x,y,0,70,0xff0000ff,25).setHealth(130).onDeath(()=>{game.playBossExplosion(); this.killAllEntities(game)}));
+        
+        for (let index = 1; index < 20; index++) {
+            var b = new Ball(x,y,index,32,0xff00ffff,0).setHealth(700);
+            b.allowedOutOfLevel = true;
+            this.addEntity(b);
+        }
+    }
+
+    handleEntity(game, entity, deltaTime){
+
+        if (entity.count == 0 && entity.position.x >= (W/2)+250){
+            this.stopped = true;
+            game.level.stopped = true;
+        } 
+
+        this.angle += deltaTime/30;
+        this.yy = Math.cos(this.angle)*100;
+        if (!this.stopped) this.movementX -= deltaTime*this.xSpeed;
+
+        if (entity.count == 0){
+            if (!this.stopped) entity.position.x += deltaTime*this.xSpeed*20;
+            entity.position.y = this.yy+280;
+            return;
+        }
+
+        var x = (Math.cos(this.angle+(entity.count/3.14)) * this.distance) + entity.orginalPositionX;
+        var y = (Math.sin(this.angle+(entity.count/3.14)) * this.distance) + entity.orginalPositionY;
+        
+        entity.position.x = x - this.movementX;
+        entity.position.y = y + this.yy;
+
+        entity.shootCounter += deltaTime;
+
+        if (entity.shootCounter > entity.getRandom(2.5,3)){
+            var b = new RoundBullet(entity.position.x, entity.position.y,1800,{x:Math.cos(this.angle+(entity.count/3.14)),y:Math.sin(this.angle+(entity.count/3.14))});
+            b.speed = 200;
+            game.level.addEntity(b);
+            game.playShoot2();
+            entity.shootCounter = 0;
+        }
+    }
+
+    onDone(game){
+        game.level.stopped = false;
+    }
+}
+export default BossFormation2;

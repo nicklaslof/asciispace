@@ -12,16 +12,16 @@ class Ship extends CollisionEntity{
         this.mineral = 0;
         this.metalScrap = 0;
         this.shootRange = 200;
-        this.laserStrength = 1;
+        this.laserStrength = 3;
         this.entityTimeoutOnHit = 2;
         this.showHurtCounter = 0;
-        this.dualLaser = false;
+        this.dualLaser = true;
         this.fireUpperLaser = false;
-        this.rearLaser = false;
-        this.sideLaser = false;
+        this.rearLaser = true;
+        this.sideLaser = true;
 
         this.drones = [];
-        this.numberOfDrones = 0;
+        this.numberOfDrones = 2;
     }
     tick(game,deltaTime){
         super.tick(game,deltaTime);
@@ -138,14 +138,14 @@ class Ship extends CollisionEntity{
         game.level.speedY = translateY;
     }
 
-    hit(game,h,force){
+    hit(game,h,force,hitTimeout){
         if (this.hitTimeout<=0){ 
             game.playPlayerHit();
             for (let index = 0; index < 20; index++) {
                 game.level.addEntity(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff0000ff,30,15).setHealth(90));
             }
         }
-        super.hit(game,h,force);
+        super.hit(game,h,force,hitTimeout);
 
     }
 
@@ -167,6 +167,9 @@ class Ship extends CollisionEntity{
             game.level.snapshotCheckpoint(game);
             otherEntity.disposed = true;
             return;
+        }
+        if (otherEntity.type == "s"){
+            this.hit(game,3);
         }
         this.hit(game,1);
     }

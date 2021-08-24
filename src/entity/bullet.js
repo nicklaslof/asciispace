@@ -6,6 +6,7 @@ class Bullet extends CollisionEntity{
         this.range=range;
         this.direction = direction;
         this.damage = damage;
+        this.speed = 1500;
     }
 
     tick(game,deltaTime){
@@ -15,8 +16,8 @@ class Bullet extends CollisionEntity{
         if (this.disposed) return;
 
         super.tick(game);
-        this.position.x += (this.direction.x*1500)*deltaTime;
-        this.position.y += (this.direction.y*1500)*deltaTime;
+        this.position.x += (this.direction.x*this.speed)*deltaTime;
+        this.position.y += (this.direction.y*this.speed)*deltaTime;
 
         if (this.position.x > W){
             this.disposed = true;

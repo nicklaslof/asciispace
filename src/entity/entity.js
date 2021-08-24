@@ -29,10 +29,10 @@ class Entity{
         return this;
     }
 
-    hit(game,h, force){
+    hit(game,h, force,hitTimeout = 0.2){
         if (this.hitTimeout <=0 || force){
             this.health -= h;
-            this.hitTimeout = this.entityTimeoutOnHit;
+            this.hitTimeout = hitTimeout;
         }
 
     }
@@ -56,7 +56,7 @@ class Entity{
             this.onDispose(game);
         }
 
-        if (this.position.x < -100) this.disposed = true;
+        if (this.position.x < -100 && !this.allowedOutOfLevel) this.disposed = true;
 
         if (this.hitTimeout > 0){
 

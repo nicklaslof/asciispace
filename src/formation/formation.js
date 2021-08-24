@@ -34,6 +34,12 @@ class Formation{
 
     }
 
+    killAllEntities(game){
+        this.entities.forEach(entity => {
+            entity.hit(game,1000,true);
+        });
+    }
+
 
 }
 export default Formation;

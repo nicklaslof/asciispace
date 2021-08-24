@@ -34,7 +34,7 @@ class EnemyEntity extends CollisionEntity{
         for (let index = 0; index < this.drops; index++) {
             var resourceType = "rm";
             var c = 0xff999999;
-            if (Math.floor(this.getRandom(0,3)) == 1){
+            if (Math.floor(this.getRandom(0,4)) == 1){
                 c = 0xffff80e1;
                 resourceType = "rg";
             }
