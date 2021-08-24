@@ -21,7 +21,6 @@ class Drone extends Entity{
     }
 
     shoot(game,source,shootRange,laserStrength){
-        game.playDroneShoot();
         game.level.addEntity(new Laser(this.position.x+16, this.position.y,shootRange,{x:1,y:0},laserStrength,0,35,4,this.c).setSource(source));
     }
 

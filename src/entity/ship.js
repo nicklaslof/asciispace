@@ -78,9 +78,12 @@ class Ship extends CollisionEntity{
             }else{
                 game.playShoot();
                 game.level.addEntity(new Laser(this.position.x+16, this.position.y,this.shootRange,{x:1,y:0},this.laserStrength).setSource(this));
-                
                 this.fireDelay = 0.5;
             }
+            if (this.drones.length > 0){
+                game.playDroneShoot();
+            }
+
             this.drones.forEach(drone => {
                 drone.shoot(game,this,this.shootRange,this.laserStrength);
             });
