@@ -54,34 +54,22 @@ class UI{
 
             if (game.keys[68] == "keydown")
                 this.buttonX++;
-            if (game.keys[65] == "keydown")
+            if (game.keys[65] == "keydown" && !(this.buttonX -1 == 0 && this.buttonY>0))
                 this.buttonX--;
-            if (game.keys[83] == "keydown")
+            if (game.keys[83] == "keydown" && this.buttonX >0)
                 this.buttonY++;
-            if (game.keys[87] == "keydown")
+            if (game.keys[87] == "keydown" )
                 this.buttonY--;
-
-
 
             if (game.keys[32] == "keydown")
                 if (this.upgradeButtons[this.selectedUpgradeButton] != null) this.upgradeButtons[this.selectedUpgradeButton].action(game);
+            
             game.keys[68] = game.keys[65] = game.keys[83] = game.keys[87] = game.keys[32] = "";
 
-
-            if (this.buttonX > 3) this.buttonX = 3;
-            if (this.buttonX < 0) this.buttonX = 0;
-
-            if (this.buttonY > 2) this.buttonY = 2;
-            if (this.buttonY < 0) this.buttonY = 0;
-
-//            
-      //      if ((this.buttonX == 0) && this.buttonY == 1) this.buttonY--;
-      //      else if ((this.buttonY == 1 || this.buttonY == 2) && this.buttonX == 0) this.buttonX = 1;
-  //          if ((this.buttonX == 0) && this.buttonY == 1) this.buttonY--;
-
-
-            
-
+            this.buttonX = this.buttonX > 3 ? 3: this.buttonX;
+            this.buttonX = this.buttonX < 0 ? 0: this.buttonX;
+            this.buttonY = this.buttonY > 2 ? 2: this.buttonY;
+            this.buttonY = this.buttonY < 0 ? 0: this.buttonY;
 
             this.selectedUpgradeButton = (this.buttonX + (this.buttonY * 4) );
 
@@ -93,9 +81,6 @@ class UI{
                 this.upgradeButtons[(this.buttonX + (this.buttonY * 4))].selected = true;
                 game.playBlip1();
                 this.upgradePanelNeedUpdate = true;
-                this.requireArrows.forEach(arrow => {
-                    arrow.update(game,this);
-                });
             }
         }
 
@@ -149,12 +134,10 @@ class UI{
             this.addButton(game,startX+(distanceX*2),startY,w,h,upgrades,5,0,2);
             this.addButton(game,startX+(distanceX*3),startY,w,h,upgrades,6,0,3);
 
-            this.addEmptyButton(startX,startY+(distanceY),w,h,1,0);
             this.addButton(game,startX+(distanceX),startY+(distanceY),w,h,upgrades,3,1,1);
             this.addButton(game,startX+(distanceX*2),startY+(distanceY),w,h,upgrades,8,1,2);
             this.addButton(game,startX+(distanceX*3),startY+(distanceY),w,h,upgrades,7,1,3);
 
-            this.addEmptyButton(startX,startY+(distanceY*2),w,h,2,0);
             this.addButton(game,startX+(distanceX),startY+(distanceY*2),w,h,upgrades,4,2,1);
             this.addButton(game,startX+(distanceX*2),startY+(distanceY*2),w,h,upgrades,9,2,2);
             this.addButton(game,startX+(distanceX*3),startY+(distanceY*2),w,h,upgrades,10,2,3);
@@ -186,10 +169,6 @@ class UI{
 
     addRequireArrow(x,y,direction,upgrades,upgradeId){
         this.requireArrows.push(new RequireArrow(x,y,direction,upgrades[upgradeId]));
-    }
-
-    addEmptyButton(x,y,w,h,buttonY,buttonX){
-        this.upgradeButtons[buttonX + (buttonY * 4)] = new ResourceButton(x,y,w,h,null,()=>{});
     }
 
     addButton(game, x, y, w, h, upgrades,upgradeId,buttonY,buttonX){
