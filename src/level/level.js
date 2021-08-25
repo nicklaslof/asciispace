@@ -42,7 +42,7 @@ class Level{
 
         this.snapshot = snapshot;
 
-        this.levelPositionX = 14200;
+        this.levelPositionX = 17250;
         //this.levelPositionX = 12900;
         //this.levelPositionX = 8200;
         //this.levelPositionX = -1000;

@@ -24,8 +24,9 @@ class BossFormation2 extends Formation{
         this.addEntity(new Ball(x,y,0,70,0xff0000ff,25).setHealth(130).onDeath(()=>{game.playBossExplosion(); this.killAllEntities(game)}));
         
         for (let index = 1; index < 20; index++) {
-            var b = new Ball(x,y,index,32,0xff00ffff,0).setHealth(700);
+            var b = new Ball(x,y,index,32,0xff00ffff,0).setHealth(1);
             b.allowedOutOfLevel = true;
+            b.invincible = true;
             this.addEntity(b);
         }
     }

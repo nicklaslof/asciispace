@@ -22,6 +22,8 @@ class Entity{
         this.maxHealth = this.health = 1;
         this.hitTimeout = 0;
         this.entityTimeoutOnHit = 0.2;
+        this.invincible = false;
+        this.skipOnDispose = false;
     }
 
     setHealth(h){
@@ -30,7 +32,7 @@ class Entity{
     }
 
     hit(game,h, force,hitTimeout = 0.2){
-        if (this.hitTimeout <=0 || force){
+        if (!this.invincible && (this.hitTimeout <=0 || force)){
             this.health -= h;
             this.hitTimeout = hitTimeout;
         }
@@ -53,7 +55,7 @@ class Entity{
         
         if (this.health <=0){
             this.disposed = true;
-            this.onDispose(game);
+            if(!this.skipOnDispose) this.onDispose(game);
         }
 
         if (this.position.x < -100 && !this.allowedOutOfLevel) this.disposed = true;

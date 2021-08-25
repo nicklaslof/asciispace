@@ -34,6 +34,7 @@ class Bullet extends CollisionEntity{
         if (otherEntity.type == "rg" || otherEntity.type == "rm" || otherEntity.type == "a" || otherEntity.type == "b" || otherEntity.type == "c" || otherEntity.type == "rb" || otherEntity.type == "hp") return;
         if (this.sourceEntity != game.level.player && (otherEntity.type == "uf" || otherEntity.type == "o" )) return;
         otherEntity.hit(game, this.damage);
+        this.skipOnDispose = otherEntity.invincible;
         this.hit(game,1,true);
     }
 }
