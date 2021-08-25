@@ -26,7 +26,7 @@ class EnemyEntity extends CollisionEntity{
         }
         game.playHit();
         for (let index = 0; index < 10; index++) {
-            game.level.addEntity(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),this.c,5,2.5).setHealth(70));
+            game.level.addEntity(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),this.c,15,10).setHealth(70));
         }
     }
 

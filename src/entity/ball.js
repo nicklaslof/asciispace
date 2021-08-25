@@ -9,6 +9,22 @@ class Ball extends EnemyEntity{
         this.orginalPositionX = posX;
         this.orginalPositionY = posY;
         this.shootCounter = count/12;
+        this.colorCounter = 0;
+        this.orginalColor = color;
+    }
+
+    hit(game,h, force,hitTimeout){
+        super.hit(game,h,force,hitTimeout)
+        if (this.invincible){
+            this.colorCounter = 0.5;
+            this.c = 0xffffffff;
+        }
+    }
+
+    tick(game,deltaTime){
+        super.tick(game,deltaTime);
+        if (this.colorCounter > 0) this.colorCounter -= deltaTime;
+        if (this.colorCounter <= 0) this.c = this.orginalColor;
     }
 }
 
