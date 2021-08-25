@@ -42,10 +42,10 @@ class Level{
 
         this.snapshot = snapshot;
 
-        //this.levelPositionX = 15250;
+        this.levelPositionX = 15150;
         //this.levelPositionX = 12900;
         //this.levelPositionX = 8200;
-        this.levelPositionX = -1000;
+        //this.levelPositionX = -1000;
         
         if (snapshot != null) this.levelPositionX = snapshot.levelPositionX;
 
@@ -63,7 +63,8 @@ class Level{
             this.player.rearLaser = snapshot.playerRearLaser;
             this.player.sideLaser = snapshot.playerSideLaser;
             this.player.numberOfDrones = snapshot.playerNumberOfDrones;
-            this.player.maxHealth = this.player.health = snapshot.playerMaxHealth;
+            this.player.maxHealth = snapshot.playerMaxHealth;
+            this.player.health = snapshot.playerHealth;
             this.player.position.y = snapshot.levelPositionY;
         }
 
@@ -272,6 +273,7 @@ class Level{
             playerRearLaser : this.player.rearLaser,
             playerSideLaser : this.player.sideLaser,
             playerNumberOfDrones : this.player.numberOfDrones,
+            playerHealth : this.player.health,
             playerMaxHealth : this.player.maxHealth,
             upgradeLevel : this.upgradeController.level,
             upgrades : this.upgradeController.upgrades
