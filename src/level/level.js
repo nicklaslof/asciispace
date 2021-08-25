@@ -42,7 +42,7 @@ class Level{
 
         this.snapshot = snapshot;
 
-        //this.levelPositionX = 17250;
+        //this.levelPositionX = 15250;
         //this.levelPositionX = 12900;
         //this.levelPositionX = 8200;
         this.levelPositionX = -1000;
@@ -64,6 +64,7 @@ class Level{
             this.player.sideLaser = snapshot.playerSideLaser;
             this.player.numberOfDrones = snapshot.playerNumberOfDrones;
             this.player.maxHealth = this.player.health = snapshot.playerMaxHealth;
+            this.player.position.y = snapshot.levelPositionY;
         }
 
         this.speedX = 0;
@@ -262,6 +263,7 @@ class Level{
     snapshotCheckpoint(game){
         this.snapshot = {
             levelPositionX : this.levelPositionX,
+            levelPositionY : this.player.position.y,
             playerMineral : this.player.mineral,
             playerMetal : this.player.metalScrap,
             playerShootRange : this.player.shootRange,
