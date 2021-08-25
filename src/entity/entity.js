@@ -36,8 +36,8 @@ class Entity{
             this.health -= h;
             this.hitTimeout = hitTimeout;
         }
-
     }
+    
     doesCollide(otherEntity){
         return false;
     }
