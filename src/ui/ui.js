@@ -150,6 +150,8 @@ class UI{
 
             this.addRequireArrow(startX+((distanceX*1)+(distanceX/3)),startY + (distanceY*2)+9,"down",upgrades,3);
             this.addRequireArrow(startX+((distanceX*2)+(distanceX/3)),startY + (distanceY*2)+9,"down",upgrades,8);
+
+            this.addRequireArrow(startX+((distanceX*3)-28),startY + (distanceY*2)+(distanceY/2),"right",upgrades,9);
             
             this.upgradeButtons[0].selected = true;
         }

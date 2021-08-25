@@ -14,6 +14,9 @@ class UpgradeController{
         this.addUpgrade(new Upgrade(8,level.player,"Drone", "",12,12,()=>{level.player.numberOfDrones=1},[3,7]));    
         this.addUpgrade(new Upgrade(9,level.player,"Dual", "drones",14,16,()=>{level.player.numberOfDrones=2},[8]));
         this.addUpgrade(new Upgrade(10,level.player,"Extra", "max health",15,16,()=>{level.player.maxHealth+=4;level.player.health=level.player.maxHealth},[9]));
+        
+        this.upgrades[1].taken = true;
+
         console.log(this.upgrades);
         if (snapshot != null){
             this.level = snapshot.upgradeLevel;
