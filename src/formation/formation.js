@@ -36,6 +36,7 @@ class Formation{
 
     killAllEntities(game){
         this.entities.forEach(entity => {
+            entity.invincible = false;
             entity.hit(game,1000,true);
         });
     }

@@ -190,11 +190,11 @@ class UI{
         this.updateResources(game);
     }
 
-    generateSquare(x ,y,width, height, fontSize=16){
+    generateSquare(x ,y,width, height, fontSize=16, c = "white"){
         
 
         this.ctx.font = "normal "+fontSize+"px monospace";
-        this.ctx.fillStyle = "white";
+        this.ctx.fillStyle = c;
 
         // Top line
         this.ctx.fillText("+",x,y+20);

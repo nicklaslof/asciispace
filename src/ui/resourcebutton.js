@@ -19,9 +19,10 @@ class ResourceButton{
     }
 
     update(game,ui){
-        ui.generateSquare(this.x,this.y,this.w,this.h,8);
+        var col = this.selected ? this.upgrade.taken || this.upgrade.canTake(game) ? "white" : "red" : "gray";
+        ui.generateSquare(this.x,this.y,this.w,this.h,8,col);
 
-        var col = this.selected ? this.upgrade.canTake(game) ? "white" : "red" : "gray";
+
 
         ui.drawTextAt(this.textLine1,this.x+10, this.y+36,col,16);
         ui.drawTextAt(this.textLine2,this.x+10, this.y+60,col,16);
