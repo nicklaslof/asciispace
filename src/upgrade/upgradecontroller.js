@@ -15,17 +15,13 @@ class UpgradeController{
         this.addUpgrade(new Upgrade(9,level.player,"Dual", "drones",14,16,()=>{level.player.numberOfDrones=2},[8]));
         this.addUpgrade(new Upgrade(10,level.player,"Extra", "max health",15,16,()=>{level.player.maxHealth+=4;level.player.health=level.player.maxHealth},[9]));
         
-        this.upgrades[1].taken = true;
+        //this.upgrades[1].taken = true;
 
         console.log(this.upgrades);
         if (snapshot != null){
-            this.level = snapshot.upgradeLevel;
-            for (let index = 0; index < snapshot.upgrades.length; index++) {
-                console.log(this.upgrades[index]);
-                console.log(snapshot.upgrades[index]);
-                this.upgrades[index].taken = snapshot.upgrades[index].taken;
-
-            }
+           snapshot.upgrades.forEach(snapshotupgrade => {
+               this.upgrades[snapshotupgrade.id].taken = snapshotupgrade.taken;
+           });
         }
     }
 
@@ -34,24 +30,17 @@ class UpgradeController{
     }
 
     tick(game){
-        /*var completedOnCurrentLevel = 0;
+        var completedOnCurrentLevel = 0;
         var upgradesShown = 0;
         this.upgrades.forEach(upgrade => {
-            if (upgrade.level == this.level && game.level.player.metalScrap >= upgrade.metalCost && game.level.player.mineral >= upgrade.mineralCost && !upgrade.taken){
+            if (game.level.player.metalScrap >= upgrade.metalCost && game.level.player.mineral >= upgrade.mineralCost && !upgrade.taken && upgrade.canTake(game)){
                 if (upgradesShown <1){
                     game.level.ui.showUpgradeAvailable();
                     upgradesShown++;
                 }
                
             }
-            if (upgrade.level == this.level)
-                if (upgrade.taken) completedOnCurrentLevel++;  
         });
-
-        if (completedOnCurrentLevel == 2){
-            this.level++;
-        }*/
-        
     }
 
     //getUpgradesForCurrentLevel(){

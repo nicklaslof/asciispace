@@ -275,7 +275,6 @@ class Level{
             playerNumberOfDrones : this.player.numberOfDrones,
             playerHealth : this.player.health,
             playerMaxHealth : this.player.maxHealth,
-            upgradeLevel : this.upgradeController.level,
             upgrades : this.upgradeController.upgrades
         };
 

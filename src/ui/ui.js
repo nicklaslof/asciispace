@@ -82,9 +82,7 @@ class UI{
                 game.playBlip1();
                 this.upgradePanelNeedUpdate = true;
             }
-        }
-
-           
+        }  
     }
 
     render(game){
@@ -116,9 +114,9 @@ class UI{
     updateUpgradePanel(game){
 
         this.ctx.clearRect(0,0,W,H);
-        this.ctx.fillStyle="black";
-        this.ctx.fillRect((W/2)-348,(H/2)-200,707,470)
-        this.generateSquare((W/2)-350,(H/2)-200, 44,19,16);
+        this.ctx.fillStyle="#001";
+        this.ctx.fillRect((W/2)-348,(H/2)-215,707,475)
+        this.generateSquare((W/2)-350,(H/2)-230, 44,20,16);
 
         var startX = (W/2)-315;
         var startY = (H/2)-170;
@@ -153,7 +151,7 @@ class UI{
 
             this.addRequireArrow(startX+((distanceX*3)-28),startY + (distanceY*2)+(distanceY/2),"right",upgrades,9);
             
-            this.upgradeButtons[0].selected = true;
+            this.upgradeButtons[(this.buttonX + (this.buttonY * 4))].selected = true;
         }
 
         this.upgradeButtons.forEach(button => {
@@ -164,7 +162,7 @@ class UI{
         });
     
         
-        this.drawTextAt("Select an upgrade:",(W/2)-106,(H/2)-200,"white",22);
+        this.drawTextAt("Select an upgrade:",(W/2)-106,(H/2)-180,"white",22);
         this.upgradePanelNeedUpdate = false;
         this.updateResources(game);
     }

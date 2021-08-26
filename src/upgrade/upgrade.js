@@ -12,8 +12,18 @@ class Upgrade{
         this.player = player;
     }
 
+    canTake(game){
+        if (this.player.mineral < this.mineralCost || this.player.metalScrap < this.metalCost) return false;
+        var required = this.required.length;
+        var has = 0;
+        this.required.forEach(i => {
+            if (game.level.upgradeController.upgrades[i].taken)has++;
+        });
+        return has == required;
+    }
+
     action(game){
-        if (this.player.mineral < this.mineralCost || this.player.metalScrap < this.metalCost){
+        if (!this.canTake(game)){
             game.playDenied();
             return;
         }
