@@ -134,8 +134,11 @@ class Game{
     }
 
     playInvincible(){
-        console.log("playing");
         zzfx(20000,...[1,0,600,,,,,.7,,,,,,,,,,.51]); // Hit 585
+    }
+
+    playLaser(){
+        zzfx(20000,...[.2,0,211,.02,1,0,,1.94,7.4,,,,.03,,,,.2,.91,.03,.01]); // Shoot 611
     }
 
     playBackgroundSound(){

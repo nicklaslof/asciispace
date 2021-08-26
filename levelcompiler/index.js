@@ -35,6 +35,7 @@ loadImage("level.png").then((image) => {
                 //Based on the color set an asciicharacter in the level textfile
                 if (c == 0xffffff) addToLevel(level,x,y,"#"); // White ground
                 if (c == 0xeeeeee) addToLevel(level,x,y,":"); // Green ground
+                if (c == 0xdddddd) addToLevel(level,x,y,";"); // Red ground
                 if (c == 0xaaaaaa) addToLevel(level,x,y,"."); // Below ground 
 
                 if (c == 0x3333ff) addToLevel(level,x,y,"A"); // Sineball movements
@@ -58,6 +59,7 @@ loadImage("level.png").then((image) => {
                 if (c == 0x00ff00) addToLevel(level,x,y,"e"); // Obstacle
                 if (c == 0x008cff) addToLevel(level,x,y,"f"); // Checkpoint
                 if (c == 0x4444d5) addToLevel(level,x,y,"g"); // Health
+                if (c == 0x884feb) addToLevel(level,x,y,"i"); // Groundlaser
 
             }
         }

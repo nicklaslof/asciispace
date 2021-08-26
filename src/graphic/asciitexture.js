@@ -16,10 +16,15 @@ class AsciiTexture{
         textContext.fillText("#",32,60,16);
         textContext.fillText(":",64,60,16);
         textContext.fillText("'",96,60,16);
+        textContext.fillText("░",160,60,16);
+        textContext.fillText("▒",192,60,16);
+        textContext.fillText("▓",224,60,16);
+
         textContext.fillText("\u2666",128,60,16);
         this.addBlueShip(textContext);
         this.addHeart(textContext);
         this.addShooter1(textContext);
+        this.addGroundLaser(textContext);
         this.image = new Image();
         this.image.src = textCanvas.toDataURL();
 
@@ -29,6 +34,13 @@ class AsciiTexture{
     addShooter1(textContext){
         var ascii = "‾\\ /‾n";
         this.addAsciiart(textContext,ascii,0,300,64);
+    }
+
+    addGroundLaser(textContext){
+        var ascii = 
+"■n\
+█n";
+        this.addAsciiart(textContext,ascii,0,340,64);
     }
 
     addBlueShip(textContext){

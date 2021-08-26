@@ -22,6 +22,7 @@ import Health from "../entity/health.js";
 import SineballFormation2 from "../formation/sineballformation2.js";
 import UfoFormation2 from "../formation/ufoformation2.js";
 import BossFormation2 from "../formation/bossformation2.js";
+import GroundLaser from "../entity/groundlaser.js";
 
 class Level{
 
@@ -42,10 +43,11 @@ class Level{
 
         this.snapshot = snapshot;
 
-        //this.levelPositionX = 15150;
+        //this.levelPositionX = 17750;
+        this.levelPositionX = 17150;
         //this.levelPositionX = 12900;
         //this.levelPositionX = 8200;
-        this.levelPositionX = -1000;
+        //this.levelPositionX = -1000;
         
         if (snapshot != null) this.levelPositionX = snapshot.levelPositionX;
 
@@ -85,18 +87,22 @@ class Level{
                 var levelChar = level.charAt(x + (y*this.levelSizeX));
                 if (levelChar=="#") this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,30,36,20,26,0xffda7d84);
                 if (levelChar==":") this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,30,36,20,26,0xff00ff00);
+                if (levelChar==";") this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,30,36,20,26,0xff0000ff);
                 if (levelChar=="."){
 
                     var r = Math.floor(this.getRandom(1,4));
                     switch(r){
                         case 1:
-                            this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,66,40,11,22,0xff444444);
+                            if (x >= 775) this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,158,40,11,22,0xff000066);
+                            else this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,66,40,11,22,0xff444444);
                             break;
                         case 2:
-                            this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,1,49,11,12,0xff888888);
+                            if (x >= 775)this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,190,40,11,22,0xff000044);
+                            else this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,1,49,11,12,0xff888888);
                             break;
                         case 3:
-                            this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,98,32,11,16,0xff222222);
+                            if (x >= 775)this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,224,40,11,22,0xff000022);
+                            else this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,98,32,11,16,0xff222222);
                             break;
                     }
                 }
@@ -104,7 +110,7 @@ class Level{
                     this.formations[x + (y* this.levelSizeX)] = levelChar;
                 }
 
-                if (levelChar=="a" || levelChar=="b" || levelChar=="c"|| levelChar=="d"|| levelChar=="e"|| levelChar=="f" || levelChar=="g" || levelChar=="h"){
+                if (levelChar=="a" || levelChar=="b" || levelChar=="c"|| levelChar=="d"|| levelChar=="e"|| levelChar=="f" || levelChar=="g" || levelChar=="h" || levelChar=="i"){
                    // console.log(levelChar +" "+ x +" "+y);
                     this.entitiesToSpawn[x + (y * this.levelSizeX)] = levelChar;
                 }
@@ -172,6 +178,7 @@ class Level{
                     if (entityToSpawn == "e") this.addEntity(new Obstacle(W-5,y*30).setHealth(3));
                     if (entityToSpawn == "f") this.addEntity(new Checkpoint(W-5,y*30));
                     if (entityToSpawn == "g") this.addEntity(new Health(W-5,y*30));
+                    if (entityToSpawn == "i") this.addEntity(new GroundLaser(W-5,y*30));
                 }
 
             }
