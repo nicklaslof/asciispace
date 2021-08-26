@@ -3,6 +3,7 @@ import GlTexture from "./graphic/gltexture.js";
 import Level from "./level/level.js";
 import Intro from "./ui/intro.js";
 import RestartGame from "./ui/restartgame.js";
+import { TinySprite } from './lib/sprite.js';
 //import { zzfx } from "./lib/z.js";
 
 class Game{
@@ -10,7 +11,7 @@ class Game{
         var canvas = document.getElementById("g");
         canvas.width = W;
         canvas.height = H;
-        this.gl = TS(canvas);
+        this.gl = TinySprite(canvas);
         this.gl.flush();
         this.ascii = new AsciiTexture();
         this.texture = new GlTexture(this.gl.g,this.ascii.image);
