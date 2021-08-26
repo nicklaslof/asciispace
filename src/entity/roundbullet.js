@@ -28,7 +28,7 @@ class RoundBullet extends Bullet{
 
     collidedWith(game, otherEntity){
         if (otherEntity === this.sourceEntity) return;
-        if (otherEntity.type == "rg" || otherEntity.type == "rm" || otherEntity.type == "a" || otherEntity.type == "o" || otherEntity.type == "s" || otherEntity.type == "rb" || otherEntity.type == "b") return;
+        if (otherEntity.type == "rg" || otherEntity.type == "rm" || otherEntity.type == "a" || otherEntity.type == "o" || otherEntity.type == "s" || otherEntity.type == "rb" || otherEntity.type == "b" || otherEntity.type == "sl") return;
         otherEntity.hit(game, 1);
         this.hit(game,1,true);
     }

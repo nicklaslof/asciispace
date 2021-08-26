@@ -23,6 +23,7 @@ import SineballFormation2 from "../formation/sineballformation2.js";
 import UfoFormation2 from "../formation/ufoformation2.js";
 import BossFormation2 from "../formation/bossformation2.js";
 import GroundLaser from "../entity/groundlaser.js";
+import GroundRobot from "../entity/groundrobot.js";
 
 class Level{
 
@@ -43,8 +44,8 @@ class Level{
 
         this.snapshot = snapshot;
 
-        //this.levelPositionX = 17750;
-        this.levelPositionX = 17150;
+        this.levelPositionX = 17750;
+        //this.levelPositionX = 17150;
         //this.levelPositionX = 12900;
         //this.levelPositionX = 8200;
         //this.levelPositionX = -1000;
@@ -110,7 +111,7 @@ class Level{
                     this.formations[x + (y* this.levelSizeX)] = levelChar;
                 }
 
-                if (levelChar=="a" || levelChar=="b" || levelChar=="c"|| levelChar=="d"|| levelChar=="e"|| levelChar=="f" || levelChar=="g" || levelChar=="h" || levelChar=="i"){
+                if (levelChar=="a" || levelChar=="b" || levelChar=="c"|| levelChar=="d"|| levelChar=="e"|| levelChar=="f" || levelChar=="g" || levelChar=="h" || levelChar=="i" || levelChar=="j"){
                    // console.log(levelChar +" "+ x +" "+y);
                     this.entitiesToSpawn[x + (y * this.levelSizeX)] = levelChar;
                 }
@@ -179,6 +180,7 @@ class Level{
                     if (entityToSpawn == "f") this.addEntity(new Checkpoint(W-5,y*30));
                     if (entityToSpawn == "g") this.addEntity(new Health(W-5,y*30));
                     if (entityToSpawn == "i") this.addEntity(new GroundLaser(W-5,y*30));
+                    if (entityToSpawn == "j") this.addEntity(new GroundRobot(W-5,(y*30)-5));
                 }
 
             }

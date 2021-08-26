@@ -19,6 +19,7 @@ class AsciiTexture{
         textContext.fillText("░",160,60,16);
         textContext.fillText("▒",192,60,16);
         textContext.fillText("▓",224,60,16);
+        textContext.fillText("Þ",248,60,16);
 
         textContext.fillText("\u2666",128,60,16);
         this.addBlueShip(textContext);
@@ -42,6 +43,7 @@ class AsciiTexture{
 █n";
         this.addAsciiart(textContext,ascii,0,340,64);
     }
+
 
     addBlueShip(textContext){
         var ascii =

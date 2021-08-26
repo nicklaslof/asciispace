@@ -31,7 +31,7 @@ class Bullet extends CollisionEntity{
 
     collidedWith(game, otherEntity){
         if (otherEntity === this.sourceEntity) return;
-        if (otherEntity.type == "rg" || otherEntity.type == "rm" || otherEntity.type == "a" || otherEntity.type == "b" || otherEntity.type == "c" || otherEntity.type == "rb" || otherEntity.type == "hp") return;
+        if (otherEntity.type == "rg" || otherEntity.type == "rm" || otherEntity.type == "a" || otherEntity.type == "b" || otherEntity.type == "c" || otherEntity.type == "rb" || otherEntity.type == "hp" || otherEntity.type == "sl") return;
         if (this.sourceEntity != game.level.player && (otherEntity.type == "uf" || otherEntity.type == "o" )) return;
         otherEntity.hit(game, this.damage);
         this.skipOnDispose = otherEntity.invincible;

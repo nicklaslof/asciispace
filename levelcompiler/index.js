@@ -60,6 +60,7 @@ loadImage("level.png").then((image) => {
                 if (c == 0x008cff) addToLevel(level,x,y,"f"); // Checkpoint
                 if (c == 0x4444d5) addToLevel(level,x,y,"g"); // Health
                 if (c == 0x884feb) addToLevel(level,x,y,"i"); // Groundlaser
+                if (c == 0x99aa28) addToLevel(level,x,y,"j"); // Groundrobot
 
             }
         }
