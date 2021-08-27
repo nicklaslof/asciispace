@@ -25,7 +25,10 @@ class Tile{
     addEntityToTile(game,entity){
         this.entities.push(entity);
         if (entity.type == "rb" || (entity.type == "b" && !(entity.sourceEntity != null && entity.sourceEntity.type == "o"))) entity.hit(game,1,true);
-        if (entity.type == "p") entity.hit(game,1,false,0.1);
+        if (entity.type == "p"){
+            entity.hit(game,1,false,0.1);
+            console.log(this);
+        } 
         if (entity.type == "b") {
             for (let index = 0; index < 20; index++) {
                 game.level.addEntity(new Particle(entity.getRandom(entity.position.x-20/entity.maxHealth,entity.position.x+20/entity.maxHealth), entity.getRandom(entity.position.y-20/entity.maxHealth, entity.position.y+20/entity.maxHealth),entity.c,20,10).setHealth(90));

@@ -146,10 +146,10 @@ class Level{
         }
 
         var levelTilePositionX = Math.floor((this.levelPositionX/24)+42);
-
         if (this.lastCheckedTilePostionX < levelTilePositionX){
             this.lastCheckedTilePostionX = levelTilePositionX;
             var x = this.lastCheckedTilePostionX;
+            console.log(x);
             for (let y = 0; y < this.levelSizeY; y++) {
                 var formation = this.formations[x + (y * this.levelSizeX)];
                 if (formation != null){

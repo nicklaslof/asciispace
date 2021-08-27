@@ -8,8 +8,9 @@ class CollisionEntity extends Entity{
 
     tick(game, deltaTime){
         super.tick(game,deltaTime);
-        var newTilePosX = Math.floor((this.position.x + game.level.levelPositionX)/24);
+        var newTilePosX = Math.max(0,Math.floor((this.position.x + game.level.levelPositionX)/24));
         var newTilePosY = Math.floor((this.position.y+8)/29);
+
 
         if (newTilePosX != this.tilePosition.x || newTilePosY != this.tilePosition.y){
             game.level.removeEntityFromTile(this, this.tilePosition.x, this.tilePosition.y);
