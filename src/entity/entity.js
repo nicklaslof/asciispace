@@ -24,6 +24,7 @@ class Entity{
         this.entityTimeoutOnHit = 0.2;
         this.invincible = false;
         this.skipOnDispose = false;
+        this.shakeX = this.shakeY = 0;
     }
 
     setHealth(h){
@@ -91,7 +92,7 @@ class Entity{
 
     render(game){
         game.gl.col = this.c;
-        game.gl.img(game.texture.tex,-this.sizeX/2,-this.sizeY/2,this.sizeX,this.sizeY,this.rotation,this.position.x,this.position.y,1,1, this.u0, this.u1, this.v0, this.v1);
+        game.gl.img(game.texture.tex,-this.sizeX/2,-this.sizeY/2,this.sizeX,this.sizeY,this.rotation,this.position.x+this.shakeX,this.position.y+this.shakeY,1,1, this.u0, this.u1, this.v0, this.v1);
     }
 }
 

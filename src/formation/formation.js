@@ -12,7 +12,10 @@ class Formation{
         if (this.done) return;
         var disposedEntities = 0;
         this.entities.forEach(entity => {
-            if (entity.disposed) disposedEntities++;
+            if (entity.disposed){
+                disposedEntities++;
+                this.removeEntity(entity);
+            }
             else this.handleEntity(game,entity, deltaTime);
         });
 
@@ -39,6 +42,14 @@ class Formation{
             entity.invincible = false;
             entity.hit(game,1000,true);
         });
+    }
+
+    removeEntity(entity){
+        for(let i = this.entities.length - 1; i >= 0; i--) {
+            if(this.entities[i] === entity) {
+                this.entities.splice(i, 1);
+            }
+        }
     }
 
 

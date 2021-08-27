@@ -11,17 +11,17 @@ class Ship extends CollisionEntity{
         this.particleDelay = 0;
         this.mineral = 0;
         this.metalScrap = 0;
-        this.shootRange = 200;
-        this.laserStrength = 1;
+        this.shootRange = 300;
+        this.laserStrength = 3;
         this.entityTimeoutOnHit = 2;
         this.showHurtCounter = 0;
-        this.dualLaser = false;
+        this.dualLaser = true;
         this.fireUpperLaser = false;
-        this.rearLaser = false;
-        this.sideLaser = false;
+        this.rearLaser = true;
+        this.sideLaser = true;
 
         this.drones = [];
-        this.numberOfDrones = 0;
+        this.numberOfDrones = 2;
     }
     tick(game,deltaTime){
         super.tick(game,deltaTime);

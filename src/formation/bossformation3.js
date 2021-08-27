@@ -5,13 +5,12 @@ import RoundBullet from "../entity/roundbullet.js";
 class BossFormation3 extends Formation{
     constructor(game,level) {
         super(level);
-        this.xSpeed = 5;
+        this.xSpeed = 1;
         this.counter = 0;
         this.angle = 0;
         this.movementX = 0;
         this.execute(game);
         this.stopped = false;
-        this.distance = 100;
 
         this.blastCountdown = 0;
 
@@ -19,6 +18,14 @@ class BossFormation3 extends Formation{
         this.red = (0xffffffff >>> 16) & 0xFF;
         this.green = (0xffffffff >>>  8) & 0xFF;
         this.blue  = (0xffffffff >>>  0) & 0xFF;
+
+        this.blastWarning = 18;
+        this.blastStart = 22;
+        this.blastStop = 30;
+
+        this.iterationCount = 0;
+        this.shakeX = 0;
+        this.shakeY = 0;
         
     }
 
@@ -28,48 +35,110 @@ class BossFormation3 extends Formation{
         var y = (H/2);
         this.yy = 0;
 
-        this.addEntity(new Ball(x,y,0,70,0xff0000ff,25).setHealth(130).onDeath(()=>{game.playBossExplosion(); this.killAllEntities(game)}));
+        this.addEntity(new Ball(x+5,y,0,70,0xff0000ff,25).setHealth(130).onDeath(()=>{game.playBossExplosion();}));
         
         for (let index = 1; index < 40; index++) {
-            var b = new Ball(x,y,index,32,0xffffffff,0).setHealth(100);
+            var b = new Ball(x,y,index,24,0xffffffff,0).setHealth(15);
             b.hitColor = false;
-            //b.allowedOutOfLevel = true;
-            //b.invincible = true;
+            b.distance = 60;
+            this.addEntity(b);
+        }
+
+        for (let index = 1; index < 40; index++) {
+            var b = new Ball(x,y+150,index+40,12,0xffffffff,0).setHealth(15);
+            b.hitColor = false;
+            b.distance = 30;
+            this.addEntity(b);
+        }
+
+        for (let index = 1; index < 40; index++) {
+            var b = new Ball(x,y-150,index+80,16,0xffffffff,0).setHealth(15);
+            b.hitColor = false;
+            b.distance = 30;
             this.addEntity(b);
         }
     }
 
     handleEntity(game, entity, deltaTime){
 
+        this.iterationCount++;
+        if (this.iterationCount >= this.entities.length){
+            this.shakeX = 0;
+            this.shakeY = 0;
+            this.iterationCount = 0;
+        }
+
+        if (this.iterationCount == 0){
+            this.angle += deltaTime;
+            if (this.stopped) this.blastCountdown += deltaTime/2;
+            if (this.blastCountdown > this.blastWarning && this.blastCountdown < this.blastStop){
+                this.shakeX = entity.getRandom(-5,5);
+                this.shakeY = entity.getRandom(-5,5);
+            }
+        }
+
         if (entity.count == 0 && entity.position.x < (W/2)+250){
             this.stopped = true;
             game.level.stopped = true;
-        } 
-
-        this.angle += deltaTime/30;
-        if (this.stopped){
-            this.yy = Math.cos(this.angle-0.2)*100;
-            this.blastCountdown += deltaTime/40;
-            if (entity.count < 0){
-                entity.c = (this.alpha & 0xff) << 24 | (this.red -(this.blastCountdown*11) & 0xff) << 16 | ((this.green - (this.blastCountdown*11)) & 0xff) << 8 | ((this.blue) & 0xff);
-            } 
         }
 
+
+        if (this.stopped){
+            this.yy = Math.cos(this.angle-0.2)*35;
+            this.blastCountdown += deltaTime/120;
+            if (entity.count < 0){
+                if (this.blastCountdown< this.blastWarning){
+                    entity.c = (this.alpha & 0xff) << 24 | (this.red -(this.blastCountdown*11) & 0xff) << 16 | ((this.green - (this.blastCountdown*11)) & 0xff) << 8 | ((this.blue) & 0xff);
+                }else{
+                    entity.c = 0xff0000ff;
+                }
+                
+            } 
+            entity.shakeX = this.shakeX;
+            entity.shakeY = this.shakeY;
+        }
         else
             this.movementX += deltaTime*this.xSpeed;
 
         if (entity.count == 0){
-            if (!this.stopped) entity.position.x -= deltaTime*this.xSpeed*40;
-            entity.position.y = this.yy+285;
+            if (!this.stopped) entity.position.x -= deltaTime*this.xSpeed*120;
+            entity.position.y = this.yy+295;
+           
             return;
+        }else{
+            entity.shootCounter += deltaTime;
+            if (this.stopped  && this.blastCountdown < this.blastWarning-1 && entity.shootCounter > entity.getRandom(10,300)){
+                var b = new RoundBullet(entity.position.x, entity.position.y,1800,{x:Math.cos(this.angle+(entity.count/3.14)),y:Math.sin(this.angle+(entity.count/3.14))});
+                b.speed = 200;
+                game.level.addEntity(b);
+                game.playShoot2();
+                entity.shootCounter = 0;
+            }
         }
 
-        var x = (Math.cos(this.angle+(entity.count/3.14)) * this.distance) + entity.orginalPositionX;
-        var y = (Math.sin(this.angle+(entity.count/3.14)) * this.distance) + entity.orginalPositionY;
-        
-        entity.position.x = x - this.movementX;
-        entity.position.y = y + this.yy;
+        if (this.blastCountdown > this.blastStart && this.blastCountdown < this.blastStop){
+            if (entity.getRandom(0,80) < 1){
+                var b = new RoundBullet(entity.position.x, entity.position.y,1800,{x:Math.cos(this.angle+(entity.count/3.14)),y:Math.sin(this.angle+(entity.count/3.14))});
+                b.speed = 200;
+                game.level.addEntity(b);
+                game.playShoot2();
+            }
+        }
+        if (this.blastCountdown > this.blastStop) this.blastCountdown = 0;
 
+        var x = (Math.cos(this.angle+(entity.count/3.14)) * entity.distance*2) + entity.orginalPositionX;
+        var y = (Math.sin(this.angle+(entity.count/3.14)) * entity.distance*2) + entity.orginalPositionY;
+
+        if (entity.count < -20.8){
+            var xx = (Math.cos(this.angle+(entity.count/3.14)) * entity.distance/2) + x;
+            var yy = (Math.sin(this.angle+(entity.count/3.14)) * entity.distance/2) + y;
+            entity.position.x = xx- this.movementX;
+            entity.position.y = yy + this.yy;
+        }else{
+        
+            entity.position.x = x - this.movementX;
+            entity.position.y = y + this.yy;
+        }
 
     }
 
