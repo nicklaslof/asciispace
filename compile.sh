@@ -6,7 +6,8 @@ rollup i.js --format cjs --file ../dist/bundle.js
 cd ../dist
 terser bundle.js -o i.js --compress --mangle --mangle-props reserved=["g","img","flush","bkg","cls","col","init","generate","createWave"] --timings --toplevel --module
 rm bundle.js
-#npx roadroller i.js -o ./o.js
+#roadroller i.js -o ./o.js
+#/opt/homebrew/opt/gnu-sed/libexec/gnubin/sed 's/\x1f//g' o.js > oo.js
 echo "<meta charset="UTF-8"><style>" > index-template.html
 cat ../src/i.css >> index-template.html
 echo "</style>" >> index-template.html

@@ -11,6 +11,7 @@ class Ball extends EnemyEntity{
         this.shootCounter = count/12;
         this.colorCounter = 0;
         this.orginalColor = color;
+        this.hitColor = false;
     }
 
     hit(game,h, force,hitTimeout){
@@ -23,8 +24,10 @@ class Ball extends EnemyEntity{
 
     tick(game,deltaTime){
         super.tick(game,deltaTime);
-        if (this.colorCounter > 0) this.colorCounter -= deltaTime;
-        if (this.colorCounter <= 0) this.c = this.orginalColor;
+        if (this.hitColor){
+            if (this.colorCounter > 0) this.colorCounter -= deltaTime;
+            if (this.colorCounter <= 0) this.c = this.orginalColor;
+        }
     }
 }
 

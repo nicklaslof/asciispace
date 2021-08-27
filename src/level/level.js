@@ -24,6 +24,7 @@ import UfoFormation2 from "../formation/ufoformation2.js";
 import BossFormation2 from "../formation/bossformation2.js";
 import GroundLaser from "../entity/groundlaser.js";
 import GroundRobot from "../entity/groundrobot.js";
+import BossFormation3 from "../formation/bossformation3.js";
 
 class Level{
 
@@ -44,11 +45,13 @@ class Level{
 
         this.snapshot = snapshot;
 
+        this.levelPositionX = 22150;
+
         //this.levelPositionX = 17750;
         //this.levelPositionX = 17150;
         //this.levelPositionX = 12900;
         //this.levelPositionX = 8200;
-        this.levelPositionX = -1000;
+        //this.levelPositionX = -1000;
         
         if (snapshot != null) this.levelPositionX = snapshot.levelPositionX;
 
@@ -107,7 +110,7 @@ class Level{
                             break;
                     }
                 }
-                if (levelChar=="A" ||levelChar=="B" || levelChar == "C" || levelChar == "D" || levelChar == "E"|| levelChar == "F" || levelChar == "M" || levelChar == "N" || levelChar == "R" || levelChar == "T" || levelChar == "U"|| levelChar == "V"){
+                if (levelChar=="A" ||levelChar=="B" || levelChar == "C" || levelChar == "D" || levelChar == "E"|| levelChar == "F" || levelChar == "M" || levelChar == "N" || levelChar == "O" || levelChar == "R" || levelChar == "T" || levelChar == "U"|| levelChar == "V"){
                     this.formations[x + (y* this.levelSizeX)] = levelChar;
                 }
 
@@ -149,7 +152,6 @@ class Level{
         if (this.lastCheckedTilePostionX < levelTilePositionX){
             this.lastCheckedTilePostionX = levelTilePositionX;
             var x = this.lastCheckedTilePostionX;
-            console.log(x);
             for (let y = 0; y < this.levelSizeY; y++) {
                 var formation = this.formations[x + (y * this.levelSizeX)];
                 if (formation != null){
@@ -164,6 +166,7 @@ class Level{
                     if (formation == "T") this.activeFormations.push(new RotatingBallFormation2(this,y*29));
                     if (formation == "M") this.activeFormations.push(new BossFormation1(game,this));
                     if (formation == "N") this.activeFormations.push(new BossFormation2(game,this));
+                    if (formation == "O") this.activeFormations.push(new BossFormation3(game,this));
                     if (formation == "U") this.activeFormations.push(new UfoFormation(this));
                     if (formation == "V") this.activeFormations.push(new UfoFormation2(this));
                 }
