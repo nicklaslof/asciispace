@@ -1,12 +1,14 @@
 import Entity  from "./entity.js";
 import Laser from "./laser.js";
 class Drone extends Entity{
-    constructor(posX, posY,startAngle) {
+    constructor(posX, posY,startAngle,count) {
         super(posX, posY, 30,6,21,21,0xffd500ff,24, 16, "d");
         this.angle = startAngle;
         this.orginalPositionX = posX;
         this.orginalPositionY = posY;
         console.log("angle:"+this.angle);
+        this.count = count;
+        this.shootTimer = 0.3*count;
     }
 
     tick(game, deltaTime){
@@ -14,7 +16,7 @@ class Drone extends Entity{
         this.angle += deltaTime*2;
 
         var y = (Math.sin(this.angle*3.14) * 48) + game.level.player.position.y;
-        var x = (Math.cos(this.angle*3.14) * 48) + game.level.player.position.x;
+        var x = (Math.cos(this.angle*3.14) * 48) + game.level.player.position.x-6;
 
         this.position.x = x;
         this.position.y = y;

@@ -11,14 +11,14 @@ class Ship extends CollisionEntity{
         this.particleDelay = 0;
         this.mineral = 0;
         this.metalScrap = 0;
-        this.shootRange = 300;
-        this.laserStrength = 3;
+        this.shootRange = 200;
+        this.laserStrength = 1;
         this.entityTimeoutOnHit = 2;
         this.showHurtCounter = 0;
-        this.dualLaser = true;
+        this.dualLaser = false;
         this.fireUpperLaser = false;
-        this.rearLaser = true;
-        this.sideLaser = true;
+        this.rearLaser = false;
+        this.sideLaser = false;
 
         this.drones = [];
         this.numberOfDrones = 2;
@@ -84,10 +84,6 @@ class Ship extends CollisionEntity{
                 game.playDroneShoot();
             }
 
-            this.drones.forEach(drone => {
-                drone.shoot(game,this,this.shootRange,this.laserStrength);
-            });
-
             if (this.rearLaser){
                 game.level.addEntity(new Laser(this.position.x-32, this.position.y+1,this.shootRange,{x:-1,y:0},this.laserStrength,0,40,(4*this.laserStrength)).setSource(this));
             }
@@ -101,9 +97,19 @@ class Ship extends CollisionEntity{
             this.firePressed = false;
         }
 
+        if (this.firePressed){
+            this.drones.forEach(drone => {
+                drone.shootTimer--;
+                if (drone.shootTimer<=0){
+                    drone.shoot(game,this,this.shootRange,this.laserStrength);
+                    drone.shootTimer = 0.15*entity.count;
+                }
+            });
+        }
+
         if (this.drones.length < this.numberOfDrones){
-            var startAngle = Math.PI * this.drones.length;
-            this.drones.push(new Drone(this.position.x,this.position.y,startAngle));
+            var startAngle = Math.PI * this.drones.length*8;
+            this.drones.push(new Drone(this.position.x,this.position.y,startAngle,this.drones.length));
         }
 
 

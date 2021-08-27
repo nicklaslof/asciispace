@@ -59,7 +59,7 @@ class Entity{
             if(!this.skipOnDispose) this.onDispose(game);
         }
 
-        if (this.position.x < -100 && !this.allowedOutOfLevel) this.disposed = true;
+        if (this.position.x < -300 && !this.allowedOutOfLevel) this.disposed = true;
 
         if (this.hitTimeout > 0){
 

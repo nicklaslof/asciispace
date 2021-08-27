@@ -10,16 +10,16 @@ class Formation{
 
     tick(game, deltaTime){
         if (this.done) return;
-        var disposedEntities = 0;
+     //   var disposedEntities = 0;
         this.entities.forEach(entity => {
             if (entity.disposed){
-                disposedEntities++;
+               // disposedEntities++;
                 this.removeEntity(entity);
             }
             else this.handleEntity(game,entity, deltaTime);
         });
 
-        if (disposedEntities == this.entities.length) this.done = true;
+        if (this.entities.length == 0) this.done = true;
         if (this.done){
             this.onDone(game);
         }
