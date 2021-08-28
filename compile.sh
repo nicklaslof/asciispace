@@ -4,7 +4,8 @@ mkdir -p dist
 cd src
 rollup i.js --format cjs --file ../dist/bundle.js
 cd ../dist
-terser bundle.js -o i.js --compress --mangle --mangle-props reserved=["g","img","flush","bkg","cls","col","init","generate","createWave"] --timings --toplevel --module
+#terser bundle.js -o i.js --compress --mangle --mangle-props reserved=["g","img","flush","bkg","cls","col","init","generate","createWave"] --timings --toplevel --module
+terser bundle.js -o i.js --compress --mangle --mangle-props reserved=["init","generate","createWave"] --timings --toplevel --module
 rm bundle.js
 roadroller -Zab32 -Zlr1250 -Zmc4 -S0,1,3,6,13,21,25,42,50,355,392,481 i.js -o ./o.js
 #/opt/homebrew/opt/gnu-sed/libexec/gnubin/sed 's/\x1f//g' o.js > oo.js
