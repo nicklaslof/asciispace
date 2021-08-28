@@ -52,8 +52,8 @@ class Level{
         //this.levelPositionX = 17750;
         //this.levelPositionX = 17150;
         //this.levelPositionX = 12900;
-        //this.levelPositionX = 8200;
-        this.levelPositionX = -1000;
+        this.levelPositionX = 8200;
+        //this.levelPositionX = -1000;
         
         if (snapshot != null) this.levelPositionX = snapshot.levelPositionX;
 
@@ -163,6 +163,7 @@ class Level{
             var x = this.lastCheckedTilePostionX;
             for (let y = 0; y < this.levelSizeY; y++) {
                 var formation = this.formations[x + (y * this.levelSizeX)];
+                console.log("Spawning formation ")+formation;
                 if (formation != null){
                     if (formation == "A") this.activeFormations.push(new SineballFormation(this));
                     if (formation == "B") this.activeFormations.push(new EnemyShipFormation1(this));

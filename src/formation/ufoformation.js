@@ -18,7 +18,7 @@ class UfoFormation extends Formation{
         var x = W+100;
         
         for (let index = 0; index < 4; index++) {
-            y = 128+(128 * index);
+            var y = 128+(128 * index);
             this.addEntity(new UFO(x,y,index,32,0xffff9999).setHealth(4));
         }
     }

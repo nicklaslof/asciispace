@@ -5,15 +5,15 @@ class UpgradeController{
         this.upgrades = [];
         this.level = 1;
         this.addUpgrade(new Upgrade(1,level.player,"Increased", "laser range",1,1,()=>{level.player.shootRange +=100},[]));
-        this.addUpgrade(new Upgrade(2,level.player,"Stronger", "laser 1",3,3,()=>{level.player.laserStrength +=1},[]));
-        this.addUpgrade(new Upgrade(3,level.player,"Stronger", "laser 2",5,7,()=>{level.player.laserStrength +=1},[2]));
-        this.addUpgrade(new Upgrade(4,level.player,"Stronger", "laser 3",13,15,()=>{level.player.laserStrength +=1},[2,3]));
-        this.addUpgrade(new Upgrade(5,level.player,"Dual", "lasers",4,4,()=>{level.player.dualLaser=true},[]));
+        this.addUpgrade(new Upgrade(2,level.player,"Stronger", "laser 1",6,8,()=>{level.player.laserStrength +=1},[]));
+        this.addUpgrade(new Upgrade(3,level.player,"Stronger", "laser 2",8,10,()=>{level.player.laserStrength +=1},[2]));
+        this.addUpgrade(new Upgrade(4,level.player,"Stronger", "laser 3",11,20,()=>{level.player.laserStrength +=1},[2,3]));
+        this.addUpgrade(new Upgrade(5,level.player,"Dual", "lasers",6,6,()=>{level.player.dualLaser=true},[]));
         this.addUpgrade(new Upgrade(6,level.player,"Rear", "lasers",9,12,()=>{level.player.rearLaser=true},[]));
         this.addUpgrade(new Upgrade(7,level.player,"Side", "lasers",10,11,()=>{level.player.sideLaser=true},[6]));
-        this.addUpgrade(new Upgrade(8,level.player,"Drone", "",12,12,()=>{level.player.numberOfDrones=1},[3,7]));    
-        this.addUpgrade(new Upgrade(9,level.player,"Dual", "drones",14,16,()=>{level.player.numberOfDrones=2},[8]));
-        this.addUpgrade(new Upgrade(10,level.player,"Extra", "max health",15,16,()=>{level.player.maxHealth+=4;level.player.health=level.player.maxHealth},[9]));
+        this.addUpgrade(new Upgrade(8,level.player,"Drone", "",18,12,()=>{level.player.numberOfDrones=1},[3,7]));    
+        this.addUpgrade(new Upgrade(9,level.player,"Dual", "drones",18,12,()=>{level.player.numberOfDrones=2},[8]));
+        this.addUpgrade(new Upgrade(10,level.player,"Extra", "max health",20,20,()=>{level.player.maxHealth+=4;level.player.health=level.player.maxHealth},[9]));
         
         //this.upgrades[1].taken = true;
 
