@@ -45,6 +45,7 @@ class Level{
         this.starfield = new StarField();
 
         this.snapshot = snapshot;
+        this.showCinematicText = true;
 
         //this.levelPositionX = 22150;
 
@@ -62,6 +63,9 @@ class Level{
         this.entities.push(this.player);
 
         if (snapshot != null){
+
+            this.showCinematicText = false;
+
             this.player.mineral = snapshot.playerMineral;
             this.player.metalScrap = snapshot.playerMetal;
             this.player.shootRange = snapshot.playerShootRange;
@@ -81,7 +85,6 @@ class Level{
         this.ui = new UI();
        
         this.showUpgradePanel = false;
-        this.showCinematicText = true;
 
         this.upgradeController = new UpgradeController(this,snapshot);
 

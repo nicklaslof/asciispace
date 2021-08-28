@@ -22,10 +22,10 @@ class Ship extends CollisionEntity{
         this.sideLaser = false;
 
         this.drones = [];
-        this.numberOfDrones = 2;
+        this.numberOfDrones = 0;
 
         this.shields = [];
-        this.shield = true;
+        this.shield = false;
     }
     tick(game,deltaTime){
         super.tick(game,deltaTime);
