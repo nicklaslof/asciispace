@@ -27,6 +27,7 @@ class BossFormation2 extends Formation{
             var b = new Ball(x,y,index,32,0xff00ffff,0).setHealth(1);
             b.allowedOutOfLevel = true;
             b.invincible = true;
+            b.hitColor = true;
             this.addEntity(b);
         }
     }

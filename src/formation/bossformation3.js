@@ -62,12 +62,15 @@ class BossFormation3 extends Formation{
     handleEntity(game, entity, deltaTime){
 
         this.iterationCount++;
+        // Do on end of each iteration of entities
         if (this.iterationCount >= this.entities.length){
             this.shakeX = 0;
             this.shakeY = 0;
             this.iterationCount = 0;
+            this.blastCountdown += deltaTime;
         }
 
+        // Do on the first entity (The big O in the middle)
         if (this.iterationCount == 0){
             this.angle += deltaTime;
             if (this.stopped) this.blastCountdown += deltaTime/2;
@@ -77,16 +80,18 @@ class BossFormation3 extends Formation{
             }
         }
 
+        // If the big O in the middle has reach it's end then stop the entity and level from moving further
         if (entity.count == 0 && entity.position.x < (W/2)+250){
             this.stopped = true;
             game.level.stopped = true;
         }
 
-
+        // If the boss has stopped.
         if (this.stopped){
             this.yy = Math.cos(this.angle-0.2)*35;
-            this.blastCountdown += deltaTime/120;
+            
             if (entity.count < 0){
+                // Turn the cirles more red the further into the blast it comes
                 if (this.blastCountdown< this.blastWarning){
                     entity.c = (this.alpha & 0xff) << 24 | (this.red -(this.blastCountdown*11) & 0xff) << 16 | ((this.green - (this.blastCountdown*11)) & 0xff) << 8 | ((this.blue) & 0xff);
                 }else{
@@ -98,16 +103,20 @@ class BossFormation3 extends Formation{
             entity.shakeY = this.shakeY;
         }
         else
+        // If the boss still need to move further in to left
             this.movementX += deltaTime*this.xSpeed;
 
+        // The big O is on it's own move code since it's not part of the circle calculation
         if (entity.count == 0){
             if (!this.stopped) entity.position.x -= deltaTime*this.xSpeed*120;
             entity.position.y = this.yy+295;
            
             return;
         }else{
+            // Shoot random bullets when not on the blast warning or blast part
             entity.shootCounter += deltaTime;
-            if (this.stopped  && this.blastCountdown < this.blastWarning-1 && entity.shootCounter > entity.getRandom(10,300)){
+            if (entity.count < 0 && entity.count > -10)console.log (entity.shootCounter);
+            if (this.stopped  && entity.shootCounter > entity.getRandom(10,20)){
                 var b = new RoundBullet(entity.position.x, entity.position.y,1800,{x:Math.cos(this.angle+(entity.count/3.14)),y:Math.sin(this.angle+(entity.count/3.14))});
                 b.speed = 200;
                 game.level.addEntity(b);
@@ -115,7 +124,7 @@ class BossFormation3 extends Formation{
                 entity.shootCounter = 0;
             }
         }
-
+        // Randomly spray the level with bullets during the blast part
         if (this.blastCountdown > this.blastStart && this.blastCountdown < this.blastStop){
             if (entity.getRandom(0,80) < 1){
                 var b = new RoundBullet(entity.position.x, entity.position.y,1800,{x:Math.cos(this.angle+(entity.count/3.14)),y:Math.sin(this.angle+(entity.count/3.14))});
@@ -124,18 +133,22 @@ class BossFormation3 extends Formation{
                 game.playShoot2();
             }
         }
+
+        // If we have reached the end of the blast reset and start again.
         if (this.blastCountdown > this.blastStop) this.blastCountdown = 0;
 
+
+        // Calculate the big circle formation (they all spawned in the same x and y position and using Sinus math for make them position as a circle)
         var x = (Math.cos(this.angle+(entity.count/3.14)) * entity.distance*2) + entity.orginalPositionX;
         var y = (Math.sin(this.angle+(entity.count/3.14)) * entity.distance*2) + entity.orginalPositionY;
 
         if (entity.count < -20.8){
+            // A bit different movememnt for the smaller circles
             var xx = (Math.cos(this.angle+(entity.count/3.14)) * entity.distance/2) + x;
             var yy = (Math.sin(this.angle+(entity.count/3.14)) * entity.distance/2) + y;
-            entity.position.x = xx- this.movementX;
+            entity.position.x = xx - this.movementX;
             entity.position.y = yy + this.yy;
         }else{
-        
             entity.position.x = x - this.movementX;
             entity.position.y = y + this.yy;
         }
@@ -143,7 +156,7 @@ class BossFormation3 extends Formation{
     }
 
     onDone(game){
-        game.level.finished = true;
+        game.level.showCinematicTextEnd = true;
     }
 }
 export default BossFormation3;

@@ -46,13 +46,14 @@ class Level{
 
         this.snapshot = snapshot;
         this.showCinematicText = true;
+        this.showCinematicTextEnd = false;
 
-        //this.levelPositionX = 22150;
+        this.levelPositionX = 22150;
 
         //this.levelPositionX = 17750;
         //this.levelPositionX = 17150;
         //this.levelPositionX = 12900;
-        this.levelPositionX = 8200;
+        //this.levelPositionX = 8200;
         //this.levelPositionX = -1000;
         
         if (snapshot != null) this.levelPositionX = snapshot.levelPositionX;
@@ -127,7 +128,7 @@ class Level{
     }
 
     tick(game,deltaTime){
-        if (!this.showCinematicText && game.keys[69] == "keydown"){
+        if (!this.showCinematicText && !this.showCinematicTextEnd && game.keys[69] == "keydown"){
             game.keys[69] = "" 
             this.showUpgradePanel = !this.showUpgradePanel;
             if (this.showUpgradePanel)
@@ -143,6 +144,13 @@ class Level{
         if (this.showCinematicText){
             this.ui.tick(game, deltaTime);
             this.ui.tickCinematicText(game,deltaTime);
+            this.starfield.tick(game, deltaTime);
+            return;
+        }
+
+        if (this.showCinematicTextEnd){
+            this.ui.tick(game, deltaTime);
+            this.ui.tickCinematicTextEnd(game,deltaTime);
             this.starfield.tick(game, deltaTime);
             return;
         }
@@ -163,7 +171,6 @@ class Level{
             var x = this.lastCheckedTilePostionX;
             for (let y = 0; y < this.levelSizeY; y++) {
                 var formation = this.formations[x + (y * this.levelSizeX)];
-                console.log("Spawning formation ")+formation;
                 if (formation != null){
                     if (formation == "A") this.activeFormations.push(new SineballFormation(this));
                     if (formation == "B") this.activeFormations.push(new EnemyShipFormation1(this));

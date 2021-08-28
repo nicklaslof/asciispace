@@ -30,7 +30,6 @@ class Ship extends CollisionEntity{
     tick(game,deltaTime){
         super.tick(game,deltaTime);
 
-
         this.fireDelay -= deltaTime;
         if (this.fireDelay < 0) this.fireDelay = 0;
 

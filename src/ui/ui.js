@@ -21,20 +21,32 @@ class UI{
         this.spaceDelay = 1;
 
         this.cinematicText = [];
+        this.cinematicTextEnd = [];
         var startY = (H/2)-180;
         var distance = 30;
         var delay = 0.05;
         this.cinematicText.push(new SlowText("Welcome to sector 13.37 04",(W/2)-110,startY,delay));
-        this.cinematicText.push(new SlowText("This sector has been overtaken by evil Os",(W/2)-170,startY+(distance*2),delay));
-        this.cinematicText.push(new SlowText("Your mission: Destroy them!",(W/2)-115,startY+(distance*3),delay));
+        this.cinematicText.push(new SlowText("This sector has been overtaken by the evil O",(W/2)-185,startY+(distance*2),delay));
+        this.cinematicText.push(new SlowText("Your mission: Destroy him!",(W/2)-110,startY+(distance*3),delay));
         this.cinematicText.push(new SlowText("Oh by the way . . . . . ",(W/2)-95,startY+(distance*5),delay*2));
         this.cinematicText.push(new SlowText("We forgot to equip your ship",(W/2)-115,startY+(distance*7),delay));
         this.cinematicText.push(new SlowText("again . . .",(W/2)-35,startY+(distance*8),delay*3));
         this.cinematicText.push(new SlowText("but you can probably find some material around here",(W/2)-210,startY+(distance*9),delay));
-        this.cinematicText.push(new SlowText("and upgrade the ship with",(W/2)-105,startY+(distance*10),delay));
-        this.cinematicText.push(new SlowText("Dont forget to pick up the floating Cs",(W/2)-155,startY+(distance*12),delay));
+        this.cinematicText.push(new SlowText("and upgrade your ship",(W/2)-85,startY+(distance*10),delay));
+        this.cinematicText.push(new SlowText("Dont forget to pick up the floating C",(W/2)-150,startY+(distance*12),delay));
         this.cinematicText.push(new SlowText("those are checkpoints in case you die",(W/2)-150,startY+(distance*13),delay));
         this.cinematicText.push(new SlowText("Good luck 04 and have fun!",(W/2)-110,startY+(distance*14),delay));
+
+
+
+        this.cinematicTextEnd.push(new SlowText("You did it 04!",(W/2)-80,startY,delay));
+        this.cinematicTextEnd.push(new SlowText("You destroyed the evil O",(W/2)-120,startY+(distance*2),delay));
+
+        this.cinematicTextEnd.push(new SlowText("Now head over to sector 64.128",(W/2)-140,startY+(distance*4),delay));
+        this.cinematicTextEnd.push(new SlowText("They have some issues with an",(W/2)-135,startY+(distance*5),delay));
+        this.cinematicTextEnd.push(new SlowText("escaped R threating to start a war",(W/2)-155,startY+(distance*6),delay));
+
+        this.cinematicTextEnd.push(new SlowText("Thanks for playing! /Nicklas",(W/2)-125,startY+(distance*8),delay));
     }
 
     tick(game, deltaTime){
@@ -51,6 +63,21 @@ class UI{
         }else this.spaceDelay -= deltaTime;
 
         this.cinematicText.some((t)=>{
+            t.tick(this,game,deltaTime);
+            return !t.isDone();
+        });
+        /*this.cinematicText.forEach(t => {
+            t.tick(this,game,deltaTime);
+        });*/
+    }
+
+    tickCinematicTextEnd(game, deltaTime){
+        //if (this.spaceDelay <= 0 && game.keys[32] == "keydown"){
+       //     game.keys[32] == "";
+       //     game.level.showCinematicTextEnd = false;
+       // }else this.spaceDelay -= deltaTime;
+
+        this.cinematicTextEnd.some((t)=>{
             t.tick(this,game,deltaTime);
             return !t.isDone();
         });
