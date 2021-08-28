@@ -35,7 +35,10 @@ this.drawTextAt("Press SPACE to start",(W/2)-75,(H/2)+170,"white",14);
     }
 
     tick(game,deltaTime){
-        if (game.keys[32] == "keydown")game.showIntro=false;
+        if (game.keys[32] == "keydown"){
+                game.showIntro=false;
+                game.keys[32] == "";
+        }
         this.starfield.tick(game, deltaTime);
     }
 

@@ -7,7 +7,7 @@ import Shield from "./shield.js";
 class Ship extends CollisionEntity{
     constructor(posX, posY) {
         super(posX, posY, 0,4,20,22,0xffffffff,48,32,"p");
-        this.fireDelay = 0;
+        this.fireDelay = 0.2;
         this.speed = 300;
         this.particleDelay = 0;
         this.mineral = 0;

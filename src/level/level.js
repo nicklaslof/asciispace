@@ -81,6 +81,7 @@ class Level{
         this.ui = new UI();
        
         this.showUpgradePanel = false;
+        this.showCinematicText = true;
 
         this.upgradeController = new UpgradeController(this,snapshot);
 
@@ -123,20 +124,25 @@ class Level{
     }
 
     tick(game,deltaTime){
-        if (game.keys[69] == "keydown"){
+        if (!this.showCinematicText && game.keys[69] == "keydown"){
             game.keys[69] = "" 
             this.showUpgradePanel = !this.showUpgradePanel;
             if (this.showUpgradePanel)
                 this.ui.showUpgradePanel();
             else
                 this.ui.hideUpgradePanel(game);
-
         }
 
         if (this.player.health<= 0){
             game.playerDead = true;
         }
 
+        if (this.showCinematicText){
+            this.ui.tick(game, deltaTime);
+            this.ui.tickCinematicText(game,deltaTime);
+            this.starfield.tick(game, deltaTime);
+            return;
+        }
 
         if (!game.playerDead) this.ui.tick(game, deltaTime);
         if (this.showUpgradePanel){

@@ -1,6 +1,7 @@
 import ResourceButton from "./resourcebutton.js";
 import Button from "./button.js"
 import RequireArrow from "./requirearrow.js";
+import SlowText from "./slowtext.js";
 class UI{
     constructor() {
         this.cv = document.getElementById("u");
@@ -16,6 +17,24 @@ class UI{
         this.checkpointMessageTimer = 0;
         this.buttonX = 0;
         this.buttonY = 0;
+
+        this.spaceDelay = 1;
+
+        this.cinematicText = [];
+        var startY = (H/2)-180;
+        var distance = 30;
+        var delay = 0.05;
+        this.cinematicText.push(new SlowText("Welcome to sector 13.37 04",(W/2)-110,startY,delay));
+        this.cinematicText.push(new SlowText("This sector has been overtaken by evil Os",(W/2)-170,startY+(distance*2),delay));
+        this.cinematicText.push(new SlowText("Your mission: Destroy them!",(W/2)-115,startY+(distance*3),delay));
+        this.cinematicText.push(new SlowText("Oh by the way . . . . . ",(W/2)-95,startY+(distance*5),delay*2));
+        this.cinematicText.push(new SlowText("We forgot to equip your ship",(W/2)-115,startY+(distance*7),delay));
+        this.cinematicText.push(new SlowText("again . . .",(W/2)-35,startY+(distance*8),delay*3));
+        this.cinematicText.push(new SlowText("but you can probably find some material around here",(W/2)-210,startY+(distance*9),delay));
+        this.cinematicText.push(new SlowText("and upgrade the ship with",(W/2)-105,startY+(distance*10),delay));
+        this.cinematicText.push(new SlowText("Dont forget to pick up the floating Cs",(W/2)-155,startY+(distance*12),delay));
+        this.cinematicText.push(new SlowText("those are checkpoints in case you die",(W/2)-150,startY+(distance*13),delay));
+        this.cinematicText.push(new SlowText("Good luck 04 and have fun!",(W/2)-110,startY+(distance*14),delay));
     }
 
     tick(game, deltaTime){
@@ -23,6 +42,21 @@ class UI{
         if (this.checkpointMessageTimer<=0) this.showCheckpointTakenMessage = false;
         this.tickUpgradePanel(game);
         this.tickResourcesAndUpgradeAvailable(game);
+    }
+
+    tickCinematicText(game, deltaTime){
+        if (this.spaceDelay <= 0 && game.keys[32] == "keydown"){
+            game.keys[32] == "";
+            game.level.showCinematicText = false;
+        }else this.spaceDelay -= deltaTime;
+
+        this.cinematicText.some((t)=>{
+            t.tick(this,game,deltaTime);
+            return !t.isDone();
+        });
+        /*this.cinematicText.forEach(t => {
+            t.tick(this,game,deltaTime);
+        });*/
     }
 
     tickResourcesAndUpgradeAvailable(game){
