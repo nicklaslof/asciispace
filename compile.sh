@@ -6,7 +6,7 @@ rollup i.js --format cjs --file ../dist/bundle.js
 cd ../dist
 terser bundle.js -o i.js --compress --mangle --mangle-props reserved=["g","img","flush","bkg","cls","col","init","generate","createWave"] --timings --toplevel --module
 rm bundle.js
-#roadroller i.js -o ./o.js
+roadroller -Zab32 -Zlr1250 -Zmc4 -S0,1,3,6,13,21,25,42,50,355,392,481 i.js -o ./o.js
 #/opt/homebrew/opt/gnu-sed/libexec/gnubin/sed 's/\x1f//g' o.js > oo.js
 echo "<meta charset="UTF-8"><style>" > index-template.html
 cat ../src/i.css >> index-template.html
@@ -25,15 +25,15 @@ echo "<script>" >> index-template.html
 cat ../src/l.js >> index-template.html
 echo "</script>" >> index-template.html
 echo "<script charset=\"utf8\">" >> index-template.html
-#cat oo.js >> index-template.html
+cat o.js >> index-template.html
 #echo "<script charset=\"utf8\">" >> index-template.html
 #echo "<script type=\"module\" charset=\"utf8\">" >> index-template.html
-cat i.js >> index-template.html
+#cat i.js >> index-template.html
 echo "</script><button id=\"s\">Play</button>" >> index-template.html
 
 cat index-template.html | tr -d '\n' > index.html
 
-rm i.js o.js oo.js index-template.html
+rm i.js o.js index-template.html
 
 zip -r ../dist.zip *
 cd ..
