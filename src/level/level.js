@@ -35,6 +35,7 @@ class Level{
         this.game = game;
         this.gameOverlay = new GameOverlay();
         this.entities = [];
+        this.particles = [];
         this.entitiesToSpawn = [];
         this.formations = [];
         this.formationTemplates = [];
@@ -115,7 +116,6 @@ class Level{
                 }
 
                 if (levelChar=="a" || levelChar=="b" || levelChar=="c"|| levelChar=="d"|| levelChar=="e"|| levelChar=="f" || levelChar=="g" || levelChar=="h" || levelChar=="i" || levelChar=="j"){
-                   // console.log(levelChar +" "+ x +" "+y);
                     this.entitiesToSpawn[x + (y * this.levelSizeX)] = levelChar;
                 }
             }
@@ -155,7 +155,6 @@ class Level{
             for (let y = 0; y < this.levelSizeY; y++) {
                 var formation = this.formations[x + (y * this.levelSizeX)];
                 if (formation != null){
-                    console.log("Adding formation "+formation);
                     if (formation == "A") this.activeFormations.push(new SineballFormation(this));
                     if (formation == "B") this.activeFormations.push(new EnemyShipFormation1(this));
                     if (formation == "C") this.activeFormations.push(new EnemyShipFormation2(this));
@@ -173,7 +172,6 @@ class Level{
 
                 var entityToSpawn = this.entitiesToSpawn[x + (y * this.levelSizeX)];
                 if (entityToSpawn != null){
-                    console.log("Adding entity "+entityToSpawn);
                     if (entityToSpawn == "a") this.addEntity(new Shooter1(W-5,(y+0.10)*30));
                     if (entityToSpawn == "d") this.addEntity(new Shooter1(W-5,(y+0.10)*30,true));
                     if (entityToSpawn == "h") this.addEntity(new Shooter1(W-5,(y+0.10)*30,false,true));
@@ -205,6 +203,11 @@ class Level{
             if (e.disposed) this.removeEntity(e);
         });
 
+        this.particles.forEach(p => {
+            p.tick(game,deltaTime);
+            if (p.disposed) this.removeParticle(p);
+        });
+
         this.gameOverlay.tick(game);
         this.upgradeController.tick(game);
 
@@ -214,19 +217,20 @@ class Level{
         game.gl.bkg(0.0,0.0,0.04,0);
         game.gl.cls();
         this.starfield.render(game);
-        var tileCount = 0;
+
         for (let x = Math.floor(this.levelPositionX/24); x < Math.floor(this.levelPositionX/24)+60; x++) {
             for (let y = 0; y < this.levelSizeY; y++){
                 let tile = this.tiles[x + (y*this.levelSizeX)];
                 if (tile == null) continue;
                 tile.render(game);
-                tileCount++;
             }
         }
 
-
-
         this.entities.forEach(e => {
+            e.render(game);
+        })
+
+        this.particles.forEach(e => {
             e.render(game);
         })
 
@@ -249,13 +253,28 @@ class Level{
         tile.checkCollision(game,entity); 
     }
 
+    addParticle(particle){
+        this.particles.push(particle);
+    }
+
     addEntity(entity){
         this.entities.push(entity);
     }
+
+    removeParticle(particle){
+        this.removeFromList(particle,this.particles);
+        //console.log("After removing particle "+this.particles.length);
+    }
+
     removeEntity(entity){
-        for(let i = this.entities.length - 1; i >= 0; i--) {
-            if(this.entities[i] === entity) {
-                this.entities.splice(i, 1);
+        this.removeFromList(entity,this.entities);
+        //console.log("After removing entity "+this.entities.length);
+    }
+
+    removeFromList(object,list){
+        for(let i = list.length - 1; i >= 0; i--) {
+            if(list[i] === object) {
+                list.splice(i, 1);
             }
         }
     }

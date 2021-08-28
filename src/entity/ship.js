@@ -3,6 +3,7 @@ import CollisionEntity from "./collisionentity.js";
 import Drone from "./drone.js";
 import Laser from "./laser.js";
 import Particle from "./particle.js";
+import Shield from "./shield.js";
 class Ship extends CollisionEntity{
     constructor(posX, posY) {
         super(posX, posY, 0,4,20,22,0xffffffff,48,32,"p");
@@ -22,11 +23,13 @@ class Ship extends CollisionEntity{
 
         this.drones = [];
         this.numberOfDrones = 2;
+
+        this.shields = [];
+        this.shield = true;
     }
     tick(game,deltaTime){
         super.tick(game,deltaTime);
 
-        // Counters
 
         this.fireDelay -= deltaTime;
         if (this.fireDelay < 0) this.fireDelay = 0;
@@ -102,7 +105,7 @@ class Ship extends CollisionEntity{
                 drone.shootTimer--;
                 if (drone.shootTimer<=0){
                     drone.shoot(game,this,this.shootRange,this.laserStrength);
-                    drone.shootTimer = 0.15*entity.count;
+                    drone.shootTimer = 0.15*drone.count;
                 }
             });
         }
@@ -112,24 +115,29 @@ class Ship extends CollisionEntity{
             this.drones.push(new Drone(this.position.x,this.position.y,startAngle,this.drones.length));
         }
 
+        if (this.shield && this.shields.length < 64){
+            var startAngle = this.shields.length*1.2;
+            this.shields.push(new Shield(this.position.x,this.position.y,startAngle));
+        }
+
 
         // Player movement particles
 
         if (translateX > 0 && this.particleDelay == 0){
             if (Math.floor(this.getRandom(0,2))==1)
-                game.level.addEntity(new Particle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-15, this.position.y+15),0x99999999,true,5,5).setHealth(40));
+                game.level.addParticle(new Particle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-15, this.position.y+15),0x99999999,true,5,5).setHealth(40));
             this.particleDelay = 0.01;
             
  
         }else if (translateX < 0 && this.particleDelay == 0){
             if (Math.floor(this.getRandom(0,2))==1)
-                game.level.addEntity(new Particle(this.getRandom(this.position.x-10,this.position.x+10), this.getRandom(this.position.y-10, this.position.y+10),0x999999ff,false,11,1).setHealth(40));
+                game.level.addParticle(new Particle(this.getRandom(this.position.x-10,this.position.x+10), this.getRandom(this.position.y-10, this.position.y+10),0x999999ff,false,11,1).setHealth(40));
             this.particleDelay = 0.01;
                 
         }else{
             if (this.particleDelay == 0){
                 if (Math.floor(this.getRandom(0,2))==1){
-                    game.level.addEntity(new Particle(this.getRandom(this.position.x-30,this.position.x-40), this.getRandom(this.position.y-4, this.position.y+4),0x99999999,true,5,5).setHealth(20));
+                    game.level.addParticle(new Particle(this.getRandom(this.position.x-30,this.position.x-40), this.getRandom(this.position.y-4, this.position.y+4),0x99999999,true,5,5).setHealth(20));
                 }
                     
                 this.particleDelay = 0.1;
@@ -140,6 +148,10 @@ class Ship extends CollisionEntity{
             drone.tick(game,deltaTime);
         });
 
+        this.shields.forEach(shield => {
+            shield.tick(game,deltaTime);
+        });
+
         game.level.speedX = translateX;
         game.level.speedY = translateY;
     }
@@ -148,7 +160,7 @@ class Ship extends CollisionEntity{
         if (this.hitTimeout<=0){ 
             game.playPlayerHit();
             for (let index = 0; index < 20; index++) {
-                game.level.addEntity(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff0000ff,30,15).setHealth(90));
+                game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff0000ff,30,15).setHealth(90));
             }
         }
         super.hit(game,h,force,hitTimeout);
@@ -183,11 +195,15 @@ class Ship extends CollisionEntity{
     onDispose(game){
         game.playPlayerDied();
         for (let index = 0; index < 50; index++) {
-            game.level.addEntity(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff999999,true,30,30).setHealth(300));
+            game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff999999,true,30,30).setHealth(300));
         }
     }
 
     render(game){
+
+        this.shields.forEach(shield => {
+            shield.render(game);
+        }); 
         this.drones.forEach(drone => {
             drone.render(game);
         });
