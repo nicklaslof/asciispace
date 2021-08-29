@@ -192,28 +192,21 @@ class Game{
     }
 
     setupLightBuffer(){
-        this.lightTexture = this.gl.g.createTexture();
-        //this.gl.g.activeTexture(this.gl.g.TEXTURE1);
-        this.gl.g.bindTexture(this.gl.g.TEXTURE_2D, this.lightTexture);
-        this.gl.g.texImage2D(this.gl.g.TEXTURE_2D, 0, this.gl.g.RGBA, W, H, 0, this.gl.g.RGBA, this.gl.g.UNSIGNED_BYTE, null);
-        this.gl.g.texParameteri(this.gl.g.TEXTURE_2D, this.gl.g.TEXTURE_MIN_FILTER, this.gl.g.NEAREST);
-        this.gl.g.texParameteri(this.gl.g.TEXTURE_2D, this.gl.g.TEXTURE_MAG_FILTER, this.gl.g.NEAREST);
-        this.gl.g.texParameteri(this.gl.g.TEXTURE_2D, this.gl.g.TEXTURE_WRAP_S, this.gl.g.CLAMP_TO_EDGE);
-        this.gl.g.texParameteri(this.gl.g.TEXTURE_2D, this.gl.g.TEXTURE_WRAP_T, this.gl.g.CLAMP_TO_EDGE);
+        this.lightTexture = new GlTexture(this.gl.g,null).tex;
+        this.effectTexture = new GlTexture(this.gl.g, null).tex;
+        this.fb = this.setupFrameBuffer(this.gl.g,this.lightTexture);
+        
+    }
 
-
-        this.fb = this.gl.g.createFramebuffer();
-        this.gl.g.bindFramebuffer(this.gl.g.FRAMEBUFFER, this.fb);  
+    setupFrameBuffer(gl,texture){
+        var fb = gl.createFramebuffer();
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fb);  
         //this.gl.g.activeTexture(this.gl.g.TEXTURE1);
-        this.gl.g.bindTexture(this.gl.g.TEXTURE_2D, this.lightTexture);
-        this.gl.g.framebufferTexture2D(
-            this.gl.g.FRAMEBUFFER, 
-            this.gl.g.COLOR_ATTACHMENT0,  // attach texture as COLOR_ATTACHMENT0
-            this.gl.g.TEXTURE_2D,         // attach a 2D texture
-            this.lightTexture,           // the texture to attach
-            0);   
-        this.gl.g.bindFramebuffer(this.gl.g.FRAMEBUFFER, null);
-        this.gl.g.bindTexture(this.gl.g.TEXTURE_2D, null);
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,texture,0);   
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        gl.bindTexture(gl.TEXTURE_2D, null);
+        return fb;
     }
 }
 export default Game;
