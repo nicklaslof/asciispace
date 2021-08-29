@@ -1,4 +1,4 @@
-import Light from "../light/light.js";
+
 import Bullet from "./bullet.js";
 import CollisionEntity from "./collisionentity.js";
 import Drone from "./drone.js";
@@ -27,19 +27,12 @@ class Ship extends CollisionEntity{
 
         this.shields = [];
         this.shield = false;
+
+        this.hasLight = true;
         
     }
     tick(game,deltaTime){
         super.tick(game,deltaTime);
-
-        if (this.light == null){
-            this.light = new Light(this.position.x,this.position.y,0xffffffff);
-            game.level.addLight(this.light);
-        }
-        if (this.light != null){
-            this.light.position.x = this.position.x;
-            this.light.position.y = this.position.y;
-        }
 
         this.fireDelay -= deltaTime;
         if (this.fireDelay < 0) this.fireDelay = 0;

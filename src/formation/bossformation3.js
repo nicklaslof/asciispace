@@ -41,12 +41,14 @@ class BossFormation3 extends Formation{
             var b = new Ball(x,y,index,24,0xffffffff,0).setHealth(15);
             b.hitColor = false;
             b.distance = 60;
+            b.lightSize = 20;
             this.addEntity(b);
         }
 
         for (let index = 1; index < 40; index++) {
             var b = new Ball(x,y+150,index+40,12,0xffffffff,0).setHealth(15);
             b.hitColor = false;
+            b.lightSize = 20;
             b.distance = 30;
             this.addEntity(b);
         }
@@ -54,6 +56,7 @@ class BossFormation3 extends Formation{
         for (let index = 1; index < 40; index++) {
             var b = new Ball(x,y-150,index+80,16,0xffffffff,0).setHealth(15);
             b.hitColor = false;
+            b.lightSize = 20;
             b.distance = 30;
             this.addEntity(b);
         }

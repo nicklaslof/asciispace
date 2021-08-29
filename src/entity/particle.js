@@ -8,8 +8,10 @@ class Particle extends Entity{
         this.red = (col >>> 16) & 0xFF;
         this.green = (col >>>  8) & 0xFF;
         this.blue  = (col >>>  0) & 0xFF;
-        this.ttl = 1;
+        this.ttl = 1.5;
         this.speed = speed;
+        this.hasLight = true;
+        this.lightSize = 4;
         if (movements)
             this.velocity = {x:this.getRandom(-1,1), y: this.getRandom(-1,1)};
         else
@@ -21,10 +23,10 @@ class Particle extends Entity{
     tick(game,deltaTime){
         super.tick(game,deltaTime);
         if (this.ttl> 0) this.ttl -= deltaTime;
-        if (this.ttl <= 0) this.hit(game,1,true);
+
+        if (this.ttl <= 0) this.hit(game,100,true);
         if (this.alphaCounter>0) this.alphaCounter -= (15000*deltaTime)/this.maxHealth;
         this.alphaCounter = Math.max(0,this.alphaCounter);
-        //console.log(this.alphaCounter);
         this.sizeX += deltaTime*4;
         this.sizeY += deltaTime*4;
         this.position.x += this.velocity.x*this.speed*deltaTime;

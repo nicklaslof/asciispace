@@ -261,6 +261,9 @@ class Level{
         })
 
         if (!game.playerDead) this.ui.render(game);
+    }
+
+    renderOverlay(game){
         if (!game.playerDead) this.gameOverlay.render(game);
     }
 

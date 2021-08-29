@@ -72,7 +72,7 @@ class Game{
             this.gl.g.bindFramebuffer(this.gl.g.FRAMEBUFFER, this.fb);
 
             // Set the global darkness
-            this.gl.bkg(0.5,0.5,0.5,0.5);
+            this.gl.bkg(0.6,0.6,1,1);
             this.gl.cls();
 
             this.gl.col = 0xffffffff;
@@ -87,6 +87,11 @@ class Game{
             this.gl.g.blendFunc(this.gl.g.DST_COLOR, this.gl.g.ZERO);
             this.gl.img(this.lightTexture,0,0,W,H,0,0,0,1,1,0,1,1,0);
 
+
+
+            this.gl.flush();
+            this.gl.g.blendFunc(this.gl.g.SRC_ALPHA,this.gl.g.ONE_MINUS_SRC_ALPHA);
+            this.level.renderOverlay(this);
             this.gl.flush();
             this.fps++;
 

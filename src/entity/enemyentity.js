@@ -6,26 +6,18 @@ class EnemyEntity extends CollisionEntity{
     constructor(posX, posY, texX,texY,texW,texH,c,sizeX, sizeY, type, drops=1) {
         super(posX, posY, texX,texY,texW,texH,c,sizeX, sizeY, type);
         this.drops = drops;
-        this.light = null;
+        this.hasLight = true;
     }
 
     onDispose(game){
+        super.onDispose(game);
         if (this.onDeathAction != null) this.onDeathAction();
         else game.playExplosion();
         this.dropResource(game);
-        game.level.removeLight(this.light);
     }
 
     tick(game, deltaTime){
         super.tick(game,deltaTime);
-        if (this.light == null){
-            this.light = new Light(this.position.x,this.position.y,0xffffffff);
-            game.level.addLight(this.light);
-        }
-        if (this.light != null){
-            this.light.position.x = this.position.x;
-            this.light.position.y = this.position.y;
-        } 
     }
 
     onDeath(action){
