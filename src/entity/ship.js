@@ -1,3 +1,4 @@
+
 import Bullet from "./bullet.js";
 import CollisionEntity from "./collisionentity.js";
 import Drone from "./drone.js";
@@ -26,6 +27,9 @@ class Ship extends CollisionEntity{
 
         this.shields = [];
         this.shield = false;
+
+        this.hasLight = true;
+        
     }
     tick(game,deltaTime){
         super.tick(game,deltaTime);

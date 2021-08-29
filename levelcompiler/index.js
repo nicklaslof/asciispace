@@ -62,6 +62,8 @@ loadImage("level.png").then((image) => {
                 if (c == 0x4444d5) addToLevel(level,x,y,"g"); // Health
                 if (c == 0x884feb) addToLevel(level,x,y,"i"); // Groundlaser
                 if (c == 0x99aa28) addToLevel(level,x,y,"j"); // Groundrobot
+                if (c == 0xa0ff7f) addToLevel(level,x,y,"k"); // Siren
+                if (c == 0x00b2b2) addToLevel(level,x,y,"l"); // Lightsource
 
             }
         }

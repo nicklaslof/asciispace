@@ -41,12 +41,14 @@ class BossFormation3 extends Formation{
             var b = new Ball(x,y,index,24,0xffffffff,0).setHealth(15);
             b.hitColor = false;
             b.distance = 60;
+            b.lightSize = 20;
             this.addEntity(b);
         }
 
         for (let index = 1; index < 40; index++) {
             var b = new Ball(x,y+150,index+40,12,0xffffffff,0).setHealth(15);
             b.hitColor = false;
+            b.lightSize = 20;
             b.distance = 30;
             this.addEntity(b);
         }
@@ -54,6 +56,7 @@ class BossFormation3 extends Formation{
         for (let index = 1; index < 40; index++) {
             var b = new Ball(x,y-150,index+80,16,0xffffffff,0).setHealth(15);
             b.hitColor = false;
+            b.lightSize = 20;
             b.distance = 30;
             this.addEntity(b);
         }
@@ -115,7 +118,7 @@ class BossFormation3 extends Formation{
         }else{
             // Shoot random bullets when not on the blast warning or blast part
             entity.shootCounter += deltaTime;
-            if (entity.count < 0 && entity.count > -10)console.log (entity.shootCounter);
+          //  if (entity.count < 0 && entity.count > -10)console.log (entity.shootCounter);
             if (this.stopped  && entity.shootCounter > entity.getRandom(10,20)){
                 var b = new RoundBullet(entity.position.x, entity.position.y,1800,{x:Math.cos(this.angle+(entity.count/3.14)),y:Math.sin(this.angle+(entity.count/3.14))});
                 b.speed = 200;

@@ -13,9 +13,10 @@ class Game{
         canvas.height = H;
         this.gl = TinySprite(canvas);
         this.gl.flush();
+
         this.ascii = new AsciiTexture();
         this.texture = new GlTexture(this.gl.g,this.ascii.image);
-
+        this.setupLightBuffer();
         this.level = new Level(this);
         this.intro = new Intro(this);
         this.keys =[];
@@ -30,6 +31,9 @@ class Game{
         this.showIntro = true;
         this.playerDead = false;
         this.restartGameUI = null;
+
+
+
         
     }
     gameloop(){
@@ -57,9 +61,40 @@ class Game{
 
         if (!this.showIntro){
             this.level.tick(this,deltaTime/1000);
+
+            // Set blend mode and render the level
+            this.gl.g.blendFunc(this.gl.g.SRC_ALPHA,this.gl.g.ONE_MINUS_SRC_ALPHA);
             this.level.render(this);
-            this.fps++;
             this.gl.flush();
+        
+            // Bind the light buffer
+
+            this.gl.g.bindFramebuffer(this.gl.g.FRAMEBUFFER, this.fb);
+
+            // Set the global darkness
+            this.gl.bkg(0.3,0.3,0.3,1);
+            this.gl.cls();
+
+            this.gl.col = 0xffffffff;
+            this.gl.g.enable( this.gl.g.BLEND );
+            this.gl.g.blendFunc(this.gl.g.SRC_ALPHA, this.gl.g.ONE);
+            //this.gl.img(this.texture.tex,0,0,W,H,0,0,0,1,1,0,0,1,1);
+            this.level.renderLight(this);
+            this.gl.flush();
+            this.gl.g.bindFramebuffer(this.gl.g.FRAMEBUFFER, null);
+            
+            this.gl.col = 0xffffffff;
+            this.gl.g.blendFunc(this.gl.g.DST_COLOR, this.gl.g.ZERO);
+            this.gl.img(this.lightTexture,0,0,W,H,0,0,0,1,1,0,1,1,0);
+
+
+
+            this.gl.flush();
+            this.gl.g.blendFunc(this.gl.g.SRC_ALPHA,this.gl.g.ONE_MINUS_SRC_ALPHA);
+            this.level.renderOverlay(this);
+            this.gl.flush();
+            this.fps++;
+
             this.counter += deltaTime/1000;
             if (this.counter > 1){
                 console.log(Date.now()+" FPS:"+this.fps);
@@ -154,6 +189,24 @@ class Game{
         else
         zzfx(1500,...[.2,100,3e3,,3,0,1,11.2,,,250,,.03,,,,.67]);
 
+    }
+
+    setupLightBuffer(){
+        this.lightTexture = new GlTexture(this.gl.g,null).tex;
+        this.effectTexture = new GlTexture(this.gl.g, null).tex;
+        this.fb = this.setupFrameBuffer(this.gl.g,this.lightTexture);
+        
+    }
+
+    setupFrameBuffer(gl,texture){
+        var fb = gl.createFramebuffer();
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fb);  
+        //this.gl.g.activeTexture(this.gl.g.TEXTURE1);
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,texture,0);   
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        gl.bindTexture(gl.TEXTURE_2D, null);
+        return fb;
     }
 }
 export default Game;

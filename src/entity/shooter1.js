@@ -8,6 +8,8 @@ class Shooter1 extends StaticEntity{
         this.alternative = alternative;
         this.shootTime = this.alternative == true ? 7 : 3;
         this.shootDirection = alternative2 ? {x:0,y:-0.25} : {x:0,y:0.25};
+        this.hasLight = true;
+        this.lightColor = this.c;
     }
 
     tick(game, deltaTime){

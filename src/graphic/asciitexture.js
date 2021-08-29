@@ -26,6 +26,20 @@ class AsciiTexture{
         this.addHeart(textContext);
         this.addShooter1(textContext);
         this.addGroundLaser(textContext);
+
+
+        // Create light circle
+        var radgrad = textContext.createRadialGradient(270,370,0,270,370,150);
+        radgrad.addColorStop(0, 'rgba(255,255,255,1)');
+        radgrad.addColorStop(0.5, 'rgba(255,255,255,1)');
+        radgrad.addColorStop(0.7, 'rgba(255,255,255,.5)');
+        radgrad.addColorStop(1, 'rgba(255,255,255,0)');
+        
+        textContext.fillStyle = radgrad;
+        textContext.fillRect(128,200,450,450);
+      
+    
+
         this.image = new Image();
         this.image.src = textCanvas.toDataURL();
 

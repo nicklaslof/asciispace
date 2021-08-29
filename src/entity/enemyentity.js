@@ -1,16 +1,24 @@
 import CollisionEntity from "./collisionentity.js";
 import Particle from "./particle.js";
 import Resource from "./resource.js";
+import Light from "../light/light.js";
 class EnemyEntity extends CollisionEntity{
     constructor(posX, posY, texX,texY,texW,texH,c,sizeX, sizeY, type, drops=1) {
         super(posX, posY, texX,texY,texW,texH,c,sizeX, sizeY, type);
         this.drops = drops;
+        this.hasLight = true;
+        this.lightSize = 200;
     }
 
     onDispose(game){
+        super.onDispose(game);
         if (this.onDeathAction != null) this.onDeathAction();
         else game.playExplosion();
-        this.dropResource(game);   
+        this.dropResource(game);
+    }
+
+    tick(game, deltaTime){
+        super.tick(game,deltaTime);
     }
 
     onDeath(action){

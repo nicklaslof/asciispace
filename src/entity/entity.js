@@ -1,3 +1,4 @@
+import Light from "../light/light.js";
 class Entity{
 //Type (used for collisions)
 // p = player
@@ -25,6 +26,9 @@ class Entity{
         this.invincible = false;
         this.skipOnDispose = false;
         this.shakeX = this.shakeY = 0;
+        this.hasLight = false;
+        this.lightColor = 0xffffffff;
+        this.lightSize = 500;
     }
 
     setHealth(h){
@@ -49,15 +53,24 @@ class Entity{
     }
 
     onDispose(game){
-
     }
 
     tick(game,deltaTime){
-        
+        if (this.hasLight){
+            if (this.light == null){
+                this.light = new Light(this.position.x,this.position.y,this.lightColor,this.lightSize,this.lightSize);
+                game.level.addLight(this.light);
+            }
+            if (this.light != null){
+                this.light.position.x = this.position.x;
+                this.light.position.y = this.position.y;
+            } 
+        }
         if (this.health <=0){
             this.disposed = true;
-            if(!this.skipOnDispose) this.onDispose(game);
         }
+        if(!this.skipOnDispose && this.disposed) this.onDispose(game);
+        if (this.disposed && this.light != null) game.level.removeLight(this.light);
 
         if (this.position.x < -300 && !this.allowedOutOfLevel) this.disposed = true;
 
