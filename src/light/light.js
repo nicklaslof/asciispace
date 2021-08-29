@@ -16,7 +16,7 @@ class Light{
 
     render(game){
         game.gl.col = this.c;
-        game.gl.img(game.texture.tex,-this.sizeX/4,-this.sizeY/2,this.sizeX,this.sizeY,0,this.position.x,this.position.y,1,1, this.u0, this.u1, this.v0, this.v1);
+        game.gl.img(game.texture.tex,-this.sizeX/2,-this.sizeY/2,this.sizeX,this.sizeY,0,this.position.x,this.position.y,1,1, this.u0, this.u1, this.v0, this.v1);
     }
 
 }

@@ -1,6 +1,7 @@
 import Bullet from "./bullet.js"
 import Particle  from "./particle.js";
 import TimedLight from "../light/timedlight.js";
+import Light from "../light/light.js";
 class RoundBullet extends Bullet{
     constructor(posX,posY,range=200,direction={x:1,y:0}) {
         super(posX, posY, 30,6,21,21,0xff0000ff,16,16,"rb",range,direction);
@@ -8,7 +9,14 @@ class RoundBullet extends Bullet{
 
     tick(game, deltaTime){
         super.tick(game, deltaTime);
-
+        if (this.light == null){
+            this.light = new Light(this.position.x,this.position.y,0xffaaaaaa,60,60);
+            game.level.addLight(this.light);
+        }
+        if (this.light != null){
+            this.light.position.x = this.position.x;
+            this.light.position.y = this.position.y;
+        }
         this.shootCounter += deltaTime;
 
         if (this.shootCounter >= 2){
@@ -21,10 +29,11 @@ class RoundBullet extends Bullet{
 
     onDispose(game){
         super.onDispose(game);
-        game.level.addLight(new TimedLight(this.position.x, this.position.y,this.c,20,20,1));
+        game.level.addLight(new TimedLight(this.position.x, this.position.y,this.c,80,80,0.2));
         for (let index = 0; index < 20; index++) {
             game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),this.c,20,10).setHealth(90));
         }
+        game.level.removeLight(this.light);
         game.playExplosion();   
     }
 

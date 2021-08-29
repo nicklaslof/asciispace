@@ -85,7 +85,7 @@ class Game{
             
             this.gl.col = 0xffffffff;
             this.gl.g.blendFunc(this.gl.g.DST_COLOR, this.gl.g.ZERO);
-            this.gl.img(this.lightTexture,0,0,W,H,0,0,0,1,1,0.25,0.25,1,1);
+            this.gl.img(this.lightTexture,0,0,W,H,0,0,0,1,1,0,1,1,0);
 
             this.gl.flush();
             this.fps++;

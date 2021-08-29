@@ -18,14 +18,14 @@ class EnemyEntity extends CollisionEntity{
 
     tick(game, deltaTime){
         super.tick(game,deltaTime);
-        /*if (this.light == null){
+        if (this.light == null){
             this.light = new Light(this.position.x,this.position.y,0xffffffff);
             game.level.addLight(this.light);
         }
         if (this.light != null){
             this.light.position.x = this.position.x;
             this.light.position.y = this.position.y;
-        } */
+        } 
     }
 
     onDeath(action){
