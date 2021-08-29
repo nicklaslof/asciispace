@@ -7,7 +7,7 @@ class Laser extends Bullet{
         this.setCustomCollisionSize(50,50);
         this.rotation = rotate;
         this.hasLight = true;
-        this.lightSize = 20;
+        this.lightSize = 100;
     }
 
     onDispose(game){

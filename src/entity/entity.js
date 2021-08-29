@@ -53,7 +53,6 @@ class Entity{
     }
 
     onDispose(game){
-        game.level.removeLight(this.light);
     }
 
     tick(game,deltaTime){
@@ -71,6 +70,7 @@ class Entity{
             this.disposed = true;
         }
         if(!this.skipOnDispose && this.disposed) this.onDispose(game);
+        if (this.disposed && this.light != null) game.level.removeLight(this.light);
 
         if (this.position.x < -300 && !this.allowedOutOfLevel) this.disposed = true;
 

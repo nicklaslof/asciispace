@@ -96,8 +96,6 @@ class Level{
 
         this.stopped = false;
 
-        //this.addLight(new Light(W/2,H/2,0xffffffff));
-
         for (let x = 0; x < this.levelSizeX; x++) {
             for (let y = 0; y < this.levelSizeY; y++) {
                 this.tiles[x + (y*this.levelSizeX)] = new AirTile(x*24, y*29);
@@ -308,17 +306,18 @@ class Level{
 
     removeParticle(particle){
         this.removeFromList(particle,this.particles);
-        //console.log("After removing particle "+this.particles.length);
+        console.log("After removing particle "+this.particles.length);
     }
 
     removeEntity(entity){
+        if (entity.light != null) this.removeLight(entity.light);
         this.removeFromList(entity,this.entities);
         //console.log("After removing entity "+this.entities.length);
     }
 
     removeLight(light){
         this.removeFromList(light,this.lights);
-        //console.log("After removing entity "+this.entities.length);
+        console.log("After removing light "+this.lights.length);
     }
 
     removeFromList(object,list){
