@@ -160,7 +160,6 @@ class Ship extends CollisionEntity{
 
     hit(game,h,force,hitTimeout){
         if (this.hitTimeout<=0){ 
-            console.log("hitting for "+h);
             game.playPlayerHit();
             for (let index = 0; index < 20; index++) {
                 game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff0000ff,30,15).setHealth(90));
@@ -183,6 +182,7 @@ class Ship extends CollisionEntity{
             this.health = this.maxHealth;
             game.playHealth();
             otherEntity.disposed = true;
+            return;
         }
         if (otherEntity.type == "c"){
             game.level.snapshotCheckpoint(game);

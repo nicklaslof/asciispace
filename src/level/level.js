@@ -351,7 +351,7 @@ class Level{
             playerNumberOfDrones : this.player.numberOfDrones,
             playerHealth : this.player.health,
             playerMaxHealth : this.player.maxHealth,
-            upgrades : this.upgradeController.upgrades
+            upgrades : JSON.parse(JSON.stringify(this.upgradeController.upgrades))
         };
 
         console.log(this.snapshot);

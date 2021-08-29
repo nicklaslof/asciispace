@@ -7,7 +7,7 @@ class UpgradeController{
         this.addUpgrade(new Upgrade(1,level.player,"Increased", "laser range",1,1,()=>{level.player.shootRange +=100},[]));
         this.addUpgrade(new Upgrade(2,level.player,"Stronger", "laser 1",6,8,()=>{level.player.laserStrength +=1},[]));
         this.addUpgrade(new Upgrade(3,level.player,"Stronger", "laser 2",8,10,()=>{level.player.laserStrength +=1},[2]));
-        this.addUpgrade(new Upgrade(4,level.player,"Stronger", "laser 3",11,20,()=>{level.player.laserStrength +=1},[2,3]));
+        this.addUpgrade(new Upgrade(4,level.player,"Stronger", "laser 3",11,20,()=>{level.player.laserStrength +=3},[2,3]));
         this.addUpgrade(new Upgrade(5,level.player,"Dual", "lasers",6,6,()=>{level.player.dualLaser=true},[]));
         this.addUpgrade(new Upgrade(6,level.player,"Rear", "lasers",9,12,()=>{level.player.rearLaser=true},[]));
         this.addUpgrade(new Upgrade(7,level.player,"Side", "lasers",10,11,()=>{level.player.sideLaser=true},[6]));
@@ -18,7 +18,7 @@ class UpgradeController{
         //this.upgrades[1].taken = true;
         if (snapshot != null){
            snapshot.upgrades.forEach(snapshotupgrade => {
-               this.upgrades[snapshotupgrade.id].taken = snapshotupgrade.taken;
+               if (snapshotupgrade != null) this.upgrades[snapshotupgrade.id].taken = snapshotupgrade.taken;
            });
         }
     }
