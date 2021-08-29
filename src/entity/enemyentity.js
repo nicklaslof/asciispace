@@ -7,6 +7,7 @@ class EnemyEntity extends CollisionEntity{
         super(posX, posY, texX,texY,texW,texH,c,sizeX, sizeY, type);
         this.drops = drops;
         this.hasLight = true;
+        this.lightSize = 200;
     }
 
     onDispose(game){

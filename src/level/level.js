@@ -26,6 +26,8 @@ import GroundLaser from "../entity/groundlaser.js";
 import GroundRobot from "../entity/groundrobot.js";
 import BossFormation3 from "../formation/bossformation3.js";
 import Light from "../light/light.js";
+import Siren from "../entity/siren.js";
+import LightSource from "../entity/lightsource.js";
 
 class Level{
 
@@ -50,13 +52,14 @@ class Level{
         this.showCinematicText = true;
         this.showCinematicTextEnd = false;
 
-        this.levelPositionX = 22150;
+        //this.levelPositionX = 22150;
 
         //this.levelPositionX = 17750;
         //this.levelPositionX = 17150;
         //this.levelPositionX = 12900;
         //this.levelPositionX = 8200;
-        //this.levelPositionX = -1000;
+        //this.levelPositionX = 2400;
+        this.levelPositionX = -1000;
         
         if (snapshot != null) this.levelPositionX = snapshot.levelPositionX;
 
@@ -124,7 +127,7 @@ class Level{
                     this.formations[x + (y* this.levelSizeX)] = levelChar;
                 }
 
-                if (levelChar=="a" || levelChar=="b" || levelChar=="c"|| levelChar=="d"|| levelChar=="e"|| levelChar=="f" || levelChar=="g" || levelChar=="h" || levelChar=="i" || levelChar=="j"){
+                if (levelChar=="a" || levelChar=="b" || levelChar=="c"|| levelChar=="d"|| levelChar=="e"|| levelChar=="f" || levelChar=="g" || levelChar=="h" || levelChar=="i" || levelChar=="j" || levelChar=="k"|| levelChar=="l"){
                     this.entitiesToSpawn[x + (y * this.levelSizeX)] = levelChar;
                 }
             }
@@ -193,6 +196,7 @@ class Level{
 
                 var entityToSpawn = this.entitiesToSpawn[x + (y * this.levelSizeX)];
                 if (entityToSpawn != null){
+                    console.log("spawning " + entityToSpawn);
                     if (entityToSpawn == "a") this.addEntity(new Shooter1(W-5,(y+0.10)*30));
                     if (entityToSpawn == "d") this.addEntity(new Shooter1(W-5,(y+0.10)*30,true));
                     if (entityToSpawn == "h") this.addEntity(new Shooter1(W-5,(y+0.10)*30,false,true));
@@ -203,6 +207,8 @@ class Level{
                     if (entityToSpawn == "g") this.addEntity(new Health(W-5,y*30));
                     if (entityToSpawn == "i") this.addEntity(new GroundLaser(W-5,y*30));
                     if (entityToSpawn == "j") this.addEntity(new GroundRobot(W-5,(y*30)-5));
+                    if (entityToSpawn == "k") this.addEntity(new Siren(W-5,(y*30)));
+                    if (entityToSpawn == "l") this.addEntity(new LightSource(W-5,(y*30),0xff00ffff));
                 }
 
             }

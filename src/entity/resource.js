@@ -6,6 +6,9 @@ class Resource extends CollisionEntity{
         super(posX, posY,128,36,16,24,c,16,16,type);
         this.velocity = {x: this.getRandom(-0.6,0.6), y: this.getRandom(-0.6,0.6)};
         this.particleDelay = 0;
+        this.hasLight = true;
+        this.lightColor = c;
+        this.lightSize = 20;
     }
 
     tick(game,deltaTime){

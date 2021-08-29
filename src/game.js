@@ -72,7 +72,7 @@ class Game{
             this.gl.g.bindFramebuffer(this.gl.g.FRAMEBUFFER, this.fb);
 
             // Set the global darkness
-            this.gl.bkg(0.6,0.6,1,1);
+            this.gl.bkg(0.3,0.3,0.5,1);
             this.gl.cls();
 
             this.gl.col = 0xffffffff;
@@ -212,8 +212,8 @@ class Game{
             this.gl.g.TEXTURE_2D,         // attach a 2D texture
             this.lightTexture,           // the texture to attach
             0);   
-        //this.gl.g.bindFramebuffer(this.gl.g.FRAMEBUFFER, null);
-        //this.gl.g.bindTexture(this.gl.g.TEXTURE_2D, null);
+        this.gl.g.bindFramebuffer(this.gl.g.FRAMEBUFFER, null);
+        this.gl.g.bindTexture(this.gl.g.TEXTURE_2D, null);
     }
 }
 export default Game;

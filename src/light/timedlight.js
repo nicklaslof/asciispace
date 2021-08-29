@@ -4,7 +4,7 @@ class TimedLight extends Light{
 
     constructor(posX,posY,c,sizeX, sizeY, time) {
         super(posX,posY,c,sizeX,sizeY);
-        console.log("new light at "+posX+" "+posY);
+        
         this.time = time;
     }
 

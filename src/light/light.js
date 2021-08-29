@@ -11,7 +11,8 @@ class Light{
         this.v1 = this.u1 + (286/TZ);
     }
     tick(game,deltaTime){
-
+        this.sizeX = Math.max(0,this.sizeX);
+        this.sizeY = Math.max(0,this.sizeY);
     }
 
     render(game){
