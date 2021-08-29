@@ -22,7 +22,7 @@
  * 
  */
 export function TinySprite(canvas) {
-    var gl = canvas.getContext('webgl'),
+    var gl = canvas.getContext('webgl', { premultipliedAlpha: true }),
         // float + (vec2 * 4) + (char * 4)
         VERTEX_SIZE = 4 + ((4 * 2) * 4) + (4),
         MAX_BATCH = 10922, // floor((2 ^ 16) / 6)

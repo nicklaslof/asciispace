@@ -13,9 +13,10 @@ class Game{
         canvas.height = H;
         this.gl = TinySprite(canvas);
         this.gl.flush();
+
         this.ascii = new AsciiTexture();
         this.texture = new GlTexture(this.gl.g,this.ascii.image);
-
+        this.setupLightBuffer();
         this.level = new Level(this);
         this.intro = new Intro(this);
         this.keys =[];
@@ -30,6 +31,9 @@ class Game{
         this.showIntro = true;
         this.playerDead = false;
         this.restartGameUI = null;
+
+
+
         
     }
     gameloop(){
@@ -57,9 +61,35 @@ class Game{
 
         if (!this.showIntro){
             this.level.tick(this,deltaTime/1000);
+
+            // Set blend mode and render the level
+            this.gl.g.blendFunc(this.gl.g.SRC_ALPHA,this.gl.g.ONE_MINUS_SRC_ALPHA);
             this.level.render(this);
-            this.fps++;
             this.gl.flush();
+        
+            // Bind the light buffer
+
+            this.gl.g.bindFramebuffer(this.gl.g.FRAMEBUFFER, this.fb);
+
+            // Set the global darkness
+            this.gl.bkg(0.5,0.5,0.5,0.5);
+            this.gl.cls();
+
+            this.gl.col = 0xffffffff;
+            this.gl.g.enable( this.gl.g.BLEND );
+            this.gl.g.blendFunc(this.gl.g.SRC_ALPHA, this.gl.g.ONE);
+            //this.gl.img(this.texture.tex,0,0,W,H,0,0,0,1,1,0,0,1,1);
+            this.level.renderLight(this);
+            this.gl.flush();
+            this.gl.g.bindFramebuffer(this.gl.g.FRAMEBUFFER, null);
+            
+            this.gl.col = 0xffffffff;
+            this.gl.g.blendFunc(this.gl.g.DST_COLOR, this.gl.g.ZERO);
+            this.gl.img(this.lightTexture,0,0,W,H,0,0,0,1,1,0.25,0.25,1,1);
+
+            this.gl.flush();
+            this.fps++;
+
             this.counter += deltaTime/1000;
             if (this.counter > 1){
                 console.log(Date.now()+" FPS:"+this.fps);
@@ -154,6 +184,31 @@ class Game{
         else
         zzfx(1500,...[.2,100,3e3,,3,0,1,11.2,,,250,,.03,,,,.67]);
 
+    }
+
+    setupLightBuffer(){
+        this.lightTexture = this.gl.g.createTexture();
+        //this.gl.g.activeTexture(this.gl.g.TEXTURE1);
+        this.gl.g.bindTexture(this.gl.g.TEXTURE_2D, this.lightTexture);
+        this.gl.g.texImage2D(this.gl.g.TEXTURE_2D, 0, this.gl.g.RGBA, W, H, 0, this.gl.g.RGBA, this.gl.g.UNSIGNED_BYTE, null);
+        this.gl.g.texParameteri(this.gl.g.TEXTURE_2D, this.gl.g.TEXTURE_MIN_FILTER, this.gl.g.NEAREST);
+        this.gl.g.texParameteri(this.gl.g.TEXTURE_2D, this.gl.g.TEXTURE_MAG_FILTER, this.gl.g.NEAREST);
+        this.gl.g.texParameteri(this.gl.g.TEXTURE_2D, this.gl.g.TEXTURE_WRAP_S, this.gl.g.CLAMP_TO_EDGE);
+        this.gl.g.texParameteri(this.gl.g.TEXTURE_2D, this.gl.g.TEXTURE_WRAP_T, this.gl.g.CLAMP_TO_EDGE);
+
+
+        this.fb = this.gl.g.createFramebuffer();
+        this.gl.g.bindFramebuffer(this.gl.g.FRAMEBUFFER, this.fb);  
+        //this.gl.g.activeTexture(this.gl.g.TEXTURE1);
+        this.gl.g.bindTexture(this.gl.g.TEXTURE_2D, this.lightTexture);
+        this.gl.g.framebufferTexture2D(
+            this.gl.g.FRAMEBUFFER, 
+            this.gl.g.COLOR_ATTACHMENT0,  // attach texture as COLOR_ATTACHMENT0
+            this.gl.g.TEXTURE_2D,         // attach a 2D texture
+            this.lightTexture,           // the texture to attach
+            0);   
+        //this.gl.g.bindFramebuffer(this.gl.g.FRAMEBUFFER, null);
+        //this.gl.g.bindTexture(this.gl.g.TEXTURE_2D, null);
     }
 }
 export default Game;

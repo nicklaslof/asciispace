@@ -1,4 +1,5 @@
 import Particle from "../entity/particle.js";
+import TimedLight from "../light/timedlight.js";
 class Tile{
 
     constructor(x,y,texX,texY,texW,texH,col) {

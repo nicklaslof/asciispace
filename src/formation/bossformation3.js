@@ -115,7 +115,7 @@ class BossFormation3 extends Formation{
         }else{
             // Shoot random bullets when not on the blast warning or blast part
             entity.shootCounter += deltaTime;
-            if (entity.count < 0 && entity.count > -10)console.log (entity.shootCounter);
+          //  if (entity.count < 0 && entity.count > -10)console.log (entity.shootCounter);
             if (this.stopped  && entity.shootCounter > entity.getRandom(10,20)){
                 var b = new RoundBullet(entity.position.x, entity.position.y,1800,{x:Math.cos(this.angle+(entity.count/3.14)),y:Math.sin(this.angle+(entity.count/3.14))});
                 b.speed = 200;

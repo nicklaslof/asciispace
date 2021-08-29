@@ -25,6 +25,7 @@ import BossFormation2 from "../formation/bossformation2.js";
 import GroundLaser from "../entity/groundlaser.js";
 import GroundRobot from "../entity/groundrobot.js";
 import BossFormation3 from "../formation/bossformation3.js";
+import Light from "../light/light.js";
 
 class Level{
 
@@ -36,6 +37,7 @@ class Level{
         this.gameOverlay = new GameOverlay();
         this.entities = [];
         this.particles = [];
+        this.lights = [];
         this.entitiesToSpawn = [];
         this.formations = [];
         this.formationTemplates = [];
@@ -48,13 +50,13 @@ class Level{
         this.showCinematicText = true;
         this.showCinematicTextEnd = false;
 
-        //this.levelPositionX = 22150;
+        this.levelPositionX = 22150;
 
         //this.levelPositionX = 17750;
         //this.levelPositionX = 17150;
         //this.levelPositionX = 12900;
         //this.levelPositionX = 8200;
-        this.levelPositionX = -1000;
+        //this.levelPositionX = -1000;
         
         if (snapshot != null) this.levelPositionX = snapshot.levelPositionX;
 
@@ -90,6 +92,8 @@ class Level{
         this.upgradeController = new UpgradeController(this,snapshot);
 
         this.stopped = false;
+
+        //this.addLight(new Light(W/2,H/2,0xffffffff));
 
         for (let x = 0; x < this.levelSizeX; x++) {
             for (let y = 0; y < this.levelSizeY; y++) {
@@ -225,6 +229,11 @@ class Level{
             if (p.disposed) this.removeParticle(p);
         });
 
+        this.lights.forEach(l => {
+            l.tick(game,deltaTime);
+            if (l.disposed) this.removeLight(l);
+        });
+
         this.gameOverlay.tick(game);
         this.upgradeController.tick(game);
 
@@ -255,6 +264,12 @@ class Level{
         if (!game.playerDead) this.gameOverlay.render(game);
     }
 
+    renderLight(game){
+        this.lights.forEach(l => {
+            l.render(game);
+        })
+    }
+
     checkCollision(game, entity){
         this.checkTileForCollision(game, entity, entity.tilePosition.x,entity.tilePosition.y);
         this.checkTileForCollision(game, entity, entity.tilePosition.x+1,entity.tilePosition.y);
@@ -278,6 +293,10 @@ class Level{
         this.entities.push(entity);
     }
 
+    addLight(light){
+        this.lights.push(light);
+    }
+
     removeParticle(particle){
         this.removeFromList(particle,this.particles);
         //console.log("After removing particle "+this.particles.length);
@@ -285,6 +304,11 @@ class Level{
 
     removeEntity(entity){
         this.removeFromList(entity,this.entities);
+        //console.log("After removing entity "+this.entities.length);
+    }
+
+    removeLight(light){
+        this.removeFromList(light,this.lights);
         //console.log("After removing entity "+this.entities.length);
     }
 
