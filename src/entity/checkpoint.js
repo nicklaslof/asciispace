@@ -6,6 +6,7 @@ class Checkpoint extends CollisionEntity{
     constructor(posX, posY) {
         super(posX, posY, 64,2,21,24,"0xff00ffff",32*2,20*2,"c");
         this.hasLight = true;
+        this.setCustomCollisionSize(50,50);
     }
 
     tick(game, deltaTime){

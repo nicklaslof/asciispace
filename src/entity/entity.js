@@ -36,7 +36,7 @@ class Entity{
         return this;
     }
 
-    hit(game,h, force,hitTimeout = 0.2){
+    hit(game,h, force,hitTimeout = 0.8){
         if (!this.invincible && (this.hitTimeout <=0 || force)){
             this.health -= h;
             this.hitTimeout = hitTimeout;

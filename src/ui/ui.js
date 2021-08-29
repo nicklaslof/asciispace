@@ -19,6 +19,7 @@ class UI{
         this.buttonY = 0;
 
         this.spaceDelay = 1;
+        this.inputDelay = 0;
 
         this.cinematicText = [];
         this.cinematicTextEnd = [];
@@ -52,13 +53,13 @@ class UI{
     tick(game, deltaTime){
         if (this.checkpointMessageTimer >0) this.checkpointMessageTimer -=deltaTime ;
         if (this.checkpointMessageTimer<=0) this.showCheckpointTakenMessage = false;
-        this.tickUpgradePanel(game);
+        this.tickUpgradePanel(game, deltaTime);
         this.tickResourcesAndUpgradeAvailable(game);
     }
 
     tickCinematicText(game, deltaTime){
-        if (this.spaceDelay <= 0 && game.keys[32] == "keydown"){
-            game.keys[32] == "";
+        if (this.spaceDelay <= 0 && game.input.firePressed){
+            game.input.firePressed = false;
             game.level.showCinematicText = false;
         }else this.spaceDelay -= deltaTime;
 
@@ -72,10 +73,7 @@ class UI{
     }
 
     tickCinematicTextEnd(game, deltaTime){
-        //if (this.spaceDelay <= 0 && game.keys[32] == "keydown"){
-       //     game.keys[32] == "";
-       //     game.level.showCinematicTextEnd = false;
-       // }else this.spaceDelay -= deltaTime;
+
 
         this.cinematicTextEnd.some((t)=>{
             t.tick(this,game,deltaTime);
@@ -95,7 +93,12 @@ class UI{
             this.upgradeMessagePlayed = true;
         }
         if (this.showUpgradeAvailableMessage){
-            this.drawTextAt("Upgrades are available! Press E",W/2,20,"#ffffff",14);
+            if (game.input.hasGamepad){
+                this.drawTextAt("Upgrades are available!",W/2,20,"#ffffff",14);
+            }else{
+                this.drawTextAt("Upgrades are available! Press E",W/2,20,"#ffffff",14);
+            }
+            
         }
 
         if (this.showCheckpointTakenMessage){
@@ -103,7 +106,7 @@ class UI{
         }
     }
 
-    tickUpgradePanel(game) {
+    tickUpgradePanel(game, deltaTime) {
         if (!this.upgradePanelShown) return;
         if (this.upgradePanelNeedUpdate){
             this.updateUpgradePanel(game);
@@ -112,20 +115,26 @@ class UI{
             this.showUpgradeAvailableMessage = false;
             this.upgradeMessagePlayed = false;
             var selectedUpgradeButtonBeforeLoop = this.selectedUpgradeButton;
-
-            if (game.keys[68] == "keydown")
-                this.buttonX++;
-            if (game.keys[65] == "keydown" && !(this.buttonX -1 == 0 && this.buttonY>0))
-                this.buttonX--;
-            if (game.keys[83] == "keydown" && this.buttonX >0)
-                this.buttonY++;
-            if (game.keys[87] == "keydown" )
-                this.buttonY--;
-
-            if (game.keys[32] == "keydown")
-                if (this.upgradeButtons[this.selectedUpgradeButton] != null) this.upgradeButtons[this.selectedUpgradeButton].action(game);
+            if (this.inputDelay > 0) this.inputDelay -= deltaTime;
+            else{
+                var oldButtonX = this.buttonX;
+                var oldButtonY = this.buttonY;
+                if (game.input.axes.x > 0)
+                    this.buttonX++;
+                if (game.input.axes.x < 0 && !(this.buttonX -1 == 0 && this.buttonY>0))
+                    this.buttonX--;
+                if (game.input.axes.y > 0 && this.buttonX >0)
+                    this.buttonY++;
+                if (game.input.axes.y < 0)
+                    this.buttonY--;
+                
+                if (oldButtonX != this.buttonX || oldButtonY != this.buttonY)
+                    this.inputDelay = 0.2;
+            }
             
-            game.keys[68] = game.keys[65] = game.keys[83] = game.keys[87] = game.keys[32] = "";
+
+            if (game.input.firePressed)
+                if (this.upgradeButtons[this.selectedUpgradeButton] != null) this.upgradeButtons[this.selectedUpgradeButton].action(game);
 
             this.buttonX = this.buttonX > 3 ? 3: this.buttonX;
             this.buttonX = this.buttonX < 0 ? 0: this.buttonX;

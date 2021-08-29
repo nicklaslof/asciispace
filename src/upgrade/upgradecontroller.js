@@ -16,8 +16,6 @@ class UpgradeController{
         this.addUpgrade(new Upgrade(10,level.player,"Extra", "max health",20,20,()=>{level.player.maxHealth+=4;level.player.health=level.player.maxHealth},[9]));
         
         //this.upgrades[1].taken = true;
-
-        console.log(this.upgrades);
         if (snapshot != null){
            snapshot.upgrades.forEach(snapshotupgrade => {
                this.upgrades[snapshotupgrade.id].taken = snapshotupgrade.taken;

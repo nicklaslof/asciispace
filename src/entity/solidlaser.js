@@ -15,7 +15,6 @@ class SolidLaser extends CollisionEntity{
     }
 
     collidedWith(game, otherEntity){
-        console.log(otherEntity);
         if (otherEntity === this.sourceEntity || otherEntity.type == "gr" || otherEntity.type == "rb" || otherEntity.type == "b") return;
         //if (otherEntity.type == "p"){
             otherEntity.hit(game, 4);

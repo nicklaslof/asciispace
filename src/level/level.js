@@ -133,8 +133,8 @@ class Level{
     }
 
     tick(game,deltaTime){
-        if (!this.showCinematicText && !this.showCinematicTextEnd && game.keys[69] == "keydown"){
-            game.keys[69] = "" 
+        if (!this.showCinematicText && !this.showCinematicTextEnd && game.input.usePressed){
+            game.input.usePressed = false; 
             this.showUpgradePanel = !this.showUpgradePanel;
             if (this.showUpgradePanel)
                 this.ui.showUpgradePanel();
@@ -194,7 +194,6 @@ class Level{
 
                 var entityToSpawn = this.entitiesToSpawn[x + (y * this.levelSizeX)];
                 if (entityToSpawn != null){
-                    console.log("spawning " + entityToSpawn);
                     if (entityToSpawn == "a") this.addEntity(new Shooter1(W-5,(y+0.10)*30));
                     if (entityToSpawn == "d") this.addEntity(new Shooter1(W-5,(y+0.10)*30,true));
                     if (entityToSpawn == "h") this.addEntity(new Shooter1(W-5,(y+0.10)*30,false,true));
@@ -306,18 +305,15 @@ class Level{
 
     removeParticle(particle){
         this.removeFromList(particle,this.particles);
-        console.log("After removing particle "+this.particles.length);
     }
 
     removeEntity(entity){
         if (entity.light != null) this.removeLight(entity.light);
         this.removeFromList(entity,this.entities);
-        //console.log("After removing entity "+this.entities.length);
     }
 
     removeLight(light){
         this.removeFromList(light,this.lights);
-        console.log("After removing light "+this.lights.length);
     }
 
     removeFromList(object,list){

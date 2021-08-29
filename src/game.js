@@ -4,6 +4,7 @@ import Level from "./level/level.js";
 import Intro from "./ui/intro.js";
 import RestartGame from "./ui/restartgame.js";
 import { TinySprite } from './lib/sprite.js';
+import Input from "./input/input.js";
 //import { zzfx } from "./lib/z.js";
 
 class Game{
@@ -32,6 +33,8 @@ class Game{
         this.playerDead = false;
         this.restartGameUI = null;
 
+        this.input = new Input();
+
 
 
         
@@ -42,10 +45,11 @@ class Game{
         var now = performance.now();
         var deltaTime = now - this.last;
         if (deltaTime>1000){
-            console.log(deltaTime);
             deltaTime = 0;
         }
         this.last = now;
+
+        this.input.tick(this,deltaTime/1000);
 
         if (this.playerDead){
             this.level.tick(this,deltaTime/1000);

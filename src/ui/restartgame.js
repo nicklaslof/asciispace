@@ -1,5 +1,4 @@
 import UI from "./ui.js";
-import StarField from "../entity/starfield.js";
 
 class RestartGame extends UI{
 
@@ -7,16 +6,19 @@ class RestartGame extends UI{
         super();
         this.onCheckpoint = onCheckpoint;
 
-        
+        this.spaceCountdown = 0.5;
     
     }
 
     tick(game,deltaTime){
         this.ctx.clearRect(0,0,W,H);
-
+        this.spaceCountdown -= deltaTime;
         this.drawTextAt("You died",(W/2)-40,(H/2)-50,"white",18);
-        this.drawTextAt("C to restart from last checkpoint.",(W/2)-180,(H/2),"white",18);
-        if (game.keys[67] == "keydown") this.onCheckpoint();
+        if (game.input.hasGamepad)
+            this.drawTextAt("Space to restart from last checkpoint.",(W/2)-180,(H/2),"white",18);
+        else
+            this.drawTextAt("Click to restart from last checkpoint.",(W/2)-180,(H/2),"white",18);
+        if (this.spaceCountdown <= 0 && game.input.firePressed) this.onCheckpoint();
     }
 }
 export default RestartGame;

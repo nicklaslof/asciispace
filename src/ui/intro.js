@@ -27,7 +27,7 @@ this.drawTextAt(
         
 this.drawTextAt("A game for JS13k 2021 by Nicklas Löf",(W/2)-150,(H/2)+100,"white",14);
 this.drawTextAt("Play with WASD, SPACE and E",(W/2)-110,(H/2)+150,"white",14);  
-this.drawTextAt("Press SPACE to start",(W/2)-75,(H/2)+170,"white",14); 
+this.drawTextAt("Press SPACE or click your gamepad to start",(W/2)-175,(H/2)+170,"white",14); 
     
     //this.generateSquare((W/2)-170,(H/2)-250, 22,12,16);
 
@@ -35,9 +35,9 @@ this.drawTextAt("Press SPACE to start",(W/2)-75,(H/2)+170,"white",14);
     }
 
     tick(game,deltaTime){
-        if (game.keys[32] == "keydown"){
+        if (game.input.firePressed){
                 game.showIntro=false;
-                game.keys[32] == "";
+                game.input.firePressed = false;
         }
         this.starfield.tick(game, deltaTime);
     }

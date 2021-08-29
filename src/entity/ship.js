@@ -58,11 +58,10 @@ class Ship extends CollisionEntity{
         var translateX = 0;
         var translateY = 0;
 
-        if (game.keys[68] == "keydown")translateX = this.speed;
-        if (game.keys[65] == "keydown")translateX -= this.speed;
-        if (game.keys[83] == "keydown")translateY += this.speed;
-        if (game.keys[87] == "keydown")translateY -= this.speed;
-        if (game.keys[32] == "keydown")this.firePressed = true;
+        translateX = game.input.axes.x * this.speed;
+        translateY = game.input.axes.y * this.speed;
+
+        this.firePressed = game.input.firePressed;
 
         if (this.position.x + translateX*deltaTime < 16 || this.position.x + translateX *deltaTime > W - 16) translateX = 0;
         if (this.position.y + translateY*deltaTime < 16 || this.position.y + translateY *deltaTime> H - 16) translateY = 0; 
@@ -161,6 +160,7 @@ class Ship extends CollisionEntity{
 
     hit(game,h,force,hitTimeout){
         if (this.hitTimeout<=0){ 
+            console.log("hitting for "+h);
             game.playPlayerHit();
             for (let index = 0; index < 20; index++) {
                 game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff0000ff,30,15).setHealth(90));
@@ -190,7 +190,7 @@ class Ship extends CollisionEntity{
             return;
         }
         if (otherEntity.type == "s"){
-            this.hit(game,3);
+            this.hit(game,2);
         }
         this.hit(game,1);
     }
