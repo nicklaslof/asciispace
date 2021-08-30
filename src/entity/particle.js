@@ -3,7 +3,7 @@ import Entity from "./entity.js";
 // A particle. This should probably be optimized to use a Particle pool since we spawn so many of them
 class Particle extends Entity{
     constructor(posX, posY, col, movements=true, sizeX=10, sizeY=5, speed=90){
-        super(posX,posY,0,52,16,12,col,sizeX,sizeY,"pa");
+        super(posX,posY,0,0,1,1,col,sizeX,sizeY,"pa");
         this.alphaCounter = 255;
         this.alpha = (col >>> 24) & 0xFF;
         this.red = (col >>> 16) & 0xFF;
@@ -12,7 +12,7 @@ class Particle extends Entity{
         this.ttl = 1.5;
         this.speed = speed;
         this.hasLight = true;
-        this.lightSize = 4;
+        this.lightSize = 8;
         if (movements)
             this.velocity = {x:this.getRandom(-1,1), y: this.getRandom(-1,1)};
         else

@@ -27,7 +27,7 @@ class Tile{
         } 
         if (entity.type == "b") {
             for (let index = 0; index < 20; index++) {
-                game.level.addParticle(new Particle(entity.getRandom(entity.position.x-20/entity.maxHealth,entity.position.x+20/entity.maxHealth), entity.getRandom(entity.position.y-20/entity.maxHealth, entity.position.y+20/entity.maxHealth),entity.c,20,10).setHealth(90));
+                game.level.addParticle(new Particle(entity.getRandom(entity.position.x-20/entity.maxHealth,entity.position.x+20/entity.maxHealth), entity.getRandom(entity.position.y-20/entity.maxHealth, entity.position.y+20/entity.maxHealth),entity.c,true,3,3).setHealth(90));
             }
         }
     }

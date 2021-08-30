@@ -28,6 +28,7 @@ class AsciiTexture{
         this.addBlueShip(textContext);
         this.addShooter1(textContext);
         this.addGroundLaser(textContext);
+        textContext.fillRect(0,0,1,1);
 
 
         // Create light circle

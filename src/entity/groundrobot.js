@@ -20,6 +20,9 @@ class GroundRobot extends EnemyEntity{
         this.green = (0xffff0000 >>>  8) & 0xFF;
         this.blue  = (0xffff0000 >>>  0) & 0xFF;
         this.setHealth(22);
+        this.hasLight = true;
+        this.lightColor = 0xff0000ff;
+        this.lightSize = 70;
     }
 
     tick(game, deltaTime){

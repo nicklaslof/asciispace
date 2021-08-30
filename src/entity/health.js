@@ -12,7 +12,7 @@ class Health extends CollisionEntity{
         if (this.initialLevelPositionX == null) this.initialLevelPositionX = game.level.levelPositionX;
         this.position.x = this.orginalPosX + (this.initialLevelPositionX-game.level.levelPositionX);
         if (this.getRandom(0,20)){
-            game.level.addParticle(new Particle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-15, this.position.y+15),0xff0000ff,true,5,5).setHealth(40));
+            game.level.addParticle(new Particle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-15, this.position.y+15),0xff0000ff,true,3,3).setHealth(40));
         }
     }
 }

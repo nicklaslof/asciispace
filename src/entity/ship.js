@@ -12,8 +12,8 @@ class Ship extends CollisionEntity{
         this.fireDelay = 0.2;       // Controls how long to wait between each fire. It's set further down depending on upgrades.
         this.speed = 300;           // The speed the ship moves at.
         this.particleDelay = 0;     // Counter for how often particles are spawned from the ship
-        this.mineral = 0;           // How much mineral collected
-        this.metalScrap = 0;        // How much metal collected
+        this.mineral = 200;           // How much mineral collected
+        this.metalScrap = 200;        // How much metal collected
         this.shootRange = 200;      // How far the laser currently reaches
         this.laserStrength = 1;     // The current strength of the laser
         this.entityTimeoutOnHit = 2;
@@ -74,17 +74,17 @@ class Ship extends CollisionEntity{
         game.level.starfield.offsetY = -translateY/3000;
 
         // Fire laser
-
+        var laserHeight = Math.max(1.5,3*(this.laserStrength/4));
         if (this.firePressed && this.fireDelay == 0){
             if (this.dualLaser){
                 game.playShoot();
-                if (this.fireUpperLaser)game.level.addEntity(new Laser(this.position.x+16, this.position.y+12,this.shootRange,{x:1,y:0},this.laserStrength,0,40,(4*this.laserStrength)).setSource(this));
-                else game.level.addEntity(new Laser(this.position.x+16, this.position.y-8,this.shootRange,{x:1,y:0},this.laserStrength,0,40,(4*this.laserStrength)).setSource(this));
+                if (this.fireUpperLaser)game.level.addEntity(new Laser(this.position.x+16, this.position.y+12,this.shootRange,{x:1,y:0},this.laserStrength,0,40,(2*this.laserStrength)).setSource(this));
+                else game.level.addEntity(new Laser(this.position.x+16, this.position.y-8,this.shootRange,{x:1,y:0},this.laserStrength,0,40,laserHeight).setSource(this));
                 this.fireUpperLaser = !this.fireUpperLaser;
                 this.fireDelay = 0.3;
             }else{
                 game.playShoot();
-                game.level.addEntity(new Laser(this.position.x+16, this.position.y,this.shootRange,{x:1,y:0},this.laserStrength,0,40,(4*this.laserStrength)).setSource(this));
+                game.level.addEntity(new Laser(this.position.x+16, this.position.y,this.shootRange,{x:1,y:0},this.laserStrength,0,28,laserHeight).setSource(this));
                 this.fireDelay = 0.5;
             }
             if (this.drones.length > 0){
@@ -92,12 +92,12 @@ class Ship extends CollisionEntity{
             }
 
             if (this.rearLaser){
-                game.level.addEntity(new Laser(this.position.x-32, this.position.y+1,this.shootRange,{x:-1,y:0},this.laserStrength,0,40,(4*this.laserStrength)).setSource(this));
+                game.level.addEntity(new Laser(this.position.x-32, this.position.y+1,this.shootRange,{x:-1,y:0},this.laserStrength,0,40,laserHeight).setSource(this));
             }
 
             if (this.sideLaser){
-                game.level.addEntity(new Laser(this.position.x, this.position.y+12,this.shootRange,{x:0,y:1},this.laserStrength,Math.PI/2,40,(4*this.laserStrength)).setSource(this));
-                game.level.addEntity(new Laser(this.position.x, this.position.y-8,this.shootRange,{x:0,y:-1},this.laserStrength,Math.PI/2,40,(4*this.laserStrength)).setSource(this));
+                game.level.addEntity(new Laser(this.position.x, this.position.y+12,this.shootRange,{x:0,y:1},this.laserStrength,Math.PI/2,40,laserHeight).setSource(this));
+                game.level.addEntity(new Laser(this.position.x, this.position.y-8,this.shootRange,{x:0,y:-1},this.laserStrength,Math.PI/2,40,laserHeight).setSource(this));
             }
             
         }else{
@@ -131,7 +131,7 @@ class Ship extends CollisionEntity{
 
         if (translateX > 0 && this.particleDelay == 0){
             if (Math.floor(this.getRandom(0,2))==1)
-                game.level.addParticle(new Particle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-15, this.position.y+15),0x99999999,true,5,5).setHealth(40));
+                game.level.addParticle(new Particle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-15, this.position.y+15),0x99999999,true,2,2).setHealth(40));
             this.particleDelay = 0.01;
             
  
@@ -143,7 +143,7 @@ class Ship extends CollisionEntity{
         }else{
             if (this.particleDelay == 0){
                 if (Math.floor(this.getRandom(0,2))==1){
-                    game.level.addParticle(new Particle(this.getRandom(this.position.x-30,this.position.x-40), this.getRandom(this.position.y-4, this.position.y+4),0x99999999,true,5,5).setHealth(20));
+                    game.level.addParticle(new Particle(this.getRandom(this.position.x-30,this.position.x-40), this.getRandom(this.position.y-4, this.position.y+4),0x99999999,true,2,2).setHealth(20));
                 }
                     
                 this.particleDelay = 0.1;
@@ -167,7 +167,7 @@ class Ship extends CollisionEntity{
         if (this.hitTimeout<=0){ 
             game.playPlayerHit();
             for (let index = 0; index < 20; index++) {
-                game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff0000ff,30,15).setHealth(90));
+                game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff0000ff,true, 3,3).setHealth(90));
             }
         }
         super.hit(game,h,force,hitTimeout);
@@ -204,7 +204,7 @@ class Ship extends CollisionEntity{
     onDispose(game){
         game.playPlayerDied();
         for (let index = 0; index < 50; index++) {
-            game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff999999,true,30,30).setHealth(300));
+            game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff999999,true,6,6).setHealth(300));
         }
     }
 

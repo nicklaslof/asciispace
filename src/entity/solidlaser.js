@@ -3,9 +3,12 @@ import Particle from "./particle.js";
 import CollisionEntity from "./collisionentity.js";
 class SolidLaser extends CollisionEntity{
     constructor(x,y,sizeX=7, sizeY=70,color=0xff00ffff) {
-        super(x, y, 250,130,1,1,color,sizeX,sizeY,"sl");
+        super(x, y, 0,0,1,1,color,sizeX,sizeY,"sl");
         this.orginalPosX = x;
         this.setCustomCollisionSize(sizeX, sizeY*10);
+        this.hasLight = true;
+        this.lightSize = 70;
+        this.lightColor = 0xff00ffff;
     }
 
     tick(game, deltaTime){
