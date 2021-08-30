@@ -5,7 +5,6 @@ class AirTile extends Tile{
         super(x,y,0,0,0,0,0);
         this.x = x;
         this.y = y;
-        //console.log("airtile at "+x+" "+y);
     }
 
     render(game){

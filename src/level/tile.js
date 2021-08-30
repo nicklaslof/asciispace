@@ -27,7 +27,6 @@ class Tile{
         if (entity.type == "rb" || (entity.type == "b" && !(entity.sourceEntity != null && entity.sourceEntity.type == "o"))) entity.hit(game,1,true);
         if (entity.type == "p"){
             entity.hit(game,1,false,0.1);
-            console.log(this);
         } 
         if (entity.type == "b") {
             for (let index = 0; index < 20; index++) {
@@ -45,7 +44,6 @@ class Tile{
     }
 
     checkCollision(game, e){
-        //console.log(e);
         this.entities.forEach(oe => {
             if (e.disposed || oe.disposed || e.type == "pa" || oe.type == "pa") return;
             if (e.doesCollide(oe)){

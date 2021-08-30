@@ -6,7 +6,6 @@ class Drone extends Entity{
         this.angle = startAngle;
         this.orginalPositionX = posX;
         this.orginalPositionY = posY;
-        console.log("angle:"+this.angle);
         this.count = count;
         this.shootTimer = 0.3*count;
     }
