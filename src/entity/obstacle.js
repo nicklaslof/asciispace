@@ -3,9 +3,12 @@ import StaticEntity from "./staticentity.js";
 
 class Obstacle extends CollisionEntity{
     constructor(posX, posY) {
-        super(posX, posY, 250,130,1,1,0xff0000ff,16,16,"s");
+        super(posX, posY, 280,45,1,1,0xff0000ff,16,16,"s");
         this.orginalPosX = posX;
         this.angle = this.getRandom(0,Math.PI);
+        this.hasLight = true;
+        this.lightColor = 0xff0000ff;
+        this.lightSize = 40;
     }
     tick(game, deltaTime){
         super.tick(game, deltaTime);

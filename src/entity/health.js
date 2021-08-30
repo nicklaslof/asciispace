@@ -3,7 +3,7 @@ import Particle from "./particle.js";
 
 class Health extends CollisionEntity{
     constructor(posX, posY) {
-        super(posX,posY,194,86,126,124,0xff0000ff,16,16,"hp");
+        super(posX,posY,270,36,20,24,0xff0000ff,16,16,"hp");
         this.orginalPosX = posX;
     }
 

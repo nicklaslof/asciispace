@@ -22,8 +22,8 @@ class AsciiTexture{
         textContext.fillText("Þ",248,60,16);
 
         textContext.fillText("\u2666",128,60,16);
+        textContext.fillText("\u2665",272,60,16);
         this.addBlueShip(textContext);
-        this.addHeart(textContext);
         this.addShooter1(textContext);
         this.addGroundLaser(textContext);
 
@@ -67,19 +67,6 @@ class AsciiTexture{
 
         this.addAsciiart(textContext,ascii,0,100,172);
     }
-
-    addHeart(textContext){
-        var ascii =
-" ▄▄ ▄▄  n\
-███████ n\
- █████  n\
-  ███   n\
-   ▀    n";
-
-        this.addAsciiart(textContext,ascii,200,100,128);
-
-    }
-
 
     addAsciiart(textContext,ascii, x,y, maxWidth){
         var lines = ascii.split("n");
