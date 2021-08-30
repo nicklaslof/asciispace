@@ -21,6 +21,8 @@ class UI{
         this.spaceDelay = 1;
         this.inputDelay = 0;
 
+        this.trophyAdded = false;
+
         this.cinematicText = [];
         this.cinematicTextEnd = [];
         var startY = (H/2)-180;
@@ -67,6 +69,16 @@ class UI{
             t.tick(this,game,deltaTime);
             return !t.isDone();
         });
+
+        var shown = this.cinematicText.filter((t)=>{
+            return t.isDone();
+        })
+
+        if (shown.length == this.cinematicText.length && !this.trophyAdded){
+            game.addPatienceTrophy();
+            this.trophyAdded = true;
+        }
+
         /*this.cinematicText.forEach(t => {
             t.tick(this,game,deltaTime);
         });*/

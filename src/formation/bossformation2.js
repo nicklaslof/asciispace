@@ -67,6 +67,7 @@ class BossFormation2 extends Formation{
     }
 
     onDone(game){
+        game.addSecondBossTrophy();
         game.level.stopped = false;
     }
 }

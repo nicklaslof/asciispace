@@ -160,6 +160,7 @@ class BossFormation3 extends Formation{
     }
 
     onDone(game){
+        game.addWinningTrophy();
         game.level.showCinematicTextEnd = true;
     }
 }

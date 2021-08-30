@@ -212,5 +212,21 @@ class Game{
         gl.bindTexture(gl.TEXTURE_2D, null);
         return fb;
     }
+
+    addWinningTrophy(){
+        localStorage['OS13kTrophy,🚀,Lost in ASCII space,Won the game'] = '';
+    }
+
+    addFirstBossTrophy(){
+        localStorage['OS13kTrophy,🎖,Lost in ASCII space,Killed first boss'] = '';
+    }
+
+    addSecondBossTrophy(){
+        localStorage['OS13kTrophy,🏅,Lost in ASCII space,Killed second boss'] = '';
+    }
+
+    addPatienceTrophy(){
+        localStorage['OS13kTrophy,📖,Lost in ASCII space,Read all the instructions'] = '';
+    }
 }
 export default Game;
