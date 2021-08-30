@@ -21,7 +21,7 @@ class BossFormation2 extends Formation{
         var y = (H/2);
         this.yy = 0;
 
-        this.addEntity(new Ball(x,y,0,70,0xff0000ff,25).setHealth(130).onDeath(()=>{game.playBossExplosion(); this.killAllEntities(game)}));
+        this.addEntity(new Ball(x,y,0,70,0xff0000ff,25).setHealth(90).onDeath(()=>{game.playBossExplosion(); this.killAllEntities(game)}));
         
         for (let index = 1; index < 20; index++) {
             var b = new Ball(x,y,index,32,0xff00ffff,0).setHealth(1);

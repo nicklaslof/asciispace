@@ -11,8 +11,8 @@ class Ship extends CollisionEntity{
         this.fireDelay = 0.2;
         this.speed = 300;
         this.particleDelay = 0;
-        this.mineral = 0;
-        this.metalScrap = 0;
+        this.mineral = 200;
+        this.metalScrap = 200;
         this.shootRange = 200;
         this.laserStrength = 1;
         this.entityTimeoutOnHit = 2;

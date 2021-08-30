@@ -52,11 +52,11 @@ class Level{
         this.showCinematicText = true;
         this.showCinematicTextEnd = false;
 
-        this.levelPositionX = 22150;
+        //this.levelPositionX = 22150;
 
         //this.levelPositionX = 17750;
         //this.levelPositionX = 11150;
-        //this.levelPositionX = 12900;
+        this.levelPositionX = 17200;
         //this.levelPositionX = 8200;
         //this.levelPositionX = 2400;
         //this.levelPositionX = -1000;
