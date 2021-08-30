@@ -2,6 +2,8 @@ import CollisionEntity from "./collisionentity.js";
 import Particle from "./particle.js";
 import Resource from "./resource.js";
 import Light from "../light/light.js";
+
+//Base class for all entities in the game that are enimies to the player
 class EnemyEntity extends CollisionEntity{
     constructor(posX, posY, texX,texY,texW,texH,c,sizeX, sizeY, type, drops=1) {
         super(posX, posY, texX,texY,texW,texH,c,sizeX, sizeY, type);
@@ -10,6 +12,7 @@ class EnemyEntity extends CollisionEntity{
         this.lightSize = 200;
     }
 
+    // Before disposing the entity execute any custom actions and drop resources (metal/minerals).
     onDispose(game){
         super.onDispose(game);
         if (this.onDeathAction != null) this.onDeathAction();
@@ -26,6 +29,7 @@ class EnemyEntity extends CollisionEntity{
         return this;
     }
 
+    // If hit and not invincible play sound and spawn particles
     hit(game,h, force){
         super.hit(game,h,force);
         if (this.invincible){
@@ -38,6 +42,7 @@ class EnemyEntity extends CollisionEntity{
         }
     }
 
+    // Drops resources for the player to pick up
     dropResource(game){
         for (let index = 0; index < 20; index++) {
             game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),this.c,20,10).setHealth(90));

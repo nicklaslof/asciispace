@@ -2,6 +2,7 @@ import RoundBullet from "./roundbullet.js";
 import StaticEntity from "./staticentity.js";
 import Laser from "./laser.js";
 import SolidLaser from "./solidlaser.js";
+// A laser shooting from the ceiling to the floor
 class GroundLaser extends StaticEntity{
     constructor(posX, posY) {
         super(posX, posY, 0,318,24,58,0xff333333,24,48,"gs");
@@ -23,6 +24,7 @@ class GroundLaser extends StaticEntity{
         }
 
         if (this.fireTimer <= 0){
+            // Because collisions are optimized to only check for current tile we need to add multiple objects
             for (let i = 0; i < 3; i++) {
                 var sl = new SolidLaser(this.position.x+2, this.position.y +75 + (80*i),10,100,0xff00ffff);
                 sl.invincible = true;

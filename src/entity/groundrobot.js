@@ -4,6 +4,7 @@ import Laser from "./laser.js";
 import SolidLaser from "./solidlaser.js";
 import CollisionEntity from "./collisionentity.js";
 import EnemyEntity from "./enemyentity.js";
+// A robot moving around on the ground in the later part of the level
 class GroundRobot extends EnemyEntity{
     constructor(posX, posY) {
         super(posX, posY, 0,318,24,58,0xff333333,24,48,"gr");
@@ -23,12 +24,14 @@ class GroundRobot extends EnemyEntity{
 
     tick(game, deltaTime){
        super.tick(game,deltaTime);
+       // Alpha used to fade in and out the blue light
        this.alphaCounter += deltaTime;
        this.alpha = Math.abs(Math.sin(this.alphaCounter)*200);
 
        this.position.x -= deltaTime*120;
 
        let playerPos = {x:game.level.player.position.x, y:game.level.player.position.y};
+       // Aim and shoot at the player if he is close enough.
        let dist = this.distance(this.position, playerPos);
         if (dist < 800){
             this.shootCounter += deltaTime;
@@ -49,8 +52,10 @@ class GroundRobot extends EnemyEntity{
         }
     }
 
+    // A bit special since this entity consists of two sprites.
     render(game){
         super.render(game);
+        // Calculate the color of the robot light
         game.gl.col = (this.alpha & 0xff) << 24 | (this.red & 0xff) << 16 | (this.green & 0xff) << 8 | (this.blue & 0xff);
         game.gl.img(game.texture.tex,-this.sizeX/2,-this.sizeY/2,this.sizeX/2,this.sizeY/2,-Math.PI/2,this.position.x+10,this.position.y-30,1,1, this.sirenu0 , this.sirenu1, this.sirenv0, this.sirenv1);
     }

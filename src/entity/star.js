@@ -1,5 +1,6 @@
 import Entity from "./entity.js";
 
+// The background stars. When they have reached the end of the screen they just get a new y-location
 class Star extends Entity{
     constructor(posX, posY, speed) {
         super(posX, posY, 8,57,1,1,0xffffffff,speed/50,speed/50);

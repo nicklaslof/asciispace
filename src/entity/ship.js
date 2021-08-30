@@ -1,29 +1,30 @@
-
 import Bullet from "./bullet.js";
 import CollisionEntity from "./collisionentity.js";
 import Drone from "./drone.js";
 import Laser from "./laser.js";
 import Particle from "./particle.js";
 import Shield from "./shield.js";
+
+//The player ship
 class Ship extends CollisionEntity{
     constructor(posX, posY) {
         super(posX, posY, 0,4,20,22,0xffffffff,48,32,"p");
-        this.fireDelay = 0.2;
-        this.speed = 300;
-        this.particleDelay = 0;
-        this.mineral = 0;
-        this.metalScrap = 0;
-        this.shootRange = 200;
-        this.laserStrength = 1;
+        this.fireDelay = 0.2;       // Controls how long to wait between each fire. It's set further down depending on upgrades.
+        this.speed = 300;           // The speed the ship moves at.
+        this.particleDelay = 0;     // Counter for how often particles are spawned from the ship
+        this.mineral = 0;           // How much mineral collected
+        this.metalScrap = 0;        // How much metal collected
+        this.shootRange = 200;      // How far the laser currently reaches
+        this.laserStrength = 1;     // The current strength of the laser
         this.entityTimeoutOnHit = 2;
-        this.showHurtCounter = 0;
-        this.dualLaser = false;
+        this.showHurtCounter = 0;   // Used for displaying a flashing red/white when hit
+        this.dualLaser = false;     // If the player has the dual laser upgrade
         this.fireUpperLaser = false;
-        this.rearLaser = false;
-        this.sideLaser = false;
+        this.rearLaser = false;     // If the player has the rear laser upgrade
+        this.sideLaser = false;     // If the player has the side laser upgrade
 
-        this.drones = [];
-        this.numberOfDrones = 0;
+        this.drones = [];           // The drone objects
+        this.numberOfDrones = 0;    // How many drones the player should have
 
         this.shields = [];
         this.shield = false;
@@ -63,6 +64,7 @@ class Ship extends CollisionEntity{
 
         this.firePressed = game.input.firePressed;
 
+        // Make sure we can't move outside the screen
         if (this.position.x + translateX*deltaTime < 16 || this.position.x + translateX *deltaTime > W - 16) translateX = 0;
         if (this.position.y + translateY*deltaTime < 16 || this.position.y + translateY *deltaTime> H - 16) translateY = 0; 
 
@@ -102,6 +104,7 @@ class Ship extends CollisionEntity{
             this.firePressed = false;
         }
 
+        // Fire lasers from the drones
         if (this.firePressed){
             this.drones.forEach(drone => {
                 drone.shootTimer--;
@@ -112,6 +115,7 @@ class Ship extends CollisionEntity{
             });
         }
 
+        // Create drone objects if there is too few of them
         if (this.drones.length < this.numberOfDrones){
             var startAngle = Math.PI * this.drones.length*8;
             this.drones.push(new Drone(this.position.x,this.position.y,startAngle,this.drones.length));
@@ -154,6 +158,7 @@ class Ship extends CollisionEntity{
             shield.tick(game,deltaTime);
         });
 
+        // Used to speedup and slow down the game depending on ship movement. I didn't use this a lot in the end and it's mostly the stars that uses this
         game.level.speedX = translateX;
         game.level.speedY = translateY;
     }
@@ -169,6 +174,7 @@ class Ship extends CollisionEntity{
 
     }
 
+    // Called when we collide with something.
     collidedWith(game, otherEntity){
         if (otherEntity.type == "b" && otherEntity.sourceEntity == this) return;
         if (otherEntity.type == "rg" || otherEntity.type == "rm"){

@@ -1,5 +1,7 @@
 import CollisionEntity from "./collisionentity.js";
 import Particle from "./particle.js";
+
+// The resoucres the player picks up. It's the same for both metal and mineral. The only difference is the type and the color
 class Resource extends CollisionEntity{
 
     constructor(posX, posY, c, type) {
@@ -15,6 +17,7 @@ class Resource extends CollisionEntity{
         this.particleDelay -= deltaTime;
         if (this.particleDelay < 0) this.particleDelay = 0;
 
+        // Move against the player if close. The closer the faster.
         let playerPos = {x:game.level.player.position.x, y:game.level.player.position.y};
         let dist = this.distance(this.position, playerPos);
         if (dist < 500){

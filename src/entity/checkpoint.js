@@ -1,6 +1,7 @@
 import CollisionEntity from "./collisionentity.js";
 import Particle from "./particle.js";
 
+// The checkpoint object
 class Checkpoint extends CollisionEntity{
 
     constructor(posX, posY) {

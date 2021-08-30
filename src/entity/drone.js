@@ -1,5 +1,7 @@
 import Entity  from "./entity.js";
 import Laser from "./laser.js";
+
+// The drone the player can have as an upgrade
 class Drone extends Entity{
     constructor(posX, posY,startAngle,count) {
         super(posX, posY, 30,6,21,21,0xffd500ff,24, 16, "d");
@@ -14,6 +16,7 @@ class Drone extends Entity{
         super.tick(game,deltaTime);
         this.angle += deltaTime*2;
 
+        // Circulate around the player with a distance of 48
         var y = (Math.sin(this.angle*3.14) * 48) + game.level.player.position.y;
         var x = (Math.cos(this.angle*3.14) * 48) + game.level.player.position.x-6;
 

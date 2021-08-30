@@ -1,5 +1,5 @@
 import Entity from "./entity.js";
-
+// A small siren as light decoration
 class Siren extends Entity{
     constructor(posX, posY) {
         super(posX,posY,250,36,14,24,0xff00ff00,12,24,"si");

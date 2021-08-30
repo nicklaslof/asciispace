@@ -1,5 +1,6 @@
 import StaticEntity from "./staticentity.js";
 
+// A single light source object placed around in various places to lighten up the level
 class LightSource extends StaticEntity{
 
     constructor(posX,posY,c) {

@@ -2,6 +2,7 @@ import Bullet from "./bullet.js"
 import Particle  from "./particle.js";
 import TimedLight from "../light/timedlight.js";
 import Light from "../light/light.js";
+// A round bullet that some enemies shoots
 class RoundBullet extends Bullet{
     constructor(posX,posY,range=200,direction={x:1,y:0}) {
         super(posX, posY, 30,6,21,21,0xff0000ff,16,16,"rb",range,direction);
@@ -24,6 +25,7 @@ class RoundBullet extends Bullet{
 
     onDispose(game){
         super.onDispose(game);
+        // When hitting something spawn a light source with short life
         game.level.addLight(new TimedLight(this.position.x, this.position.y,0xffffffff,40,40,0.1));
         for (let index = 0; index < 20; index++) {
             game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),this.c,20,10).setHealth(90));

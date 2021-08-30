@@ -1,5 +1,6 @@
 import Entity from "./entity.js";
 
+// A particle. This should probably be optimized to use a Particle pool since we spawn so many of them
 class Particle extends Entity{
     constructor(posX, posY, col, movements=true, sizeX=10, sizeY=5, speed=90){
         super(posX,posY,0,52,16,12,col,sizeX,sizeY,"pa");
@@ -22,11 +23,14 @@ class Particle extends Entity{
 
     tick(game,deltaTime){
         super.tick(game,deltaTime);
+        //Countdown for how long the particle should live
         if (this.ttl> 0) this.ttl -= deltaTime;
 
         if (this.ttl <= 0) this.hit(game,100,true);
+        // Calculate the alpha value of the tint to make sure the particles fades out instead of just vanish
         if (this.alphaCounter>0) this.alphaCounter -= (15000*deltaTime)/this.maxHealth;
         this.alphaCounter = Math.max(0,this.alphaCounter);
+        // Also increase the size of the particle
         this.sizeX += deltaTime*4;
         this.sizeY += deltaTime*4;
         this.position.x += this.velocity.x*this.speed*deltaTime;

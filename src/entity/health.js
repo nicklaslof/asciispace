@@ -1,6 +1,6 @@
 import CollisionEntity from "./collisionentity.js";
 import Particle from "./particle.js";
-
+// Health pickup
 class Health extends CollisionEntity{
     constructor(posX, posY) {
         super(posX,posY,270,36,20,24,0xff0000ff,16,16,"hp");
