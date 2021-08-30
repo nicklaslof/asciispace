@@ -8,14 +8,13 @@ class UpgradeController{
         this.addUpgrade(new Upgrade(2,level.player,"Stronger", "laser 1",6,8,()=>{level.player.laserStrength +=1},[]));
         this.addUpgrade(new Upgrade(3,level.player,"Stronger", "laser 2",8,10,()=>{level.player.laserStrength +=1},[2]));
         this.addUpgrade(new Upgrade(4,level.player,"Stronger", "laser 3",11,20,()=>{level.player.laserStrength +=3},[2,3]));
-        this.addUpgrade(new Upgrade(5,level.player,"Dual", "lasers",6,6,()=>{level.player.dualLaser=true},[]));
+        this.addUpgrade(new Upgrade(5,level.player,"Increased", "laser speed",6,6,()=>{level.player.dualLaser=true},[]));
         this.addUpgrade(new Upgrade(6,level.player,"Rear", "lasers",9,12,()=>{level.player.rearLaser=true},[]));
         this.addUpgrade(new Upgrade(7,level.player,"Side", "lasers",10,11,()=>{level.player.sideLaser=true},[6]));
         this.addUpgrade(new Upgrade(8,level.player,"Drone", "",18,12,()=>{level.player.numberOfDrones=1},[3,7]));    
         this.addUpgrade(new Upgrade(9,level.player,"Dual", "drones",18,12,()=>{level.player.numberOfDrones=2},[8]));
         this.addUpgrade(new Upgrade(10,level.player,"Extra", "max health",20,20,()=>{level.player.maxHealth+=4;level.player.health=level.player.maxHealth},[9]));
         
-        //this.upgrades[1].taken = true;
         if (snapshot != null){
            snapshot.upgrades.forEach(snapshotupgrade => {
                if (snapshotupgrade != null) this.upgrades[snapshotupgrade.id].taken = snapshotupgrade.taken;
@@ -31,8 +30,9 @@ class UpgradeController{
         var completedOnCurrentLevel = 0;
         var upgradesShown = 0;
         this.upgrades.forEach(upgrade => {
-            if (game.level.player.metalScrap >= upgrade.metalCost && game.level.player.mineral >= upgrade.mineralCost && !upgrade.taken && upgrade.canTake(game)){
+            if (game.level.player.metalScrap >= upgrade.metalCost && game.level.player.mineral >= upgrade.mineralCost && !upgrade.seen && !upgrade.taken && upgrade.canTake(game)){
                 if (upgradesShown <1){
+                    upgrade.seen = true;
                     game.level.ui.showUpgradeAvailable();
                     upgradesShown++;
                 }
@@ -40,14 +40,6 @@ class UpgradeController{
             }
         });
     }
-
-    //getUpgradesForCurrentLevel(){
-    //    var upgradeForLevel = [];
-    //    this.upgrades.forEach(upgrade => {
-     //       if (upgrade.level == this.level) upgradeForLevel.push(upgrade);
-     //   });
-    //    return upgradeForLevel;
-    //}
 }
 
 export default UpgradeController;

@@ -10,6 +10,7 @@ class Upgrade{
         this.required = required;
         this.taken = false;
         this.player = player;
+        this.seen = false;
     }
 
     canTake(game){

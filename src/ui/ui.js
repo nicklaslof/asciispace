@@ -106,9 +106,9 @@ class UI{
         }
         if (this.showUpgradeAvailableMessage){
             if (game.input.hasGamepad){
-                this.drawTextAt("Upgrades are available!",W/2,20,"#ffffff",14);
+                this.drawTextAt("New upgrade available! Click to show",W/2,20,"#ffffff",14);
             }else{
-                this.drawTextAt("Upgrades are available! Press E",W/2,20,"#ffffff",14);
+                this.drawTextAt("New upgrade available! Press E",W/2,20,"#ffffff",14);
             }
             
         }

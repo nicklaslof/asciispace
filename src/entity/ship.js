@@ -12,8 +12,8 @@ class Ship extends CollisionEntity{
         this.fireDelay = 0.2;       // Controls how long to wait between each fire. It's set further down depending on upgrades.
         this.speed = 300;           // The speed the ship moves at.
         this.particleDelay = 0;     // Counter for how often particles are spawned from the ship
-        this.mineral = 200;           // How much mineral collected
-        this.metalScrap = 200;        // How much metal collected
+        this.mineral = 0;           // How much mineral collected
+        this.metalScrap = 0;        // How much metal collected
         this.shootRange = 200;      // How far the laser currently reaches
         this.laserStrength = 1;     // The current strength of the laser
         this.entityTimeoutOnHit = 2;
