@@ -4,7 +4,7 @@ import StaticEntity from "./staticentity.js";
 // An entity that blocks the player
 class Obstacle extends CollisionEntity{
     constructor(posX, posY) {
-        super(posX, posY, 280,45,1,1,0xff0000ff,16,16,"s");
+        super(posX, posY, 0,0,1,1,0xff0000ff,16,16,"ob");
         this.orginalPosX = posX;
         this.angle = this.getRandom(0,Math.PI);
         this.hasLight = true;

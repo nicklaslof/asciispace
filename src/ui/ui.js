@@ -47,7 +47,7 @@ class UI{
 
         this.cinematicTextEnd.push(new SlowText("Now head over to sector 64.128",(W/2)-140,startY+(distance*4),delay));
         this.cinematicTextEnd.push(new SlowText("They have some issues with an",(W/2)-135,startY+(distance*5),delay));
-        this.cinematicTextEnd.push(new SlowText("escaped R threating to start a war",(W/2)-155,startY+(distance*6),delay));
+        this.cinematicTextEnd.push(new SlowText("escaped C threating to start a war",(W/2)-155,startY+(distance*6),delay));
 
         this.cinematicTextEnd.push(new SlowText("Thanks for playing! /Nicklas",(W/2)-125,startY+(distance*8),delay));
     }

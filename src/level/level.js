@@ -55,7 +55,7 @@ class Level{
         //this.levelPositionX = 22150;
 
         //this.levelPositionX = 17750;
-        //this.levelPositionX = 11150;
+        //this.levelPositionX = 12350;
         //this.levelPositionX = 17200;
         //this.levelPositionX = 8200;
         //this.levelPositionX = 2400;

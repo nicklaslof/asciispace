@@ -198,13 +198,17 @@ class Ship extends CollisionEntity{
         if (otherEntity.type == "s"){
             this.hit(game,2);
         }
+
+        if (otherEntity.type == "ob"){
+            this.hit(game,4,true);
+        }
         this.hit(game,1);
     }
 
     onDispose(game){
         game.playPlayerDied();
         for (let index = 0; index < 50; index++) {
-            game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff999999,true,6,6).setHealth(300));
+            game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff999999,true,5,5).setHealth(90));
         }
     }
 

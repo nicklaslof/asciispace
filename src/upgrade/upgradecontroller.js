@@ -13,7 +13,7 @@ class UpgradeController{
         this.addUpgrade(new Upgrade(7,level.player,"Side", "lasers",10,11,()=>{level.player.sideLaser=true},[6]));
         this.addUpgrade(new Upgrade(8,level.player,"Drone", "",18,12,()=>{level.player.numberOfDrones=1},[3,7]));    
         this.addUpgrade(new Upgrade(9,level.player,"Dual", "drones",18,12,()=>{level.player.numberOfDrones=2},[8]));
-        this.addUpgrade(new Upgrade(10,level.player,"Extra", "max health",20,20,()=>{level.player.maxHealth+=4;level.player.health=level.player.maxHealth},[9]));
+        this.addUpgrade(new Upgrade(10,level.player,"Extra", "max health",50,10,()=>{level.player.maxHealth+=4;level.player.health=level.player.maxHealth},[9]));
         
         if (snapshot != null){
            snapshot.upgrades.forEach(snapshotupgrade => {
