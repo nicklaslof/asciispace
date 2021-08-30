@@ -35,18 +35,19 @@ class BossFormation3 extends Formation{
         var y = (H/2);
         this.yy = 0;
 
-        this.addEntity(new Ball(x+5,y,0,70,0xff0000ff,25).setHealth(130).onDeath(()=>{game.playBossExplosion();}));
+        var mainBall = new Ball(x+5,y,0,70,0xff0000ff,25).setHealth(130).onDeath(()=>{game.playBossExplosion();});
+        this.addEntity(mainBall);
         
         for (let index = 1; index < 40; index++) {
-            var b = new Ball(x,y,index,24,0xffffffff,0).setHealth(15);
+            var b = new Ball(x,y,index,24,0xffffffff,mainBall.getRandom(0,1)< 0.2?1:0).setHealth(15);
             b.hitColor = false;
             b.distance = 60;
-            b.lightSize = 20;
+            b.lightSize = 30;
             this.addEntity(b);
         }
 
         for (let index = 1; index < 40; index++) {
-            var b = new Ball(x,y+150,index+40,12,0xffffffff,0).setHealth(15);
+            var b = new Ball(x,y+150,index+40,12,0xffffffff,mainBall.getRandom(0,1)< 0.2?1:0).setHealth(15);
             b.hitColor = false;
             b.lightSize = 20;
             b.distance = 30;
@@ -54,7 +55,7 @@ class BossFormation3 extends Formation{
         }
 
         for (let index = 1; index < 40; index++) {
-            var b = new Ball(x,y-150,index+80,16,0xffffffff,0).setHealth(15);
+            var b = new Ball(x,y-150,index+80,16,0xffffffff,mainBall.getRandom(0,1)< 0.2?1:0).setHealth(15);
             b.hitColor = false;
             b.lightSize = 20;
             b.distance = 30;
@@ -70,13 +71,13 @@ class BossFormation3 extends Formation{
             this.shakeX = 0;
             this.shakeY = 0;
             this.iterationCount = 0;
-            this.blastCountdown += deltaTime;
+            console.log(this.blastCountdown);
         }
 
         // Do on the first entity (The big O in the middle)
         if (this.iterationCount == 0){
             this.angle += deltaTime;
-            if (this.stopped) this.blastCountdown += deltaTime/2;
+            if (this.stopped) this.blastCountdown += deltaTime;
             if (this.blastCountdown > this.blastWarning && this.blastCountdown < this.blastStop){
                 this.shakeX = entity.getRandom(-5,5);
                 this.shakeY = entity.getRandom(-5,5);
@@ -119,7 +120,7 @@ class BossFormation3 extends Formation{
             // Shoot random bullets when not on the blast warning or blast part
             entity.shootCounter += deltaTime;
           //  if (entity.count < 0 && entity.count > -10)console.log (entity.shootCounter);
-            if (this.stopped  && entity.shootCounter > entity.getRandom(10,20)){
+            if (this.stopped  && entity.shootCounter > entity.getRandom(10,1500)){
                 var b = new RoundBullet(entity.position.x, entity.position.y,1800,{x:Math.cos(this.angle+(entity.count/3.14)),y:Math.sin(this.angle+(entity.count/3.14))});
                 b.speed = 200;
                 game.level.addEntity(b);
