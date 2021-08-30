@@ -28,6 +28,7 @@ class Drone extends Entity{
         game.level.addEntity(new Laser(this.position.x+16, this.position.y,shootRange,{x:1,y:0},laserStrength,0,35,4,this.c).setSource(source));
     }
 
+    // If the drone gets hit don't do anything
     hit(game,h,force){
 
     }

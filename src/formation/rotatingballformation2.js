@@ -2,6 +2,7 @@ import Ball from "../entity/ball.js";
 import Laser from "../entity/laser.js";
 import RotatingBallFormation from "./rotatingballformation.js";
 
+// Same as RotatingBallFormation but shoots laser
 class RotatingBallFormation2 extends RotatingBallFormation{
     constructor(level,y) {
        super(level,y);

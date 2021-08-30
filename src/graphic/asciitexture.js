@@ -1,3 +1,5 @@
+// All graphics in the game are created by this class. Browsers have different fonts even for monospace font and also depending on the OS
+
 class AsciiTexture{
 
     constructor(){

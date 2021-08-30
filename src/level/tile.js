@@ -1,4 +1,5 @@
 import Particle from "../entity/particle.js";
+// A tile is used for two things. To render ground and other static leveldata. It's also used to have a collection of entities to speed up collision checking between entities close to eachother
 class Tile{
 
     constructor(x,y,texX,texY,texW,texH,col) {
@@ -15,13 +16,9 @@ class Tile{
     render(game){
         game.gl.col = this.col;
         game.gl.img(game.texture.tex,0,0,1,1,0,this.x-game.level.levelPositionX,this.y,24,24, this.u0, this.u1, this.v0, this.v1);
-        /*game.gl.img(game.texture.tex,0,0,1,1,0,this.x-game.level.levelPositionX,this.y+12,12,12, this.u0, this.u1, this.v0, this.v1);
-
-        game.gl.img(game.texture.tex,0,0,1,1,0,this.x-game.level.levelPositionX+12,this.y,12,12, this.u0, this.u1, this.v0, this.v1);
-        game.gl.img(game.texture.tex,0,0,1,1,0,this.x-game.level.ralevelPositionXnge+12,this.y+12,12,12, this.u0, this.u1, this.v0, this.v1);*/
-
     }
 
+    // Adds an entity to this tile so it can be used for collision checking. If the entity is not allowed on the tile to a hit one the entity and show particles
     addEntityToTile(game,entity){
         this.entities.push(entity);
         if (entity.type == "rb" || (entity.type == "b" && !(entity.sourceEntity != null && entity.sourceEntity.type == "o"))) entity.hit(game,1,true);
@@ -42,7 +39,7 @@ class Tile{
             }
         }
     }
-
+    // Loop trough all entites in this tile and perform a collision check on them. Skip any particles since they don't have collitions
     checkCollision(game, e){
         this.entities.forEach(oe => {
             if (e.disposed || oe.disposed || e.type == "pa" || oe.type == "pa") return;

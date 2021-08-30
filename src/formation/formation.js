@@ -1,3 +1,4 @@
+// The base class for all formations
 class Formation{
     constructor(level) {
         this.level = level;
@@ -10,15 +11,15 @@ class Formation{
 
     tick(game, deltaTime){
         if (this.done) return;
-     //   var disposedEntities = 0;
         this.entities.forEach(entity => {
             if (entity.disposed){
-               // disposedEntities++;
                 this.removeEntity(entity);
             }
+            // Each entity is handled by itself
             else this.handleEntity(game,entity, deltaTime);
         });
 
+        // If all entities are disposed the formation is done
         if (this.entities.length == 0) this.done = true;
         if (this.done){
             this.onDone(game);

@@ -1,7 +1,7 @@
 import Ball from "../entity/ball.js";
 import Formation from "./formation.js";
 import RoundBullet from "../entity/roundbullet.js";
-
+// The second boss formation
 class BossFormation2 extends Formation{
     constructor(game,level) {
         super(level);
@@ -32,6 +32,7 @@ class BossFormation2 extends Formation{
         }
     }
 
+    // Basically like the first formation apart from the circle is half and the balls in the circle are invicible and can't be hurt.
     handleEntity(game, entity, deltaTime){
 
         if (entity.count == 0 && entity.position.x >= (W/2)+250){
@@ -57,6 +58,7 @@ class BossFormation2 extends Formation{
 
         entity.shootCounter += deltaTime;
 
+        // Shoot randomly
         if (entity.shootCounter > entity.getRandom(2.5,3)){
             var b = new RoundBullet(entity.position.x, entity.position.y,1800,{x:Math.cos(this.angle+(entity.count/3.14)),y:Math.sin(this.angle+(entity.count/3.14))});
             b.speed = 200;

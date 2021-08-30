@@ -1,6 +1,7 @@
 import Ball from "../entity/ball.js";
 import Formation from "./formation.js";
 
+// Just a circle of balls that are rotating around the center
 class RotatingBallFormation extends Formation{
     constructor(level,y) {
         super(level);

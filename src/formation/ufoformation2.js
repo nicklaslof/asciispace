@@ -3,6 +3,7 @@ import RoundBullet from "../entity/roundbullet.js";
 import UFO from "../entity/ufo.js";
 import Formation from "./formation.js";
 
+// Ufos that moves away from the player but shoots both down and in front of them depending on how far into the screen they have reached
 class UfoFormation2 extends Formation{
     constructor(level) {
         super(level);

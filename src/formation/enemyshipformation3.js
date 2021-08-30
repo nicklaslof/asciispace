@@ -24,6 +24,7 @@ class EnemyShipFormation3 extends Formation{
         }
     }
 
+    // Move each entity and when it has reached a certain part of the screen change the direction of the entity and move back again
     handleEntity(game, entity, deltaTime){
         if (!entity.turnDown && !entity.turnAround) entity.position.x -= this.xSpeed*deltaTime;
 

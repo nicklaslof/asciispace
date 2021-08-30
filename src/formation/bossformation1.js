@@ -1,6 +1,7 @@
 import Ball from "../entity/ball.js";
 import Formation from "./formation.js";
 
+// The first boss formation.
 class BossFormation1 extends Formation{
     constructor(game,level) {
         super(level);
@@ -27,7 +28,7 @@ class BossFormation1 extends Formation{
     }
 
     handleEntity(game, entity, deltaTime){
-
+        // It just basically rotates the ring of balls around the big O. The lesser balls in the ring the slower it gets since this method is called for each entity
         if (entity.count == 0 && entity.position.x <= (W/2)+300){
             this.stopped = true;
             game.level.stopped = true;

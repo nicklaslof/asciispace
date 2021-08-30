@@ -2,6 +2,7 @@ import Laser from "../entity/laser.js";
 import UFO from "../entity/ufo.js";
 import Formation from "./formation.js";
 
+// The UFO formation. They just stay in the air and shoots forward.
 class UfoFormation extends Formation{
     constructor(level) {
         super(level);

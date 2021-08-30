@@ -18,6 +18,7 @@ class EnemyShipFormation1 extends Formation{
         }
     }
 
+    // Move each entity and split them into two paths when they have reached a bit into the screen
     handleEntity(game, entity, deltaTime){
         entity.position.x -= this.xSpeed*deltaTime;
         if (entity.position.x < (W/2)+200){

@@ -1,7 +1,7 @@
 import Ball from "../entity/ball.js";
 import Formation from "./formation.js";
 import RoundBullet from "../entity/roundbullet.js";
-
+// Final boss
 class BossFormation3 extends Formation{
     constructor(game,level) {
         super(level);
@@ -35,9 +35,11 @@ class BossFormation3 extends Formation{
         var y = (H/2);
         this.yy = 0;
 
+        // Add the big O in the middle
         var mainBall = new Ball(x+5,y,0,70,0xff0000ff,25).setHealth(130).onDeath(()=>{game.playBossExplosion();});
         this.addEntity(mainBall);
         
+        // Add the rotating ring
         for (let index = 1; index < 40; index++) {
             var b = new Ball(x,y,index,24,0xffffffff,mainBall.getRandom(0,1)< 0.2?1:0).setHealth(15);
             b.hitColor = false;
@@ -46,6 +48,7 @@ class BossFormation3 extends Formation{
             this.addEntity(b);
         }
 
+        // Add the two smaller rings
         for (let index = 1; index < 40; index++) {
             var b = new Ball(x,y+150,index+40,12,0xffffffff,mainBall.getRandom(0,1)< 0.2?1:0).setHealth(15);
             b.hitColor = false;

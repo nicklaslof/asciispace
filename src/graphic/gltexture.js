@@ -1,4 +1,4 @@
-//WebGL reprentation of an image
+//WebGL reprentation of an image or the target of a framebuffer
 class GlTexture {
     constructor(gl, image) {
         this.dirty = true;
@@ -9,7 +9,6 @@ class GlTexture {
             this.setupTexture(gl);
         }else{
             image.onload  = () =>{
-                //gl.activeTexture(gl.TEXTURE0);
                 gl.bindTexture(gl.TEXTURE_2D, this.tex);
                 gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
                 this.setupTexture(gl);
