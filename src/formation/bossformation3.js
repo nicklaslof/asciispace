@@ -19,9 +19,9 @@ class BossFormation3 extends Formation{
         this.green = (0xffffffff >>>  8) & 0xFF;
         this.blue  = (0xffffffff >>>  0) & 0xFF;
 
-        this.blastWarning = 18;
-        this.blastStart = 22;
-        this.blastStop = 30;
+        this.blastWarning = 15;
+        this.blastStart = 20;
+        this.blastStop = 25;
 
         this.iterationCount = 0;
         this.shakeX = 0;
@@ -41,7 +41,7 @@ class BossFormation3 extends Formation{
         
         // Add the rotating ring
         for (let index = 1; index < 40; index++) {
-            var b = new Ball(x,y,index,24,0xffffffff,mainBall.getRandom(0,1)< 0.2?1:0).setHealth(15);
+            var b = new Ball(x,y,index,24,0xffffffff,this.getRandom(0,1)< 0.2?1:0).setHealth(15);
             b.hitColor = false;
             b.distance = 60;
             b.lightSize = 30;
@@ -50,7 +50,7 @@ class BossFormation3 extends Formation{
 
         // Add the two smaller rings
         for (let index = 1; index < 40; index++) {
-            var b = new Ball(x,y+150,index+40,12,0xffffffff,mainBall.getRandom(0,1)< 0.2?1:0).setHealth(15);
+            var b = new Ball(x,y+150,index+40,12,0xffffffff,this.getRandom(0,1)< 0.2?1:0).setHealth(15);
             b.hitColor = false;
             b.lightSize = 20;
             b.distance = 30;
@@ -58,7 +58,7 @@ class BossFormation3 extends Formation{
         }
 
         for (let index = 1; index < 40; index++) {
-            var b = new Ball(x,y-150,index+80,16,0xffffffff,mainBall.getRandom(0,1)< 0.2?1:0).setHealth(15);
+            var b = new Ball(x,y-150,index+80,16,0xffffffff,this.getRandom(0,1)< 0.2?1:0).setHealth(15);
             b.hitColor = false;
             b.lightSize = 20;
             b.distance = 30;
@@ -97,7 +97,7 @@ class BossFormation3 extends Formation{
         if (this.stopped){
             this.yy = Math.cos(this.angle-0.2)*35;
             
-            if (entity.count < 0){
+            if (entity.count > 0){
                 // Turn the cirles more red the further into the blast it comes
                 if (this.blastCountdown< this.blastWarning){
                     entity.c = (this.alpha & 0xff) << 24 | (this.red -(this.blastCountdown*11) & 0xff) << 16 | ((this.green - (this.blastCountdown*11)) & 0xff) << 8 | ((this.blue) & 0xff);
@@ -149,7 +149,7 @@ class BossFormation3 extends Formation{
         var x = (Math.cos(this.angle+(entity.count/3.14)) * entity.distance*2) + entity.orginalPositionX;
         var y = (Math.sin(this.angle+(entity.count/3.14)) * entity.distance*2) + entity.orginalPositionY;
 
-        if (entity.count < -20.8){
+        if (entity.count >40){
             // A bit different movememnt for the smaller circles
             var xx = (Math.cos(this.angle+(entity.count/3.14)) * entity.distance/2) + x;
             var yy = (Math.sin(this.angle+(entity.count/3.14)) * entity.distance/2) + y;

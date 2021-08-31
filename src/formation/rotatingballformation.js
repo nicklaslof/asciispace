@@ -18,8 +18,8 @@ class RotatingBallFormation extends Formation{
         super.execute();
         var x = W+100;
         
-        for (let index = 0; index < 12; index++) {
-            this.addEntity(new Ball(x,y,index,32,0xffff9999));
+        for (let index = 0; index < 10; index++) {
+            this.addEntity(new Ball(x,y,index,32,0xffff9999,this.getRandom(0,2)));
         }
     }
 
@@ -27,8 +27,8 @@ class RotatingBallFormation extends Formation{
         
         this.angle += deltaTime/5;
         this.movementX += deltaTime*this.xSpeed;
-        var x = (Math.cos(this.angle+(entity.count)) * this.distance) + entity.orginalPositionX;
-        var y = (Math.sin(this.angle+(entity.count)) * this.distance) + entity.orginalPositionY;
+        var x = (Math.cos(this.angle+(entity.count/(Math.PI/2))) * this.distance) + entity.orginalPositionX;
+        var y = (Math.sin(this.angle+(entity.count/(Math.PI/2))) * this.distance) + entity.orginalPositionY;
         
         entity.position.x = x - this.movementX;
         entity.position.y = y;

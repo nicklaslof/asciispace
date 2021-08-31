@@ -4,7 +4,13 @@ class SineballFormation extends Formation{
 
     constructor(level) {
         super(level);
+        this.angle = 1;
+        this.movementX = 0;
+        this.xSpeed = 140;
+        this.distance = 50;
+        this.iterationCount = 0;
         this.execute();
+
     }
 
     execute(){
@@ -12,18 +18,21 @@ class SineballFormation extends Formation{
         var x = W+100;
         var y = H/2;
         for (let index = 0; index < 16; index++) {
-            var sin = Math.cos(((Math.PI*2)/12)*index)*64;
-            this.addEntity(new Ball(x + (index*50)-(index*10),y+sin,index,48-(index*2)).setHealth(2));
+            this.addEntity(new Ball(x,y,index,48-(index*2)).setHealth(2));
         }    
     }
     handleEntity(game, entity, deltaTime){
-        entity.time += (1/10)*40*deltaTime;
-        entity.time2 += (1/8)*40*deltaTime;
-        var sin = Math.sin(entity.time+entity.count)*10;
-        var cos = Math.cos(entity.time2+entity.count)*entity.movementStrength;
-        entity.position.y -= (sin+cos)*20*deltaTime;
-        entity.position.x -= 130*deltaTime;
-       // entity.rotation -= 0.5*deltaTime;
+        this.iterationCount++;
+        if (this.iterationCount >= this.entities.length){
+            this.angle += deltaTime*2;
+            this.movementX += deltaTime*this.xSpeed;
+            this.iterationCount = 0;
+        }
+
+        var y = ((Math.sin(this.angle+(entity.count/2)) * this.distance)) + entity.orginalPositionY;
+        
+        entity.position.x = ( entity.orginalPositionX + (entity.count*30)) - this.movementX;
+        entity.position.y = y;
     }
 }
 

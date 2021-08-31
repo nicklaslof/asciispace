@@ -22,8 +22,8 @@ class BossFormation1 extends Formation{
 
         this.addEntity(new Ball(x,y,0,70,0xff0000ff,15).setHealth(20).onDeath(()=>{game.playBossExplosion()}));
         
-        for (let index = 1; index < 40; index++) {
-            this.addEntity(new Ball(x,y,index,32,0xffff9999,0).setHealth(1));
+        for (let index = 1; index < 26; index++) {
+            this.addEntity(new Ball(x,y,index,32,0xffff9999,0).setHealth(4));
         }
     }
 
@@ -35,17 +35,19 @@ class BossFormation1 extends Formation{
         } 
 
         this.angle += deltaTime/10;
-        if (!this.stopped) this.movementX += deltaTime*this.xSpeed/2;
 
 
         if (entity.count == 0){
-            if (!this.stopped) entity.position.x -= deltaTime*this.xSpeed*20;
+            if (!this.stopped){
+                this.movementX += deltaTime*this.xSpeed*20;
+                entity.position.x -= deltaTime*this.xSpeed*20;
+            }
             return;
         }
 
 
-        var x = (Math.cos(this.angle+(entity.count/3.14)) * this.distance) + entity.orginalPositionX;
-        var y = (Math.sin(this.angle+(entity.count/3.14)) * this.distance) + entity.orginalPositionY;
+        var x = (Math.cos(this.angle+(entity.count/2)) * this.distance) + entity.orginalPositionX;
+        var y = (Math.sin(this.angle+(entity.count/2)) * this.distance) + entity.orginalPositionY;
         
         entity.position.x = x - this.movementX;
         entity.position.y = y;

@@ -23,7 +23,7 @@ class BossFormation2 extends Formation{
 
         this.addEntity(new Ball(x,y,0,70,0xff0000ff,25).setHealth(90).onDeath(()=>{game.playBossExplosion(); this.killAllEntities(game)}));
         
-        for (let index = 1; index < 20; index++) {
+        for (let index = 1; index < 10; index++) {
             var b = new Ball(x,y,index,32,0xff00ffff,0).setHealth(1);
             b.allowedOutOfLevel = true;
             b.invincible = true;
@@ -40,12 +40,15 @@ class BossFormation2 extends Formation{
             game.level.stopped = true;
         } 
 
-        this.angle += deltaTime/30;
-        this.yy = Math.cos(this.angle)*100;
-        if (!this.stopped) this.movementX -= deltaTime*this.xSpeed;
+        this.angle += deltaTime/10;
+        this.yy = Math.cos(this.angle)*50;
+      //  if (!this.stopped) 
 
         if (entity.count == 0){
-            if (!this.stopped) entity.position.x += deltaTime*this.xSpeed*20;
+            if (!this.stopped){
+                this.movementX -= deltaTime*this.xSpeed*20;
+                entity.position.x += deltaTime*this.xSpeed*20;
+            }
             entity.position.y = this.yy+280;
             return;
         }
@@ -59,7 +62,7 @@ class BossFormation2 extends Formation{
         entity.shootCounter += deltaTime;
 
         // Shoot randomly
-        if (entity.shootCounter > entity.getRandom(2.5,3)){
+        if (entity.shootCounter > entity.getRandom(2.25,1.5)){
             var b = new RoundBullet(entity.position.x, entity.position.y,1800,{x:Math.cos(this.angle+(entity.count/3.14)),y:Math.sin(this.angle+(entity.count/3.14))});
             b.speed = 200;
             game.level.addEntity(b);
