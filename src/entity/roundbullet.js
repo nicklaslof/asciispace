@@ -8,7 +8,7 @@ class RoundBullet extends Bullet{
         super(posX, posY, 30,6,21,21,0xff0000ff,16,16,"rb",range,direction);
         this.hasLight = true;
         this.lightColor = 0xffaaaaaa;
-        this.lightSize = 30;
+        this.lightSize = 50;
     }
 
     tick(game, deltaTime){

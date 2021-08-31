@@ -57,9 +57,9 @@ class Level{
         //this.levelPositionX = 17750;
         //this.levelPositionX = 12350;
         //this.levelPositionX = 17200;
-        //this.levelPositionX = 8200;
-        //this.levelPositionX = 2400;
-        this.levelPositionX = -1000;
+        this.levelPositionX = 10400;
+        //this.levelPositionX = 3400;
+        //this.levelPositionX = -1000;
         
         if (snapshot != null) this.levelPositionX = snapshot.levelPositionX;
 
@@ -243,7 +243,7 @@ class Level{
     }
 
     render(game){
-        game.gl.bkg(0.0,0.0,0.04,0);
+        game.gl.bkg(0.0,0.0,0.00,0);
         game.gl.cls();
         this.starfield.render(game);
 

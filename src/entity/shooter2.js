@@ -8,6 +8,9 @@ class Shooter2 extends StaticEntity{
         this.direction = direction;
         this.secondDirection = secondDirection;
         if (flip) this.rotation = Math.PI;
+        this.hasLight = true;
+        this.lightColor = this.c;
+        this.lightSize = 70;
     }
 
     tick(game, deltaTime){
