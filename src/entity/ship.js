@@ -3,7 +3,6 @@ import CollisionEntity from "./collisionentity.js";
 import Drone from "./drone.js";
 import Laser from "./laser.js";
 import Particle from "./particle.js";
-import Shield from "./shield.js";
 
 //The player ship
 class Ship extends CollisionEntity{
@@ -25,9 +24,6 @@ class Ship extends CollisionEntity{
 
         this.drones = [];           // The drone objects
         this.numberOfDrones = 0;    // How many drones the player should have
-
-        this.shields = [];
-        this.shield = false;
 
         this.hasLight = true;
         
@@ -121,12 +117,6 @@ class Ship extends CollisionEntity{
             this.drones.push(new Drone(this.position.x,this.position.y,startAngle,this.drones.length));
         }
 
-        if (this.shield && this.shields.length < 64){
-            var startAngle = this.shields.length*1.2;
-            this.shields.push(new Shield(this.position.x,this.position.y,startAngle));
-        }
-
-
         // Player movement particles
 
         if (translateX > 0 && this.particleDelay == 0){
@@ -152,10 +142,6 @@ class Ship extends CollisionEntity{
 
         this.drones.forEach(drone => {
             drone.tick(game,deltaTime);
-        });
-
-        this.shields.forEach(shield => {
-            shield.tick(game,deltaTime);
         });
 
         // Used to speedup and slow down the game depending on ship movement. I didn't use this a lot in the end and it's mostly the stars that uses this
@@ -213,10 +199,6 @@ class Ship extends CollisionEntity{
     }
 
     render(game){
-
-        this.shields.forEach(shield => {
-            shield.render(game);
-        }); 
         this.drones.forEach(drone => {
             drone.render(game);
         });

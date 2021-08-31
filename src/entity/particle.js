@@ -17,8 +17,6 @@ class Particle extends Entity{
             this.velocity = {x:this.getRandom(-1,1), y: this.getRandom(-1,1)};
         else
             this.velocity = {x:0, y:0};
-
-
     }
 
     tick(game,deltaTime){
