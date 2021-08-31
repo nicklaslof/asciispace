@@ -30,7 +30,7 @@ cat o.js >> index-template.html
 #echo "<script charset=\"utf8\">" >> index-template.html
 #echo "<script type=\"module\" charset=\"utf8\">" >> index-template.html
 #cat i.js >> index-template.html
-echo "</script><button id=\"s\">Play</button>" >> index-template.html
+echo "</script><button id=\"s\">Start the game</button>" >> index-template.html
 
 cat index-template.html | tr -d '\n' > index.html
 
