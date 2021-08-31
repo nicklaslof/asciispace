@@ -33,7 +33,7 @@ class Resource extends CollisionEntity{
 
         if (this.particleDelay == 0){
             if (Math.floor(this.getRandom(0,4))==1)
-                game.level.addParticle(new Particle(this.getRandom(this.position.x-10,this.position.x+10), this.getRandom(this.position.y-10, this.position.y+10),this.c,true,2,2,20).setHealth(40));
+                game.level.addParticle(this.getRandom(this.position.x-10,this.position.x+10), this.getRandom(this.position.y-10, this.position.y+10),this.c,true,2,2,20,40);
             this.particleDelay = 0.01;
         }
 

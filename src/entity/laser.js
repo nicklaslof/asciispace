@@ -14,9 +14,6 @@ class Laser extends Bullet{
     onDispose(game){
         game.level.addLight(new TimedLight(this.position.x, this.position.y,0xffffffff,120,120,0.1));
         super.onDispose(game);
-        //for (let index = 0; index < 20; index++) {
-       //     game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),this.c,20,10).setHealth(90));
-       // }
     }
 }
 export default Laser;

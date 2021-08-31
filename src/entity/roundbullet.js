@@ -28,7 +28,7 @@ class RoundBullet extends Bullet{
         // When hitting something spawn a light source with short life
         game.level.addLight(new TimedLight(this.position.x, this.position.y,0xffffffff,40,40,0.1));
         for (let index = 0; index < 20; index++) {
-            game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),this.c,true,2,2).setHealth(90));
+            game.level.addParticle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),this.c,true,2,2,90,90);
         }
         game.level.removeLight(this.light);
         game.playExplosion();   

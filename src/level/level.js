@@ -28,6 +28,7 @@ import BossFormation3 from "../formation/bossformation3.js";
 import Light from "../light/light.js";
 import Siren from "../entity/siren.js";
 import LightSource from "../entity/lightsource.js";
+import Particle from "../entity/particle.js";
 
 class Level{
 
@@ -229,8 +230,8 @@ class Level{
         });
 
         this.particles.forEach(p => {
-            p.tick(game,deltaTime);
-            if (p.disposed) this.removeParticle(p);
+            if (!p.available) p.tick(game,deltaTime);
+           // if (p.disposed) this.removeParticle(p);
         });
 
         this.lights.forEach(l => {
@@ -261,7 +262,7 @@ class Level{
         })
 
         this.particles.forEach(e => {
-            e.render(game);
+            if (!e.available) e.render(game);
         })
 
         if (!game.playerDead) this.ui.render(game);
@@ -292,8 +293,20 @@ class Level{
         tile.checkCollision(game,entity); 
     }
 
-    addParticle(particle){
-        this.particles.push(particle);
+    addParticle(posX, posY, col, movements=true, sizeX=10, sizeY=5, speed=90,health){
+        // Check if there are any particles that can be reused before creating new ones. This to reduce the number of objects that are created and garbage collected.
+        var availableParticles = this.particles.filter((p)=>{
+            return p.available;
+        });
+
+        if (availableParticles.length == 0){
+            this.particles.push(new Particle(posX,posY,col,movements,sizeX,sizeY,speed,health));
+        }else{
+            var particle = availableParticles[0];
+            particle.initData(posX,posY,col,movements,sizeX,sizeY,speed,health);
+        }
+        //console.log("Number of particles "+this.particles.length);
+
     }
 
     addEntity(entity){

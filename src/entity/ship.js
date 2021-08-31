@@ -121,19 +121,19 @@ class Ship extends CollisionEntity{
 
         if (translateX > 0 && this.particleDelay == 0){
             if (Math.floor(this.getRandom(0,2))==1)
-                game.level.addParticle(new Particle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-15, this.position.y+15),0x99999999,true,2,2).setHealth(40));
+                game.level.addParticle(this.getRandom(this.position.x-20,this.position.x+20), this.getRandom(this.position.y-15, this.position.y+15),0x99999999,true,2,2,90,40);
             this.particleDelay = 0.01;
             
  
         }else if (translateX < 0 && this.particleDelay == 0){
             if (Math.floor(this.getRandom(0,2))==1)
-                game.level.addParticle(new Particle(this.getRandom(this.position.x-10,this.position.x+10), this.getRandom(this.position.y-10, this.position.y+10),0x999999ff,false,11,1).setHealth(40));
+                game.level.addParticle(this.getRandom(this.position.x-10,this.position.x+10), this.getRandom(this.position.y-10, this.position.y+10),0x999999ff,false,11,1,90,40);
             this.particleDelay = 0.01;
                 
         }else{
             if (this.particleDelay == 0){
                 if (Math.floor(this.getRandom(0,2))==1){
-                    game.level.addParticle(new Particle(this.getRandom(this.position.x-30,this.position.x-40), this.getRandom(this.position.y-4, this.position.y+4),0x99999999,true,2,2).setHealth(20));
+                    game.level.addParticle(this.getRandom(this.position.x-30,this.position.x-40), this.getRandom(this.position.y-4, this.position.y+4),0x99999999,true,2,2,90,20);
                 }
                     
                 this.particleDelay = 0.1;
@@ -153,7 +153,7 @@ class Ship extends CollisionEntity{
         if (this.hitTimeout<=0){ 
             game.playPlayerHit();
             for (let index = 0; index < 20; index++) {
-                game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff0000ff,true, 3,3).setHealth(90));
+                game.level.addParticle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff0000ff,true, 3,3,90,90);
             }
         }
         super.hit(game,h,force,hitTimeout);
@@ -194,7 +194,7 @@ class Ship extends CollisionEntity{
     onDispose(game){
         game.playPlayerDied();
         for (let index = 0; index < 50; index++) {
-            game.level.addParticle(new Particle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff999999,true,5,5).setHealth(90));
+            game.level.addParticle(this.getRandom(this.position.x-20/this.maxHealth,this.position.x+20/this.maxHealth), this.getRandom(this.position.y-20/this.maxHealth, this.position.y+20/this.maxHealth),0xff999999,true,5,5,90,90);
         }
     }
 
