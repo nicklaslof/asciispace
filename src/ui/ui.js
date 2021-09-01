@@ -1,5 +1,4 @@
 import ResourceButton from "./resourcebutton.js";
-import Button from "./button.js"
 import RequireArrow from "./requirearrow.js";
 import SlowText from "./slowtext.js";
 class UI{
@@ -17,6 +16,7 @@ class UI{
         this.checkpointMessageTimer = 0;
         this.buttonX = 0;
         this.buttonY = 0;
+        this.currentSelectedUpgradeButtonColor = "white";
 
         this.spaceDelay = 1;
         this.inputDelay = 0;
@@ -78,10 +78,6 @@ class UI{
             game.addPatienceTrophy();
             this.trophyAdded = true;
         }
-
-        /*this.cinematicText.forEach(t => {
-            t.tick(this,game,deltaTime);
-        });*/
     }
 
     tickCinematicTextEnd(game, deltaTime){
@@ -120,9 +116,7 @@ class UI{
 
     tickUpgradePanel(game, deltaTime) {
         if (!this.upgradePanelShown) return;
-        if (this.upgradePanelNeedUpdate){
-            this.updateUpgradePanel(game);
-        }
+        this.updateUpgradePanel(game, deltaTime);
         if (this.upgradePanelShown) {
             this.showUpgradeAvailableMessage = false;
             this.upgradeMessagePlayed = false;
@@ -193,7 +187,7 @@ class UI{
         this.lastMetalScrap = game.level.player.metalScrap;
     }
 
-    updateUpgradePanel(game){
+    updateUpgradePanel(game, deltaTime){
 
         this.ctx.clearRect(0,0,W,H);
         this.ctx.fillStyle="#001";
@@ -237,7 +231,7 @@ class UI{
         }
 
         this.upgradeButtons.forEach(button => {
-            button.update(game,this);
+            button.update(game,this, deltaTime);
         });
         this.requireArrows.forEach(arrow => {
             arrow.update(game,this);
@@ -272,10 +266,10 @@ class UI{
         this.updateResources(game);
     }
 
-    generateSquare(x ,y,width, height, fontSize=16, c = "white"){
-        
+    generateSquare(x ,y,width, height, fontSize=16, c = "white", bold = false){
 
-        this.ctx.font = "normal "+fontSize+"px monospace";
+        var style = bold ? "bold" : "normal";
+        this.ctx.font = style + " "+fontSize+"px monospace";
         this.ctx.fillStyle = c;
 
         // Top line

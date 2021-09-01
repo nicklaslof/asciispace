@@ -305,7 +305,6 @@ class Level{
             var particle = availableParticles[0];
             particle.initData(posX,posY,col,movements,sizeX,sizeY,speed,health);
         }
-        //console.log("Number of particles "+this.particles.length);
 
     }
 
@@ -367,8 +366,6 @@ class Level{
             playerMaxHealth : this.player.maxHealth,
             upgrades : JSON.parse(JSON.stringify(this.upgradeController.upgrades))
         };
-
-        console.log(this.snapshot);
         game.playCheckpoint();
         this.ui.showCheckpointTaken();
     }
