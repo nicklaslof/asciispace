@@ -13,7 +13,7 @@ class ResourceButton{
         this.upgrade = upgrade;
         this.onAction = onAction;
         this.availableCounter = 0;
-        this.availableShown = true;
+        this.availableShown = false;
     }
 
     action(){
