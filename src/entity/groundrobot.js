@@ -38,7 +38,6 @@ class GroundRobot extends EnemyEntity{
        let dist = this.distance(this.position, playerPos);
         if (dist < 800){
             this.shootCounter += deltaTime;
-            console.log(this.shootCounter);
             if (this.shootCounter >=0.5){
                 var direction = {x:playerPos.x - this.position.x, y: playerPos.y - this.position.y};
                 this.normalize(direction);
