@@ -26,10 +26,10 @@ class Input{
             if (gp.buttons[3].pressed && !this.usePressedPreviously) this.usePressed = true;
             this.usePressedPreviously = gp.buttons[3].pressed;
         }else{
-            if (game.keys[68] == "keydown") this.axes.x = 1;
-            if (game.keys[65] == "keydown") this.axes.x = -1;
-            if (game.keys[83] == "keydown") this.axes.y = 1;
-            if (game.keys[87] == "keydown") this.axes.y = -1;
+            if (game.keys[68] == "keydown" || game.keys[39] == "keydown") this.axes.x = 1;
+            if (game.keys[65] == "keydown" || game.keys[37] == "keydown") this.axes.x = -1;
+            if (game.keys[83] == "keydown" || game.keys[40] == "keydown") this.axes.y = 1;
+            if (game.keys[87] == "keydown" || game.keys[38] == "keydown") this.axes.y = -1;
             if (game.keys[32] == "keydown") this.firePressed = true;
             // usePressedPreviously is to stop the usekey to spam a new click when holding it down
             if (game.keys[69] == "keydown" && !this.usePressedPreviously) this.usePressed = true;
