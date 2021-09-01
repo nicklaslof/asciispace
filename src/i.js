@@ -1,24 +1,20 @@
 import Game from "./game.js";
 
-
+var started = false;
 
 window.onload = function () {
-    document.getElementById("s").addEventListener("click", (e) => {
-        e.target.style.display = "none";
-        var game = new Game();
-        gameloop();
-        
-        function gameloop(){
-            requestAnimationFrame(gameloop);
-            game.gameloop();
-        }
-    });
-    /*var game = new Game();
-        gameloop();
-        
-        function gameloop(){
-            game.gameloop();
-            requestAnimationFrame(gameloop);
+        onkeydown=e=>{
+            document.getElementById("s").style.display = "none";
+            if (!started){
+                var game = new Game();
+                started = true;
+                gameloop();
+                
+            }
 
-        }*/
+            function gameloop(){
+                requestAnimationFrame(gameloop);
+                game.gameloop();
+            }
+    }
 };
