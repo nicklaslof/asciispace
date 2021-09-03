@@ -18,13 +18,12 @@ class Entity{
         this.type = type;               // Type is instead of instanceof that caused me issues on minified version
         this.maxHealth = this.health = 1;// Health and max health
         this.hitTimeout = 0;            // Hit timeout to prevent player to take a lot of damage in just a few ticks.
-        this.entityTimeoutOnHit = 0.2;  // Ummm... not sure
         this.invincible = false;        // Invincible entities can't be hit
         this.skipOnDispose = false;     // Skip onDisposed to be called
         this.shakeX = this.shakeY = 0;  // Instead of changing position of the object this is used during rendering to shake the object on the screen
         this.hasLight = false;          // Default entities doesn't have any light. If set a light will be created
         this.lightColor = 0xffffffff;   // Color of the light
-        this.lightSize = 500;           // Sixe of the light
+        this.lightSize = 500;           // Size of the light
     }
 
     setHealth(h){
@@ -98,11 +97,6 @@ class Entity{
         let y = v1.y - v2.y;
         return Math.hypot(x, y);
     }
-
-//    translate(x,y){
- //       this.position.x += x;
- //       this.position.y += y;
- //   }
 
     // Render the entity to WebGL with current position with rotation center in the middle.
     render(game){

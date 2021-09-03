@@ -30,8 +30,6 @@ this.drawTextAt("Using ZzFX by Frank Force and Tiny-Canvas by Felipe Alfonso",(W
 this.drawTextAt("Play with WASD, SPACE and E or a gamepad",(W/2)-165,(H/2)+170,"white",14);  
 this.drawTextAt("Press SPACE or click your gamepad to start",(W/2)-175,(H/2)+200,"white",14); 
     
-    //this.generateSquare((W/2)-170,(H/2)-250, 22,12,16);
-
     this.starfield = new StarField();
     }
 

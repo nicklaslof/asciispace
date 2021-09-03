@@ -87,9 +87,6 @@ class UI{
             t.tick(this,game,deltaTime);
             return !t.isDone();
         });
-        /*this.cinematicText.forEach(t => {
-            t.tick(this,game,deltaTime);
-        });*/
     }
 
     tickResourcesAndUpgradeAvailable(game){
@@ -238,7 +235,10 @@ class UI{
         });
     
         
-        this.drawTextAt("Select an upgrade:",(W/2)-106,(H/2)-180,"white",22);
+        this.drawTextAt("Select an upgrade:",(W/2)-106,(H/2)-180,"gray",22);
+        this.drawTextAt("Navigate with WASD",(W/2)-325,(H/2)-10,"gray",14);
+        this.drawTextAt("Select upgrade with",(W/2)-325,(H/2)+10,"gray",14);
+        this.drawTextAt("space",(W/2)-325,(H/2)+28,"gray",14);
         this.upgradePanelNeedUpdate = false;
         this.updateResources(game);
     }

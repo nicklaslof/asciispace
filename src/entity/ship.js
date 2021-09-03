@@ -15,7 +15,6 @@ class Ship extends CollisionEntity{
         this.metalScrap = 0;        // How much metal collected
         this.shootRange = 200;      // How far the laser currently reaches
         this.laserStrength = 1;     // The current strength of the laser
-        this.entityTimeoutOnHit = 2;
         this.showHurtCounter = 0;   // Used for displaying a flashing red/white when hit
         this.dualLaser = false;     // If the player has the dual laser upgrade
         this.fireUpperLaser = false;
