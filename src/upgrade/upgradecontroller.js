@@ -1,6 +1,7 @@
 import Upgrade from "../upgrade/upgrade.js";
 class UpgradeController{
 
+    // All the upgrades in the game with costs and the requirements needed to take one. Requirments are reference to the id of the upgrade.
     constructor(level,snapshot) {
         this.upgrades = [];
         this.level = 1;
@@ -15,6 +16,7 @@ class UpgradeController{
         this.addUpgrade(new Upgrade(9,level.player,"Dual", "drones",18,12,()=>{level.player.numberOfDrones=2},[8]));
         this.addUpgrade(new Upgrade(10,level.player,"Extra", "max health",50,10,()=>{level.player.maxHealth+=4;level.player.health=level.player.maxHealth},[9]));
         
+        // If we are restoring from a checkpoint set all taken upgrades to be taken.
         if (snapshot != null){
            snapshot.upgrades.forEach(snapshotupgrade => {
                if (snapshotupgrade != null) this.upgrades[snapshotupgrade.id].taken = snapshotupgrade.taken;

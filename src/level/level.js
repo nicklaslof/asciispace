@@ -71,7 +71,7 @@ class Level{
         this.entities.push(this.player);
 
         if (snapshot != null){
-
+            // Restore the level from a checkpoint snapshot
             this.showCinematicText = false;
 
             this.player.mineral = snapshot.playerMineral;
@@ -98,6 +98,7 @@ class Level{
 
         this.stopped = false;
 
+        // Read the level ascii file and add them to the level content. Tiles are created here but formations will be created when the player is nearby.
         for (let x = 0; x < this.levelSizeX; x++) {
             for (let y = 0; y < this.levelSizeY; y++) {
                 this.tiles[x + (y*this.levelSizeX)] = new AirTile(x*24, y*29);
@@ -106,7 +107,7 @@ class Level{
                 if (levelChar==":") this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,30,36,20,26,0xff00ff00);
                 if (levelChar==";") this.tiles[x + (y*this.levelSizeX)] = new Tile(x*24,y*29,30,36,20,26,0xff0000ff);
                 if (levelChar=="."){
-
+                    // Randomly fill with variation characters.
                     var r = Math.floor(this.getRandom(1,4));
                     switch(r){
                         case 1:
@@ -172,6 +173,9 @@ class Level{
              this.starfield.tick(game, deltaTime);
         }
 
+        // Scroll the level. There is no camera so the player is fixed on the location. It's just the level tiles scrolling.
+        // Also make sure only visible tiles are ticked.
+        // This will also create formations when player is getting close to them
         var levelTilePositionX = Math.floor((this.levelPositionX/24)+42);
         if (this.lastCheckedTilePostionX < levelTilePositionX){
             this.lastCheckedTilePostionX = levelTilePositionX;
@@ -213,6 +217,7 @@ class Level{
             }
         }
 
+        // Tick all formations, entities, particles and lights.
 
         this.activeFormations.forEach(f => {
             f.tick(game,deltaTime);
@@ -245,6 +250,8 @@ class Level{
     }
 
     render(game){
+
+        // Render everything in z order. Stars first and overlay last.
         game.gl.bkg(0.0,0.0,0.00,0);
         game.gl.cls();
         this.starfield.render(game);
@@ -278,6 +285,7 @@ class Level{
         })
     }
 
+    // Every entitiy belongs to a tile to keep the ammount of entity collision checking down. For this to work surrounding tiles must be checked too.
     checkCollision(game, entity){
         this.checkTileForCollision(game, entity, entity.tilePosition.x,entity.tilePosition.y);
         this.checkTileForCollision(game, entity, entity.tilePosition.x+1,entity.tilePosition.y);
@@ -336,12 +344,14 @@ class Level{
             }
         }
     }
-
+    // Every entitiy belongs to a tile to keep the ammount of entity collision checking down.
     addEntityToTile(game, entity, tileX, tileY){
         var t = this.tiles[tileX + (tileY * this.levelSizeX)];
         if (t == null) return;
         t.addEntityToTile(game, entity);
     }
+
+    // When an entity moves it will switch from tile to tile
     removeEntityFromTile(entity, tileX, tileY){
         if (tileX > this.levelSizeX-1 || tileX < 0 || tileY > this.levelSizeY-1 || tileY < 0) return;
         this.tiles[tileX + (tileY * this.levelSizeX)].removeEntityFromTile(entity);
@@ -350,6 +360,9 @@ class Level{
     getRandom(min, max){
         return Math.random() * (max - min) + min
     }
+
+    //Save all variables needed for a snapshot. Important to make a COPY of the upgrades otherwise only a reference are saved and when restoring the snapshot
+    //the player might get a later version of it causing confusion and break the game also.
     snapshotCheckpoint(game){
         this.snapshot = {
             levelPositionX : this.levelPositionX,

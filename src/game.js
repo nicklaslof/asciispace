@@ -81,15 +81,15 @@ class Game{
             this.gl.col = 0xffffffff;
             this.gl.g.enable( this.gl.g.BLEND );
             this.gl.g.blendFunc(this.gl.g.SRC_ALPHA, this.gl.g.ONE);
-            //this.gl.img(this.texture.tex,0,0,W,H,0,0,0,1,1,0,0,1,1);
+            // Render the lights on this buffer
             this.level.renderLight(this);
             this.gl.flush();
             this.gl.g.bindFramebuffer(this.gl.g.FRAMEBUFFER, null);
             
             this.gl.col = 0xffffffff;
             this.gl.g.blendFunc(this.gl.g.DST_COLOR, this.gl.g.ZERO);
+            // Draw the lightbuffer on top of the game rendering to create fake lights
             this.gl.img(this.lightTexture,0,0,W,H,0,0,0,1,1,0,1,1,0);
-
 
 
             this.gl.flush();
@@ -211,19 +211,19 @@ class Game{
     }
 
     addWinningTrophy(){
-        localStorage['OS13kTrophy,🚀,Lost in ASCII space,Won the game'] = '';
+        localStorage['OS13kTrophy,🚀,Adventure in ASCII space,Won the game'] = '';
     }
 
     addFirstBossTrophy(){
-        localStorage['OS13kTrophy,🎖,Lost in ASCII space,Killed first boss'] = '';
+        localStorage['OS13kTrophy,🎖,Adventure in ASCII space,Killed first boss'] = '';
     }
 
     addSecondBossTrophy(){
-        localStorage['OS13kTrophy,🏅,Lost in ASCII space,Killed second boss'] = '';
+        localStorage['OS13kTrophy,🏅,Adventure in ASCII space,Killed second boss'] = '';
     }
 
     addPatienceTrophy(){
-        localStorage['OS13kTrophy,📖,Lost in ASCII space,Read all the instructions'] = '';
+        localStorage['OS13kTrophy,📖,Adventure in ASCII space,Read all the instructions'] = '';
     }
 }
 export default Game;
